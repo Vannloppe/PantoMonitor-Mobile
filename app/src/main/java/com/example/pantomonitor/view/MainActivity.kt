@@ -1,9 +1,11 @@
-package com.example.pantomonitor
+package com.example.pantomonitor.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.pantomonitor.R
 import com.example.pantomonitor.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 

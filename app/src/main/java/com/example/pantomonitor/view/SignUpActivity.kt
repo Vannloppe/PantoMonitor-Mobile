@@ -1,4 +1,4 @@
-package com.example.pantomonitor
+package com.example.pantomonitor.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -61,4 +61,3 @@ class SignUpActivity : AppCompatActivity() {
 
 
 }
-
