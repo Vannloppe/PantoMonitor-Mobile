@@ -40,6 +40,8 @@ android {
     }
 }
 
+
+
 dependencies {
 
     implementation("androidx.core:core-ktx:1.9.0")
@@ -51,6 +53,7 @@ dependencies {
     implementation("com.google.firebase:firebase-storage-ktx:20.2.1")
     implementation("com.google.firebase:firebase-database-ktx:20.2.2")
     implementation("androidx.databinding:databinding-runtime:8.1.1")
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
 
 
