@@ -29,7 +29,7 @@ class TimelineFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentTimelineBinding.inflate(inflater, container, false)  // Inflate using ViewBinding
         //viewModel = ViewModelProvider(this).get(BdMainViewModel::class.java)
