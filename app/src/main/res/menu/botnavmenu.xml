@@ -10,16 +10,16 @@
         android:icon="@drawable/baseline_timeline_24"
         android:title="Timeline" />
 
+
     <item
-        android:id="@+id/placeholder"
+        android:id="@+id/placehdolder"
+        android:title="" />
+
+    <item
+        android:id="@+id/placeholdder"
         android:title="" />
 
 
-
-    <item
-        android:id="@+id/Charts"
-        android:icon="@drawable/baseline_bar_chart_24"
-        android:title="Charts" />
     <item
         android:id="@+id/Settings"
         android:icon="@drawable/baseline_account_circle_24"

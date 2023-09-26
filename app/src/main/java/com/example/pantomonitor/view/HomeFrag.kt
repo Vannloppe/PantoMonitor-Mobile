@@ -1,7 +1,10 @@
 package com.example.pantomonitor.view
 
+import android.content.ContentValues.TAG
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
@@ -56,8 +59,14 @@ class HomeFrag : Fragment() {
 
 
 
+
+
+
+
         return binding.root
     }
+
+
     private fun setupPieChart(entries: List<PieEntry>) {
         val dataSet = PieDataSet(entries, "Semi-Circle Pie Chart")
         dataSet.colors = mutableListOf(Color.BLUE, Color.GREEN, Color.RED)

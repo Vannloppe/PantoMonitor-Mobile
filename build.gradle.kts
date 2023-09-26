@@ -7,7 +7,7 @@ buildscript {
 repositories {
     mavenCentral()
     maven {
-        url = uri("<MAVEN REPO URL>")
+        url = uri("https://jitpack.io")
     }
 }
 
