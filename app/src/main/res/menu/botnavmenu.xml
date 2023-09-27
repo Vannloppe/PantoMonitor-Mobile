@@ -1,27 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/rounded_bg">
+
 
     <item
         android:id="@+id/Home"
        android:icon="@drawable/baseline_home_24"
         android:title="Home" />
+
+    <item
+        android:id="@+id/placeholder"
+        android:title="" />
     <item
         android:id="@+id/Timeline"
         android:icon="@drawable/baseline_timeline_24"
         android:title="Timeline" />
-
-
-    <item
-        android:id="@+id/placehdolder"
-        android:title="" />
-
-    <item
-        android:id="@+id/placeholdder"
-        android:title="" />
-
-
-    <item
-        android:id="@+id/Settings"
-        android:icon="@drawable/baseline_account_circle_24"
-        android:title="Settings" />
 </menu>

@@ -6,16 +6,15 @@
     android:layout_height="match_parent"
     android:background="#5CB1FF"
     tools:context=".view.TimelineFragment">
-
-
+    <include layout="@layout/toolbarlogout"/>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <FrameLayout
-            android:layout_width="356dp"
-            android:layout_height="682dp"
-            android:background="#FFFFFF"
+            android:layout_width="364dp"
+            android:layout_height="621dp"
+            android:background="@drawable/rounded_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.49"
@@ -27,64 +26,673 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <!-- JAN -->
+
+                <!-- FEB -->
+
                 <ProgressBar
-                    android:id="@+id/progressBar"
+                    android:id="@+id/progressBarjan"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="256dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="72dp"
+                    android:layout_marginTop="32dp"
                     android:progressDrawable="@drawable/cusprogressbar"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.507"
+                    app:layout_constraintHorizontal_bias="0.537"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/defectcounter"
-                    android:layout_width="49dp"
+                    android:id="@+id/defectcounterjan"
+                    android:layout_width="24dp"
                     android:layout_height="18dp"
-                    android:text="TextView"
-                    app:layout_constraintBottom_toBottomOf="@+id/progressBar"
-                    app:layout_constraintEnd_toEndOf="@+id/progressBar"
-                    app:layout_constraintHorizontal_bias="0.97"
-                    app:layout_constraintStart_toStartOf="@+id/progressBar"
-                    app:layout_constraintTop_toTopOf="@+id/progressBar"
-                    app:layout_constraintVertical_bias="0.75" />
+                    android:layout_marginEnd="8dp"
+                    android:text="0"
+                    android:textAlignment="textEnd"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarjan"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBarjan"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarjan" />
 
                 <TextView
-                    android:id="@+id/goodcounter"
-                    android:layout_width="49dp"
-                    android:layout_height="16dp"
-                    android:text="TextView"
-                    app:layout_constraintBottom_toBottomOf="@+id/progressBar"
-                    app:layout_constraintEnd_toStartOf="@+id/defectcounter"
-                    app:layout_constraintHorizontal_bias="0.04"
-                    app:layout_constraintStart_toStartOf="@+id/progressBar"
-                    app:layout_constraintTop_toTopOf="@+id/progressBar" />
+                    android:id="@+id/goodcounterjan"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="8dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarjan"
+                    app:layout_constraintStart_toStartOf="@+id/progressBarjan"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarjan" />
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/textViewjan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="76dp"
+                    android:layout_marginEnd="12dp"
                     android:text="Jan"
-                    app:layout_constraintEnd_toStartOf="@+id/progressBar"
-                    app:layout_constraintHorizontal_bias="0.571"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarjan"
+                    app:layout_constraintEnd_toStartOf="@+id/progressBarjan"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarjan" />
 
                 <TextView
                     android:id="@+id/jantotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="76dp"
+                    android:layout_marginStart="16dp"
                     android:text="0"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.39"
-                    app:layout_constraintStart_toEndOf="@+id/progressBar"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarjan"
+                    app:layout_constraintStart_toEndOf="@+id/progressBarjan"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarjan" />
 
+                <ProgressBar
+                    android:id="@+id/progressBarfeb"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="256dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="20dp"
+                    android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBarjan" />
+
+                <!-- MAR -->
+
+                <TextView
+                    android:id="@+id/textViewfeb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="13dp"
+                    android:text="Feb"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarfeb"
+                    app:layout_constraintEnd_toStartOf="@+id/progressBarfeb"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarfeb" />
+
+                <TextView
+                    android:id="@+id/febtotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarfeb"
+                    app:layout_constraintStart_toEndOf="@+id/progressBarfeb"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarfeb" />
+
+                <TextView
+                    android:id="@+id/defectcounterfeb"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="0"
+                    android:textAlignment="textEnd"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarfeb"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBarfeb"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarfeb" />
+
+                <TextView
+                    android:id="@+id/goodcounterfeb"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="8dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarfeb"
+                    app:layout_constraintStart_toStartOf="@+id/progressBarfeb"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarfeb" />
+
+                <TextView
+                    android:id="@+id/martotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarmar"
+                    app:layout_constraintStart_toEndOf="@+id/progressBarmar"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarmar" />
+
+                <ProgressBar
+                    android:id="@+id/progressBarmar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="256dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="20dp"
+                    android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBarfeb" />
+
+
+                <!-- APR -->
+
+                <TextView
+                    android:id="@+id/textViewmar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:text="Mar"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarmar"
+                    app:layout_constraintEnd_toStartOf="@+id/progressBarmar"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarmar" />
+
+                <TextView
+                    android:id="@+id/defectcountermar"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="0"
+                    android:textAlignment="textEnd"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarmar"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBarmar"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarmar" />
+
+                <TextView
+                    android:id="@+id/goodcountermar"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="8dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarmar"
+                    app:layout_constraintStart_toStartOf="@+id/progressBarmar"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarmar" />
+
+                <TextView
+                    android:id="@+id/textViewapr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:text="Apr"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarapr"
+                    app:layout_constraintEnd_toStartOf="@+id/progressBarapr"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarapr" />
+
+                <ProgressBar
+                    android:id="@+id/progressBarapr"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="256dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="20dp"
+                    android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBarmar" />
+
+
+                <TextView
+                    android:id="@+id/defectcounterapr"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="0"
+                    android:textAlignment="textEnd"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarapr"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBarapr"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarapr" />
+
+                <TextView
+                    android:id="@+id/goodcounterapr"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="8dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarapr"
+                    app:layout_constraintStart_toStartOf="@+id/progressBarapr"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarapr" />
+
+                <TextView
+                    android:id="@+id/aprtotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarapr"
+                    app:layout_constraintStart_toEndOf="@+id/progressBarapr"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarapr" />
+                <!-- MAY -->
+
+                <ProgressBar
+                    android:id="@+id/progressBarmay"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="256dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="20dp"
+                    android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBarapr" />
+
+                <TextView
+                    android:id="@+id/textViewmay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:text="May"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarmay"
+                    app:layout_constraintEnd_toStartOf="@+id/progressBarmay"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarmay" />
+
+                <TextView
+                    android:id="@+id/maytotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarmay"
+                    app:layout_constraintStart_toEndOf="@+id/progressBarmay"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarmay" />
+
+
+                <TextView
+                    android:id="@+id/defectcountermay"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="0"
+                    android:textAlignment="textEnd"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarmay"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBarmay"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarmay" />
+
+                <TextView
+                    android:id="@+id/goodcountermay"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="8dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarmay"
+                    app:layout_constraintStart_toStartOf="@+id/progressBarmay"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarmay" />
+                <!-- JUNE -->
+                <ProgressBar
+                    android:id="@+id/progressBarjune"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="256dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="20dp"
+                    android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBarmay" />
+
+                <TextView
+                    android:id="@+id/textViewjune"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:text="June"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarjune"
+                    app:layout_constraintEnd_toStartOf="@+id/progressBarjune"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarjune" />
+
+
+                <TextView
+                    android:id="@+id/junetotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarjune"
+                    app:layout_constraintStart_toEndOf="@+id/progressBarjune"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarjune" />
+
+
+                <TextView
+                    android:id="@+id/defectcounterjune"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="0"
+                    android:textAlignment="textEnd"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarjune"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBarjune"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarjune" />
+
+                <TextView
+                    android:id="@+id/goodcounterjune"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="8dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarjune"
+                    app:layout_constraintStart_toStartOf="@+id/progressBarjune"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarjune" />
+                <!-- JULY -->
+                <ProgressBar
+                    android:id="@+id/progressBarjuly"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="256dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="20dp"
+                    android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBarjune" />
+
+                <TextView
+                    android:id="@+id/textViewjuly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:text="July"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarjuly"
+                    app:layout_constraintEnd_toStartOf="@+id/progressBarjuly"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarjuly" />
+
+
+                <TextView
+                    android:id="@+id/julytotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarjuly"
+                    app:layout_constraintStart_toEndOf="@+id/progressBarjuly"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarjuly" />
+
+
+                <TextView
+                    android:id="@+id/defectcounterjuly"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="0"
+                    android:textAlignment="textEnd"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarjuly"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBarjuly"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarjuly" />
+
+                <TextView
+                    android:id="@+id/goodcounterjuly"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="8dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarjuly"
+                    app:layout_constraintStart_toStartOf="@+id/progressBarjuly"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarjuly" />
+                <!-- AUG -->
+                <ProgressBar
+                    android:id="@+id/progressBaraug"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="256dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="20dp"
+                    android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBarjuly" />
+
+
+                <TextView
+                    android:id="@+id/textViewaug"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:text="Aug"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBaraug"
+                    app:layout_constraintEnd_toStartOf="@+id/progressBaraug"
+                    app:layout_constraintTop_toTopOf="@+id/progressBaraug" />
+
+
+                <TextView
+                    android:id="@+id/augtotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBaraug"
+                    app:layout_constraintStart_toEndOf="@+id/progressBaraug"
+                    app:layout_constraintTop_toTopOf="@+id/progressBaraug" />
+
+
+                <TextView
+                    android:id="@+id/defectcounteraug"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="0"
+                    android:textAlignment="textEnd"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBaraug"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBaraug"
+                    app:layout_constraintTop_toTopOf="@+id/progressBaraug" />
+
+                <TextView
+                    android:id="@+id/goodcounteraug"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="8dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBaraug"
+                    app:layout_constraintStart_toStartOf="@+id/progressBaraug"
+                    app:layout_constraintTop_toTopOf="@+id/progressBaraug" />
+                <!-- SEPT -->
+                <ProgressBar
+                    android:id="@+id/progressBarsept"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="256dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="20dp"
+                    android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBaraug" />
+
+                <TextView
+                    android:id="@+id/textViewsept"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:text="Sept"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarsept"
+                    app:layout_constraintEnd_toStartOf="@+id/progressBarsept"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarsept" />
+
+
+                <TextView
+                    android:id="@+id/septtotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarsept"
+                    app:layout_constraintStart_toEndOf="@+id/progressBarsept"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarsept" />
+
+                <TextView
+                    android:id="@+id/defectcountersept"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="0"
+                    android:textAlignment="textEnd"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarsept"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBarsept"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarsept" />
+
+                <!-- OCT -->
+                <TextView
+                    android:id="@+id/goodcountersept"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="8dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarsept"
+                    app:layout_constraintStart_toStartOf="@+id/progressBarsept"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarsept" />
+
+                <ProgressBar
+                    android:id="@+id/progressBaroct"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="256dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="20dp"
+                    android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBarsept" />
+
+                <TextView
+                    android:id="@+id/textViewoct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:text="Oct"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBaroct"
+                    app:layout_constraintEnd_toStartOf="@+id/progressBaroct"
+                    app:layout_constraintTop_toTopOf="@+id/progressBaroct" />
+
+
+                <TextView
+                    android:id="@+id/octtotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBaroct"
+                    app:layout_constraintStart_toEndOf="@+id/progressBaroct"
+                    app:layout_constraintTop_toTopOf="@+id/progressBaroct" />
+
+
+                <TextView
+                    android:id="@+id/defectcounteroct"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="0"
+                    android:textAlignment="textEnd"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBaroct"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBaroct"
+                    app:layout_constraintTop_toTopOf="@+id/progressBaroct" />
+
+                <!-- NOV -->
+
+                <TextView
+                    android:id="@+id/goodcounteroct"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="8dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBaroct"
+                    app:layout_constraintStart_toStartOf="@+id/progressBaroct"
+                    app:layout_constraintTop_toTopOf="@+id/progressBaroct" />
+
+                <ProgressBar
+                    android:id="@+id/progressBarnov"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="256dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="20dp"
+                    android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.51"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBaroct" />
+
+                <TextView
+                    android:id="@+id/textViewnov"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:text="Nov"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarnov"
+                    app:layout_constraintEnd_toStartOf="@+id/progressBarnov"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarnov" />
+
+                <TextView
+                    android:id="@+id/novtotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarnov"
+                    app:layout_constraintStart_toEndOf="@+id/progressBarnov"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarnov" />
+
+
+                <TextView
+                    android:id="@+id/defectcounternov"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="0"
+                    android:textAlignment="textEnd"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarnov"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBarnov"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarnov"
+                    app:layout_constraintVertical_bias="0.428" />
+
+                <TextView
+                    android:id="@+id/goodcounternov"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="8dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBarnov"
+                    app:layout_constraintStart_toStartOf="@+id/progressBarnov"
+                    app:layout_constraintTop_toTopOf="@+id/progressBarnov" />
+                <!-- DEC -->
+
+                <ProgressBar
+                    android:id="@+id/progressBardec"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="256dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="20dp"
+                    android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBarnov"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/textViewdec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:text="Dec"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBardec"
+                    app:layout_constraintEnd_toStartOf="@+id/progressBardec"
+                    app:layout_constraintTop_toTopOf="@+id/progressBardec" />
+
+                <TextView
+                    android:id="@+id/dectotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBardec"
+                    app:layout_constraintStart_toEndOf="@+id/progressBardec"
+                    app:layout_constraintTop_toTopOf="@+id/progressBardec" />
+
+                <TextView
+                    android:id="@+id/defectcounterdec"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="0"
+                    android:textAlignment="textEnd"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBardec"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBardec"
+                    app:layout_constraintTop_toTopOf="@+id/progressBardec"
+                    app:layout_constraintVertical_bias="0.428" />
+
+                <TextView
+                    android:id="@+id/goodcounterdec"
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:layout_marginStart="8dp"
+                    android:text="0"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBardec"
+                    app:layout_constraintStart_toStartOf="@+id/progressBardec"
+                    app:layout_constraintTop_toTopOf="@+id/progressBardec" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

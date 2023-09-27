@@ -40,6 +40,7 @@ import androidx.lifecycle.ViewModelProvider
 import coil.compose.rememberImagePainter
 import com.example.pantomonitor.R
 import com.example.pantomonitor.databinding.ActivityMainBinding
+import com.example.pantomonitor.databinding.FragmentHomeBinding
 import com.example.pantomonitor.viewmodel.BdMainViewModel
 import com.example.pantomonitor.viewmodel.BdViewModelFactoy
 import java.io.File
@@ -51,25 +52,18 @@ import java.util.Objects
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-
-
         setContentView(binding.root)
 
-
         replaceFragment(HomeFrag())
+
         binding.botNavMenu.setOnItemSelectedListener {
             when(it.itemId){
-
                 R.id.Home -> replaceFragment(HomeFrag())
                 R.id.Timeline ->replaceFragment(TimelineFragment())
-                R.id.Settings -> replaceFragment(SettingFragment())
                 else ->{
-
                 }
             }
             true
@@ -87,14 +81,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment: Fragment){
-
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame_layout_main,fragment)
         fragmentTransaction.commit()
     }
-
-
 }
 
 @Composable
@@ -141,6 +132,7 @@ fun imageCaptureFromCamera()
             {
                 cameraLauncher.launch(uri)
 
+
             }
             else{
                 permissionLauncher.launch(Manifest.permission.CAMERA)
@@ -156,6 +148,7 @@ fun imageCaptureFromCamera()
                 .padding(16.dp, 8.dp),
             painter = rememberImagePainter(capturedImageUri),
             contentDescription = null)
+
     }
     else{
         Image(

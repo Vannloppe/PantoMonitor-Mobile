@@ -1,16 +1,12 @@
 package com.example.pantomonitor.view
 
-import android.content.ContentValues.TAG
-import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.pantomonitor.databinding.FragmentHomeBinding
@@ -20,8 +16,9 @@ import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.formatter.PercentFormatter
-import com.github.mikephil.charting.utils.ColorTemplate
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.squareup.picasso.Picasso
 
 
 class HomeFrag : Fragment() {
@@ -39,6 +36,17 @@ class HomeFrag : Fragment() {
         //viewModel = ViewModelProvider(this).get(BdMainViewModel::class.java)
         viewModel = ViewModelProvider(this, BdViewModelFactoy()).get(BdMainViewModel::class.java)
         pieChart = binding.pieChart
+        pieChart.maxAngle = 180f
+        pieChart.setDrawEntryLabels(false)
+        pieChart.description.isEnabled = false
+        val legend = pieChart.legend
+        legend.isEnabled = false
+        pieChart.isHighlightPerTapEnabled = false
+        pieChart.isRotationEnabled = false
+        pieChart.setTransparentCircleAlpha(0)
+        pieChart.holeRadius = 80f
+        pieChart.rotationAngle = 180f
+
 
 
         // GOOD
@@ -57,28 +65,47 @@ class HomeFrag : Fragment() {
             setupPieChart(entries)
         }
 
+        viewModel.getlatestStatus().observe(viewLifecycleOwner) { data ->
+            binding.statusview.text = data.toString()
+        }
+
+        viewModel.getlatestDate().observe(viewLifecycleOwner) { data ->
+            binding.dateview.text = data.toString()
+        }
+        viewModel.getlatestTime().observe(viewLifecycleOwner) { data ->
+            binding.timeview.text = data.toString()
+        }
+        viewModel.getlatestImg().observe(viewLifecycleOwner) { data ->
+            val storage = FirebaseStorage.getInstance()
+            val storageRef: StorageReference = storage.reference
+            val imageRef: StorageReference = storageRef.child("images/${data}.jpg") // Replace with your image path
+            imageRef.downloadUrl.addOnSuccessListener { uri: Uri? ->
+                // Load the image into an ImageView using a library like Picasso or Glide
+                Picasso.get().load(uri).into(binding.imageView)
+            }.addOnFailureListener { exception: Exception? -> }
+
+        }
 
 
 
 
 
 
-        return binding.root
+            return binding.root
     }
 
 
     private fun setupPieChart(entries: List<PieEntry>) {
-        val dataSet = PieDataSet(entries, "Semi-Circle Pie Chart")
-        dataSet.colors = mutableListOf(Color.BLUE, Color.GREEN, Color.RED)
-        dataSet.valueTextSize = 12f
-
+        val dataSet = PieDataSet(entries, "Daily Assessment")
+        dataSet.colors = mutableListOf(Color.rgb(248,101,101), Color.rgb(67,126,247))
+        dataSet.setDrawValues(false)
         val data = PieData(dataSet)
         pieChart.data = data
-
-
-
         pieChart.invalidate()
     }
 
 
 }
+
+
+

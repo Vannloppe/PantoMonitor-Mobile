@@ -41,10 +41,10 @@ class TimelineFragment : Fragment() {
             viewModel.getDefectData().observe(viewLifecycleOwner, Observer { data2 ->
                 // Update your UI with the data from the ViewModel
                 val total = data.toInt() + data2.toInt()
-                binding.progressBar.max = total
-                binding.progressBar.progress = data.toInt()
-                binding.defectcounter.text = data2.toString()
-                binding.goodcounter.text = data.toString()
+                binding.progressBarjan.max = total
+                binding.progressBarjan.progress = data.toInt()
+                binding.defectcounterjan.text = data2.toString()
+                binding.goodcounterjan.text = data.toString()
                 binding.jantotal.text = total.toString()
 
 

@@ -1,7 +1,7 @@
 package com.example.pantomonitor.model
 import androidx.lifecycle.MutableLiveData
-
-
+import com.example.pantomonitor.viewmodel.BdMainViewModel
+import com.google.gson.Gson
 
 
 class StatsProvider {
@@ -9,9 +9,15 @@ class StatsProvider {
     var Goodcounterdata = MutableLiveData<String>()
     var Defectcounterdata = MutableLiveData<String>()
 
+    var latestimg = MutableLiveData<String>()
+    var lateststatus = MutableLiveData<String>()
+    var timestampdate = MutableLiveData<String>()
+    var timestamptime = MutableLiveData<String>()
+
 
     val goodcounterjan = MutableLiveData<String>()
     val badcounterjan = MutableLiveData<String>()
+
 
 
     val goodcounterfeb = MutableLiveData<String>()
@@ -50,6 +56,7 @@ class StatsProvider {
 
 
 }
+
 
 
 
