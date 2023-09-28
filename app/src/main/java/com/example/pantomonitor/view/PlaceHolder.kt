@@ -8,15 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.graphics.Bitmap
 import android.provider.MediaStore
-
 import com.example.pantomonitor.databinding.FragmentPlaceHolderBinding
-
-
+import org.tensorflow.lite.support.common.ops.NormalizeOp
+import com.example.pantomonitor.ml.LiteModel
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
-import com.example.pantomonitor.ml.LiteModel
+
 
 
 class PlaceHolder : Fragment() {
@@ -32,6 +31,9 @@ class PlaceHolder : Fragment() {
         binding = FragmentPlaceHolderBinding.inflate(inflater, container, false)
 
         var labels = application.assets.open("label.txt").bufferedReader().readLines()
+
+
+
         var imageProcessor = ImageProcessor.Builder()
             //.add(NormalizeOp(0.0f, 225.0f))
             //.add(TransformToGrayscaleOp())
