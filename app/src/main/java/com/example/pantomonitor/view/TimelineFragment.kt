@@ -36,9 +36,11 @@ class TimelineFragment : Fragment() {
         viewModel = ViewModelProvider(this, BdViewModelFactoy()).get(BdMainViewModel::class.java)
 
 
-        viewModel.getGoodData().observe(viewLifecycleOwner, Observer { data ->
+
+
+        viewModel.getlatestgoodjan().observe(viewLifecycleOwner, Observer { data ->
             // Update your UI with the data from the ViewModel
-            viewModel.getDefectData().observe(viewLifecycleOwner, Observer { data2 ->
+            viewModel.getlatestbadjan().observe(viewLifecycleOwner, Observer { data2 ->
                 // Update your UI with the data from the ViewModel
                 val total = data.toInt() + data2.toInt()
                 binding.progressBarjan.max = total
@@ -46,9 +48,177 @@ class TimelineFragment : Fragment() {
                 binding.defectcounterjan.text = data2.toString()
                 binding.goodcounterjan.text = data.toString()
                 binding.jantotal.text = total.toString()
+            })
+        })
 
 
 
+
+        viewModel.getlatestgoodfeb().observe(viewLifecycleOwner, Observer { data ->
+            // Update your UI with the data from the ViewModel
+            viewModel.getlatestbadfeb().observe(viewLifecycleOwner, Observer { data2 ->
+                // Update your UI with the data from the ViewModel
+                val total = data.toInt() + data2.toInt()
+                binding.progressBarfeb.max = total
+                binding.progressBarfeb.progress = data.toInt()
+                binding.defectcounterfeb.text = data2.toString()
+                binding.goodcounterfeb.text = data.toString()
+                binding.febtotal.text = total.toString()
+            })
+        })
+
+
+
+        viewModel.getlatestgoodmar().observe(viewLifecycleOwner, Observer { data ->
+            // Update your UI with the data from the ViewModel
+            viewModel.getlatestbadmar().observe(viewLifecycleOwner, Observer { data2 ->
+                // Update your UI with the data from the ViewModel
+                val total = data.toInt() + data2.toInt()
+                binding.progressBarmar.max = total
+                binding.progressBarmar.progress = data.toInt()
+                binding.defectcountermar.text = data2.toString()
+                binding.goodcountermar.text = data.toString()
+                binding.martotal.text = total.toString()
+            })
+        })
+
+
+
+        viewModel.getlatestgoodapr().observe(viewLifecycleOwner, Observer { data ->
+            // Update your UI with the data from the ViewModel
+            viewModel.getlatestbadapr().observe(viewLifecycleOwner, Observer { data2 ->
+                // Update your UI with the data from the ViewModel
+                val total = data.toInt() + data2.toInt()
+                binding.progressBarapr.max = total
+                binding.progressBarapr.progress = data.toInt()
+                binding.defectcounterapr.text = data2.toString()
+                binding.goodcounterapr.text = data.toString()
+                binding.aprtotal.text = total.toString()
+            })
+        })
+
+
+
+        viewModel.getlatestgoodmay().observe(viewLifecycleOwner, Observer { data ->
+            // Update your UI with the data from the ViewModel
+            viewModel.getlatestbadmay().observe(viewLifecycleOwner, Observer { data2 ->
+                // Update your UI with the data from the ViewModel
+                val total = data.toInt() + data2.toInt()
+                binding.progressBarmay.max = total
+                binding.progressBarmay.progress = data.toInt()
+                binding.defectcountermay.text = data2.toString()
+                binding.goodcountermay.text = data.toString()
+                binding.maytotal.text = total.toString()
+            })
+        })
+
+
+
+        viewModel.getlatestgoodjune().observe(viewLifecycleOwner, Observer { data ->
+            // Update your UI with the data from the ViewModel
+            viewModel.getlatestbadjune().observe(viewLifecycleOwner, Observer { data2 ->
+                // Update your UI with the data from the ViewModel
+                val total = data.toInt() + data2.toInt()
+                binding.progressBarjune.max = total
+                binding.progressBarjune.progress = data.toInt()
+                binding.defectcounterjune.text = data2.toString()
+                binding.goodcounterjune.text = data.toString()
+                binding.junetotal.text = total.toString()
+            })
+        })
+
+
+
+        viewModel.getlatestgoodjuly().observe(viewLifecycleOwner, Observer { data ->
+            // Update your UI with the data from the ViewModel
+            viewModel.getlatestbadjuly().observe(viewLifecycleOwner, Observer { data2 ->
+                // Update your UI with the data from the ViewModel
+                val total = data.toInt() + data2.toInt()
+                binding.progressBarjuly.max = total
+                binding.progressBarjuly.progress = data.toInt()
+                binding.defectcounterjuly.text = data2.toString()
+                binding.goodcounterjuly.text = data.toString()
+                binding.julytotal.text = total.toString()
+            })
+        })
+
+
+
+        viewModel.getlatestgoodaug().observe(viewLifecycleOwner, Observer { data ->
+            // Update your UI with the data from the ViewModel
+            viewModel.getlatestbadaug().observe(viewLifecycleOwner, Observer { data2 ->
+                // Update your UI with the data from the ViewModel
+                val total = data.toInt() + data2.toInt()
+                binding.progressBaraug.max = total
+                binding.progressBaraug.progress = data.toInt()
+                binding.defectcounteraug.text = data2.toString()
+                binding.goodcounteraug.text = data.toString()
+                binding.augtotal.text = total.toString()
+            })
+        })
+
+
+
+        viewModel.getlatestgoodsep().observe(viewLifecycleOwner, Observer { data ->
+            // Update your UI with the data from the ViewModel
+            viewModel.getlatestbadsep().observe(viewLifecycleOwner, Observer { data2 ->
+                // Update your UI with the data from the ViewModel
+                val total = data.toInt() + data2.toInt()
+                binding.progressBarsept.max = total
+                binding.progressBarsept.progress = data.toInt()
+                binding.defectcountersept.text = data2.toString()
+                binding.goodcountersept.text = data.toString()
+                binding.septtotal.text = total.toString()
+            })
+        })
+
+
+
+        viewModel.getlatestgoodoct().observe(viewLifecycleOwner, Observer { data ->
+            // Update your UI with the data from the ViewModel
+            viewModel.getlatestbadoct().observe(viewLifecycleOwner, Observer { data2 ->
+                // Update your UI with the data from the ViewModel
+                val total = data.toInt() + data2.toInt()
+                binding.progressBaroct.max = total
+                binding.progressBaroct.progress = data.toInt()
+                binding.defectcounteroct.text = data2.toString()
+                binding.goodcounteroct.text = data.toString()
+                binding.octtotal.text = total.toString()
+            })
+
+        })
+
+
+
+
+        viewModel.getlatestgoodnov().observe(viewLifecycleOwner, Observer { data ->
+            // Update your UI with the data from the ViewModel
+            viewModel.getlatestbadnov().observe(viewLifecycleOwner, Observer { data2 ->
+                // Update your UI with the data from the ViewModel
+                val total = data.toInt() + data2.toInt()
+                binding.progressBarnov.max = total
+                binding.progressBarnov.progress = data.toInt()
+                binding.defectcounternov.text = data2.toString()
+                binding.goodcounternov.text = data.toString()
+                binding.novtotal.text = total.toString()
+            })
+
+
+
+        })
+
+
+
+        viewModel.getlatestgooddec().observe(viewLifecycleOwner, Observer { data ->
+            // Update your UI with the data from the ViewModel
+            viewModel.getlatestbaddec().observe(viewLifecycleOwner, Observer { data2 ->
+                // Update your UI with the data from the ViewModel
+                val total = data.toInt() + data2.toInt()
+                binding.progressBardec.max = total
+                binding.progressBardec.progress = data.toInt()
+                binding.defectcounterdec.text = data2.toString()
+                binding.goodcounterdec.text = data.toString()
+                binding.dectotal.text = total.toString()
             })
         })
 

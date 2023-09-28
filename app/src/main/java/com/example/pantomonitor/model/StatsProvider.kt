@@ -14,45 +14,42 @@ class StatsProvider {
     var timestampdate = MutableLiveData<String>()
     var timestamptime = MutableLiveData<String>()
 
+    val goodcounterjan = MutableLiveData<Int>(0)
+    val badcounterjan = MutableLiveData<Int>(0)
 
-    val goodcounterjan = MutableLiveData<String>()
-    val badcounterjan = MutableLiveData<String>()
-
-
-
-    val goodcounterfeb = MutableLiveData<String>()
-    val badcounterfeb = MutableLiveData<String>()
+    val goodcounterfeb = MutableLiveData<Int>(0)
+    val badcounterfeb = MutableLiveData<Int>(0)
 
 
-    val goodcountermar = MutableLiveData<String>()
-    val badcountermar = MutableLiveData<String>()
+    val goodcountermar = MutableLiveData<Int>(0)
+    val badcountermar = MutableLiveData<Int>(0)
 
-    val goodcounterapr = MutableLiveData<String>()
-    val badcounterapr = MutableLiveData<String>()
+    val goodcounterapr = MutableLiveData<Int>(0)
+    val badcounterapr = MutableLiveData<Int>(0)
 
-    val goodcountermay = MutableLiveData<String>()
-    val badcountermay = MutableLiveData<String>()
+    val goodcountermay = MutableLiveData<Int>(0)
+    val badcountermay = MutableLiveData<Int>(0)
 
-    val goodcounterjune = MutableLiveData<String>()
-    val badcounterjune = MutableLiveData<String>()
+    val goodcounterjune = MutableLiveData<Int>(0)
+    val badcounterjune = MutableLiveData<Int>(0)
 
-    val goodcounterjuly = MutableLiveData<String>()
-    val badcounterjuly = MutableLiveData<String>()
+    val goodcounterjuly = MutableLiveData<Int>(0)
+    val badcounterjuly = MutableLiveData<Int>(0)
 
-    val goodcounteraug = MutableLiveData<String>()
-    val badcounteraug = MutableLiveData<String>()
+    val goodcounteraug = MutableLiveData<Int>(0)
+    val badcounteraug = MutableLiveData<Int>(0)
 
-    val goodcountersep = MutableLiveData<String>()
-    val badcountersep = MutableLiveData<String>()
+    val goodcountersep = MutableLiveData<Int>(0)
+    val badcountersep = MutableLiveData<Int>(0)
 
-    val goodcounteroct = MutableLiveData<String>()
-    val badcounteroct = MutableLiveData<String>()
+    val goodcounteroct = MutableLiveData<Int>(0)
+    val badcounteroct = MutableLiveData<Int>(0)
 
-    val goodcounternov = MutableLiveData<String>()
-    val badcounternov = MutableLiveData<String>()
+    val goodcounternov = MutableLiveData<Int>(0)
+    val badcounternov = MutableLiveData<Int>(0)
 
-    val goodcounterdec = MutableLiveData<String>()
-    val badcounterdec = MutableLiveData<String>()
+    val goodcounterdec = MutableLiveData<Int>(0)
+    val badcounterdec = MutableLiveData<Int>(0)
 
 
 }
