@@ -6,6 +6,8 @@ import com.google.gson.Gson
 
 class StatsProvider {
 
+
+
     var Goodcounterdata = MutableLiveData<String>()
     var Defectcounterdata = MutableLiveData<String>()
 
