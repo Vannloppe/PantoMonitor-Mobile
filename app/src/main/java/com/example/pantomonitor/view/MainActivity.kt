@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.Home -> replaceFragment(HomeFrag())
                 R.id.Timeline ->replaceFragment(TimelineFragment())
+                R.id.Placeholder ->replaceFragment(PlaceHolder())
                 else ->{
                 }
             }

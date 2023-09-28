@@ -333,21 +333,6 @@ class BdMainViewModel : ViewModel() {
             }
         })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
