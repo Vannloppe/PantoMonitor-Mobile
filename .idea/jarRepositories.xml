@@ -19,7 +19,7 @@
     <remote-repository>
       <option name="id" value="maven" />
       <option name="name" value="maven" />
-      <option name="url" value="file:/$PROJECT_DIR$/../../../James%20Fugata/AndroidStudioProjects/PantoMonitor/%3CMAVEN%20REPO%20URL%3E" />
+      <option name="url" value="file:/$PROJECT_DIR$/%3CMAVEN%20REPO%20URL%3E" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="maven" />
