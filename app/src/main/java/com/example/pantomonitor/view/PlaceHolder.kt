@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import org.tensorflow.lite.DataType
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -67,13 +68,14 @@ class PlaceHolder : Fragment() {
     }
 
     private fun openImagepicker() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "image/*"
+      //  val intent = Intent(Intent.ACTION_GET_CONTENT)
+
 
         // You can also use this to capture an image using the device's camera:
-        // val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+         //   intent.type = "image/*"
+        startActivityForResult(intent, CAMERA_REQUEST)
 
-        startActivityForResult(intent, PICK_IMAGE_REQUEST)
     }
 
     private fun predict() {
@@ -114,14 +116,29 @@ class PlaceHolder : Fragment() {
 
 
         val formattedTime = timeFormattime.format(currentTime)
-        var img = selectedImageUri.toString()
+
+
+        val timestamp = System.currentTimeMillis()
+        val img = "image_$timestamp.jpg"
 
 
         val storage = FirebaseStorage.getInstance()
-        val storageRef: StorageReference = storage.getReference("images")
+        val storageRef: StorageReference = storage.getReference("images/")
         val imageRef: StorageReference = storageRef.child("${img}.jpg")
 
-        selectedImageUri?.let { imageRef.putFile(it) }?.addOnSuccessListener { taskSnapshot -> }
+
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+
+
+
+
+
+
+
+
+        data?.let { imageRef.putBytes(it) }?.addOnSuccessListener { taskSnapshot -> }
 
 
         val upload = Upload("$bindtext", "$formattedDate", "$img", "$formattedTime")
@@ -158,9 +175,21 @@ class PlaceHolder : Fragment() {
                     }
                 }
                 CAMERA_REQUEST -> {
-                    // User captured an image using the camera (if you implemented it)
-                    val photo = data?.extras?.get("data") as Bitmap
-                   binding.imgplaceholder.setImageBitmap(photo)
+                        // User captured an image using the camera (if you implemented it)
+
+                    try {
+
+                        val photo = data?.extras?.get("data") as Bitmap
+
+                        bitmap = photo
+
+
+
+                        binding.imgplaceholder.setImageBitmap(bitmap)
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
             }
         }

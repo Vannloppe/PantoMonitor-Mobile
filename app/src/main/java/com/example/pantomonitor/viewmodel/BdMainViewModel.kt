@@ -1,17 +1,10 @@
 package com.example.pantomonitor.viewmodel
 
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 
 import com.example.pantomonitor.model.StatsProvider
 import com.github.mikephil.charting.data.PieEntry
@@ -20,13 +13,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.google.gson.Gson
-import java.io.File
-import java.lang.reflect.Modifier
-import java.util.Objects
 
 
 class BdMainViewModel : ViewModel() {
@@ -45,6 +33,9 @@ class BdMainViewModel : ViewModel() {
     private val getoct = database.orderByChild("Date").startAt("10").endAt("10\uf8ff")
     private val getnov = database.orderByChild("Date").startAt("11").endAt("11\uf8ff")
     private val getdec = database.orderByChild("Date").startAt("12").endAt("12\uf8ff")
+
+    private val storage = FirebaseStorage.getInstance()
+    val storageRef: StorageReference = storage.reference
 
 
     private var stats = StatsProvider()
@@ -84,7 +75,7 @@ class BdMainViewModel : ViewModel() {
 
     })
 
-        database.addValueEventListener(object : ValueEventListener {
+        database.limitToLast(1).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (entrySnapshot in dataSnapshot.children) {
                     var parse = entrySnapshot.getValue(parsed::class.java)
@@ -419,6 +410,11 @@ class BdMainViewModel : ViewModel() {
     }
     fun getlatestgooddec(): LiveData<Int>{
         return  stats.goodcounterdec
+    }
+
+    fun getlatestpic(img: String): StorageReference {
+
+        return storageRef.child("images/${img}.jpg")
     }
 
 

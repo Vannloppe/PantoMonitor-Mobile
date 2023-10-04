@@ -76,9 +76,7 @@ class HomeFrag : Fragment() {
             binding.timeview.text = data.toString()
         }
         viewModel.getlatestImg().observe(viewLifecycleOwner) { data ->
-            val storage = FirebaseStorage.getInstance()
-            val storageRef: StorageReference = storage.reference
-            val imageRef: StorageReference = storageRef.child("images/${data}.jpg") // Replace with your image path
+            var imageRef = viewModel.getlatestpic(data)
             imageRef.downloadUrl.addOnSuccessListener { uri: Uri? ->
                 // Load the image into an ImageView using a library like Picasso or Glide
                 Picasso.get().load(uri).into(binding.imageView)
