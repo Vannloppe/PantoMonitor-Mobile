@@ -414,7 +414,7 @@ class BdMainViewModel : ViewModel() {
 
     fun getlatestpic(img: String): StorageReference {
 
-        return storageRef.child("images/${img}.jpg")
+        return storageRef.child("images/${img}")
     }
 
 

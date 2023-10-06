@@ -1,6 +1,7 @@
 package com.example.pantomonitor.view
 
 import android.app.Activity
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,8 +9,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
+import android.util.Log
+import android.view.Surface
+import android.widget.ImageView
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
+import androidx.core.content.ContextCompat
+import com.example.pantomonitor.R
 import com.example.pantomonitor.databinding.FragmentPlaceHolderBinding
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
@@ -20,9 +33,12 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import org.tensorflow.lite.DataType
 import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.concurrent.Executors
 
 
 class PlaceHolder : Fragment() {
@@ -31,13 +47,9 @@ class PlaceHolder : Fragment() {
 
 
     private var database = FirebaseDatabase.getInstance().getReference("New_Entries")
-    private lateinit var bitmap: Bitmap
     private lateinit var imageProcessor: ImageProcessor
-    private  var selectedImageUri: Uri? = null
+    private lateinit var imageCapture: ImageCapture
 
-
-    private val PICK_IMAGE_REQUEST = 1
-    private val CAMERA_REQUEST = 2
 
 
     override fun onCreateView(
@@ -46,12 +58,6 @@ class PlaceHolder : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentPlaceHolderBinding.inflate(inflater, container, false)
-
-
-        val assetManager = requireActivity().assets
-        val labels = assetManager.open("label.txt").bufferedReader().readLines()
-
-
         imageProcessor = ImageProcessor.Builder()
             //.add(NormalizeOp(0.0f, 225.0f))
             //.add(TransformToGrayscaleOp())
@@ -59,26 +65,19 @@ class PlaceHolder : Fragment() {
             .build()
 
         binding.Select.setOnClickListener {
-           openImagepicker()
+           captureImage()
         }
-        binding.predicbut.setOnClickListener {
-           predict()
-        }
+
         return binding.root
     }
-
-    private fun openImagepicker() {
-      //  val intent = Intent(Intent.ACTION_GET_CONTENT)
-
-
-        // You can also use this to capture an image using the device's camera:
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-         //   intent.type = "image/*"
-        startActivityForResult(intent, CAMERA_REQUEST)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupcamera()
     }
 
-    private fun predict() {
+
+    private fun predict(imageUri: Uri) {
+        val bitmap = uriToBitmap(imageUri)
         var tensorImage = TensorImage(DataType.FLOAT32)
         tensorImage.load(bitmap)
 
@@ -111,37 +110,14 @@ class PlaceHolder : Fragment() {
         val timeFormattime = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
         val dateFormat = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault())
 
-
         val formattedDate = dateFormat.format(currentTime)
-
 
         val formattedTime = timeFormattime.format(currentTime)
 
 
-        val timestamp = System.currentTimeMillis()
-        val img = "image_$timestamp.jpg"
 
 
-        val storage = FirebaseStorage.getInstance()
-        val storageRef: StorageReference = storage.getReference("images/")
-        val imageRef: StorageReference = storageRef.child("${img}.jpg")
-
-
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val data = baos.toByteArray()
-
-
-
-
-
-
-
-
-        data?.let { imageRef.putBytes(it) }?.addOnSuccessListener { taskSnapshot -> }
-
-
-        val upload = Upload("$bindtext", "$formattedDate", "$img", "$formattedTime")
+        val upload = Upload("$bindtext", "$formattedDate", "${imageUri.lastPathSegment}", "$formattedTime")
         val uploadData = mapOf(
             "Assessment" to upload.Assessment,
             "Date" to upload.Date,
@@ -152,53 +128,120 @@ class PlaceHolder : Fragment() {
 
         database.push().setValue(uploadData)
 
-        binding.Result.text = check[maxIdx]
-
 // Releases model resources if no longer used.
-        // model.close()
+       //  model.close()
+    }
+    private fun setupcamera (){
+        val previewView: PreviewView = binding.preview
+        val cameraExecutor = Executors.newSingleThreadExecutor()
+
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+
+        cameraProviderFuture.addListener({
+            val cameraProvider = cameraProviderFuture.get()
+
+            // Build and bind the camera use cases
+            val preview = Preview.Builder().build().also {
+                it.setSurfaceProvider(previewView.surfaceProvider)
+            }
+
+            imageCapture = ImageCapture.Builder().build()
+
+            // Select back camera as a default
+            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
+            try {
+                // Unbind use cases before rebinding
+                cameraProvider?.unbindAll()
+
+                // Bind use cases to camera
+                cameraProvider?.bindToLifecycle(this, cameraSelector, preview, imageCapture)
+
+            } catch (exc: Exception) {
+                Log.e(TAG, "Use case binding failed", exc)
+            }
+
+        }, ContextCompat.getMainExecutor(requireContext()))
+
+
+
+
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun captureImage() {
+        val outputDirectory = getOutputDirectory()
+        val imageFileName = generateImageFileName()
+        val imageFile = File(outputDirectory, "${imageFileName}.jpg")
+        val outputFileOptions = ImageCapture.OutputFileOptions.Builder(imageFile).build()
 
-        if (resultCode == Activity.RESULT_OK) {
-            when (requestCode) {
-                PICK_IMAGE_REQUEST -> {
-                    // User selected an image from the gallery
-                    selectedImageUri = data?.data
-                    try {
-                         bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, selectedImageUri)
-
-                        binding.imgplaceholder.setImageBitmap(bitmap)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
+        imageCapture.takePicture(
+            outputFileOptions,
+            Executors.newSingleThreadExecutor(),
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                    // Image captured and saved to outputFileResults.savedUri
+                    val savedUri = Uri.fromFile(imageFile)
+                    predict(savedUri)
+                        // Upload image to Firebase Storage
+                    uploadImageToFirebase(savedUri)
                 }
-                CAMERA_REQUEST -> {
-                        // User captured an image using the camera (if you implemented it)
 
-                    try {
-
-                        val photo = data?.extras?.get("data") as Bitmap
-
-                        bitmap = photo
-
-
-
-                        binding.imgplaceholder.setImageBitmap(bitmap)
-
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
+                override fun onError(exception: ImageCaptureException) {
+                    // Handle error
                 }
+            })
+    }
+
+    private fun uploadImageToFirebase(imageUri: Uri) {
+
+        val storage = FirebaseStorage.getInstance().reference
+        val imageRef: StorageReference = storage.child("images/${imageUri.lastPathSegment}")
+
+
+        imageRef.putFile(imageUri)
+            .addOnSuccessListener {
+                // Image uploaded successfully
+                // Handle success
             }
+            .addOnFailureListener {
+                // Handle unsuccessful uploads
+            }
+    }
+
+    fun generateImageFileName(): String {
+        val sdf = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault())
+        val currentDateAndTime: String = sdf.format(Date())
+        return "IMG_$currentDateAndTime"
+    }
+
+
+    private fun getOutputDirectory(): File {
+        val mediaDir = requireContext().externalMediaDirs.firstOrNull()?.let {
+            File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
+        }
+        return if (mediaDir != null && mediaDir.exists())
+            mediaDir else requireContext().filesDir
+    }
+
+    fun uriToBitmap(uri: Uri): Bitmap? {
+        return try {
+            val inputStream = context?.contentResolver?.openInputStream(uri)
+            BitmapFactory.decodeStream(inputStream)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
         }
     }
 
 
 
 
+
+
+
 }
+
+
 
 data class Upload(
     val Assessment: String = "",

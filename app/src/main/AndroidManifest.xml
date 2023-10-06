@@ -4,8 +4,6 @@
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -18,11 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PantoMonitor"
         tools:targetApi="31">
-        <activity
-            android:name=".view.Placeholder2"
-            android:exported="false"
-            android:label="@string/title_activity_placeholder2"
-            android:theme="@style/Theme.PantoMonitor" />
+
+
         <activity
             android:name=".view.LoginActivity"
             android:exported="true">

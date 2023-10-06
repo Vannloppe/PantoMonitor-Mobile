@@ -10,12 +10,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.camera.view.PreviewView
+            android:id="@+id/preview"
+            android:layout_width="412dp"
+            android:layout_height="615dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"/>
+
+
+
+
+
         <ImageView
             android:id="@+id/imgplaceholder"
             android:layout_width="411dp"
             android:layout_height="617dp"
             android:background="#000"
             android:src="@drawable/ic_image"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,5 +67,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
