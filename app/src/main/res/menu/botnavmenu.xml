@@ -5,16 +5,16 @@
 
 
     <item
-        android:id="@+id/Home"
+        android:id="@+id/bot_Home"
        android:icon="@drawable/baseline_home_24"
         android:title="Home" />
 
     <item
-        android:id="@+id/Placeholder"
+        android:id="@+id/bot_Placeholder"
         android:icon="@drawable/baseline_filter_prediction"
         android:title="Prediction" />
     <item
-        android:id="@+id/Timeline"
+        android:id="@+id/bot_Timeline"
         android:icon="@drawable/baseline_timeline_24"
         android:title="Timeline" />
 </menu>

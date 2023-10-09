@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:background="#FDFDFD"
     android:padding="16dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -18,12 +19,15 @@
             android:layout_centerVertical="true"
 
             android:text="PantoMonitor"/>
-        <ImageView
+
+
+        <Button
             android:id="@+id/Logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:src="@drawable/baseline_logout_24"/>
+
 
     </RelativeLayout>
 

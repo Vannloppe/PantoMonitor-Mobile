@@ -22,9 +22,6 @@
             app:layout_constraintVertical_bias="0.0"/>
 
 
-
-
-
         <ImageView
             android:id="@+id/imgplaceholder"
             android:layout_width="411dp"
