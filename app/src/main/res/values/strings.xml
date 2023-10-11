@@ -8,7 +8,9 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
+    <string name="btn_forgot"><u>Forgot Password?</u></string>
+    <string name="btn_reg"><u>Register</u></string>
+    <string name="btn_login"><u>Login</u></string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

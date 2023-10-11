@@ -58,6 +58,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
+                app:itemIconTint="@color/dark_blue"
+                app:itemTextColor="@color/dark_blue"
                 app:menu="@menu/botnavmenu" />
 
         </com.google.android.material.bottomappbar.BottomAppBar>
