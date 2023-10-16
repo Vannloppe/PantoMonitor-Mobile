@@ -15,22 +15,22 @@
         android:layout_height="629dp"
         android:layout_marginBottom="24dp"
         android:scaleType="fitCenter"
-        android:src="@tools:sample/avatars"
+        android:src="@drawable/rectangle_reg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/rectangle_reg" />
+        />
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="92dp"
-        android:src="@tools:sample/avatars"
+        android:src="@drawable/logo_reg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_reg" />
+         />
 
     <Button
         android:id="@+id/RegisterSignup"
