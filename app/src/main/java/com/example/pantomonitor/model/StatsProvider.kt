@@ -6,10 +6,12 @@ import com.google.gson.Gson
 
 class StatsProvider {
 
+    var Username = MutableLiveData<String>()
 
 
     var Goodcounterdata = MutableLiveData<String>()
     var Defectcounterdata = MutableLiveData<String>()
+    var totalcounterdata = MutableLiveData<Int>(0)
 
     var latestimg = MutableLiveData<String>()
     var lateststatus = MutableLiveData<String>()

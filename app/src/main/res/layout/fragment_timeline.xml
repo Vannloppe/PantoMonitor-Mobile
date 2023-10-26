@@ -4,24 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5CB1FF"
+    android:background="#F9F5FF"
     tools:context=".view.TimelineFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/dash_bg">
+        android:layout_height="match_parent"  >
+        <!--android:background="@drawable/dash_bg" -->
+
 
         <FrameLayout
-            android:layout_width="364dp"
-            android:layout_height="621dp"
-            android:background="@drawable/timelinerec"
+            android:id="@+id/frameLayout"
+            android:layout_width="369dp"
+            android:layout_height="641dp"
+            android:background="@drawable/rounded_bg"
+            android:elevation="15dp"
+            android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.326">
+            app:layout_constraintVertical_bias="0.604">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -36,22 +39,24 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="256dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="52dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginBottom="28dp"
                     android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintBottom_toTopOf="@+id/progressBarfeb"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.509"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.857" />
 
                 <TextView
                     android:id="@+id/defectcounterjan"
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
                     android:textAlignment="textEnd"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarjan"
                     app:layout_constraintEnd_toEndOf="@+id/progressBarjan"
                     app:layout_constraintTop_toTopOf="@+id/progressBarjan" />
@@ -61,9 +66,9 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginStart="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarjan"
                     app:layout_constraintStart_toStartOf="@+id/progressBarjan"
                     app:layout_constraintTop_toTopOf="@+id/progressBarjan" />
@@ -74,9 +79,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="12dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="Jan"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarjan"
                     app:layout_constraintEnd_toStartOf="@+id/progressBarjan"
                     app:layout_constraintHorizontal_bias="0.111"
@@ -88,9 +93,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
 
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarjan"
                     app:layout_constraintStart_toEndOf="@+id/progressBarjan"
@@ -101,12 +106,12 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="256dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="28dp"
                     android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintBottom_toTopOf="@+id/progressBarmar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.51"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressBarjan" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <!-- MAR -->
 
@@ -116,9 +121,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="13dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="@font/nunito_semibold"
                     android:text="Feb"
-                    android:textColor="#1B0000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarfeb"
                     app:layout_constraintEnd_toStartOf="@+id/progressBarfeb"
                     app:layout_constraintStart_toStartOf="parent"
@@ -129,9 +134,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarfeb"
                     app:layout_constraintStart_toEndOf="@+id/progressBarfeb"
                     app:layout_constraintTop_toTopOf="@+id/progressBarfeb" />
@@ -141,10 +146,10 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
                     android:textAlignment="textEnd"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarfeb"
                     app:layout_constraintEnd_toEndOf="@+id/progressBarfeb"
                     app:layout_constraintTop_toTopOf="@+id/progressBarfeb" />
@@ -154,9 +159,9 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginStart="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarfeb"
                     app:layout_constraintStart_toStartOf="@+id/progressBarfeb"
                     app:layout_constraintTop_toTopOf="@+id/progressBarfeb" />
@@ -166,9 +171,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarmar"
                     app:layout_constraintStart_toEndOf="@+id/progressBarmar"
                     app:layout_constraintTop_toTopOf="@+id/progressBarmar" />
@@ -178,12 +183,12 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="256dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="28dp"
                     android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintBottom_toTopOf="@+id/progressBarapr"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.51"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressBarfeb" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
 
                 <!-- APR -->
@@ -194,9 +199,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="12dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="Mar"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarmar"
                     app:layout_constraintEnd_toStartOf="@+id/progressBarmar"
                     app:layout_constraintStart_toStartOf="parent"
@@ -207,10 +212,10 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
                     android:textAlignment="textEnd"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarmar"
                     app:layout_constraintEnd_toEndOf="@+id/progressBarmar"
                     app:layout_constraintTop_toTopOf="@+id/progressBarmar" />
@@ -220,7 +225,7 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginStart="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
                     android:textColor="#000000"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarmar"
@@ -233,9 +238,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="12dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="Apr"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarapr"
                     app:layout_constraintEnd_toStartOf="@+id/progressBarapr"
                     app:layout_constraintStart_toStartOf="parent"
@@ -246,11 +251,11 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="256dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="28dp"
                     android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintBottom_toTopOf="@+id/progressBarmay"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressBarmar" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
 
                 <TextView
@@ -258,10 +263,10 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
                     android:textAlignment="textEnd"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarapr"
                     app:layout_constraintEnd_toEndOf="@+id/progressBarapr"
                     app:layout_constraintTop_toTopOf="@+id/progressBarapr" />
@@ -271,9 +276,9 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginStart="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarapr"
                     app:layout_constraintStart_toStartOf="@+id/progressBarapr"
                     app:layout_constraintTop_toTopOf="@+id/progressBarapr" />
@@ -283,9 +288,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarapr"
                     app:layout_constraintStart_toEndOf="@+id/progressBarapr"
                     app:layout_constraintTop_toTopOf="@+id/progressBarapr" />
@@ -296,12 +301,12 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="256dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="28dp"
                     android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintBottom_toTopOf="@+id/progressBarjune"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.51"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressBarapr" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/textViewmay"
@@ -309,9 +314,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="12dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="May"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarmay"
                     app:layout_constraintEnd_toStartOf="@+id/progressBarmay"
                     app:layout_constraintStart_toStartOf="parent"
@@ -322,9 +327,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarmay"
                     app:layout_constraintStart_toEndOf="@+id/progressBarmay"
                     app:layout_constraintTop_toTopOf="@+id/progressBarmay" />
@@ -332,13 +337,13 @@
 
                 <TextView
                     android:id="@+id/defectcountermay"
-                    android:layout_width="24dp"
-                    android:layout_height="18dp"
+                    android:layout_width="28dp"
+                    android:layout_height="20dp"
                     android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
                     android:textAlignment="textEnd"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarmay"
                     app:layout_constraintEnd_toEndOf="@+id/progressBarmay"
                     app:layout_constraintTop_toTopOf="@+id/progressBarmay" />
@@ -348,9 +353,9 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginStart="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarmay"
                     app:layout_constraintStart_toStartOf="@+id/progressBarmay"
                     app:layout_constraintTop_toTopOf="@+id/progressBarmay" />
@@ -360,12 +365,12 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="256dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="28dp"
                     android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintBottom_toTopOf="@+id/progressBarjuly"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.51"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressBarmay" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
 
                 <TextView
@@ -374,9 +379,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="4dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="June"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarjune"
                     app:layout_constraintEnd_toStartOf="@+id/progressBarjune"
                     app:layout_constraintStart_toStartOf="parent"
@@ -388,9 +393,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/robotosemi"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarjune"
                     app:layout_constraintStart_toEndOf="@+id/progressBarjune"
                     app:layout_constraintTop_toTopOf="@+id/progressBarjune" />
@@ -401,10 +406,10 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="8dp"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/robotosemi"
                     android:textAlignment="textEnd"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarjune"
                     app:layout_constraintEnd_toEndOf="@+id/progressBarjune"
                     app:layout_constraintTop_toTopOf="@+id/progressBarjune" />
@@ -414,9 +419,9 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginStart="8dp"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/robotosemi"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarjune"
                     app:layout_constraintStart_toStartOf="@+id/progressBarjune"
                     app:layout_constraintTop_toTopOf="@+id/progressBarjune" />
@@ -426,12 +431,12 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="256dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="28dp"
                     android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintBottom_toTopOf="@+id/progressBaraug"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.51"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressBarjune" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/textViewjuly"
@@ -439,9 +444,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="12dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="July"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarjuly"
                     app:layout_constraintEnd_toStartOf="@+id/progressBarjuly"
                     app:layout_constraintStart_toStartOf="parent"
@@ -453,9 +458,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/robotosemi"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarjuly"
                     app:layout_constraintStart_toEndOf="@+id/progressBarjuly"
                     app:layout_constraintTop_toTopOf="@+id/progressBarjuly" />
@@ -466,10 +471,10 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="8dp"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/robotosemi"
                     android:textAlignment="textEnd"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarjuly"
                     app:layout_constraintEnd_toEndOf="@+id/progressBarjuly"
                     app:layout_constraintTop_toTopOf="@+id/progressBarjuly" />
@@ -479,9 +484,9 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginStart="8dp"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/robotosemi"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarjuly"
                     app:layout_constraintStart_toStartOf="@+id/progressBarjuly"
                     app:layout_constraintTop_toTopOf="@+id/progressBarjuly" />
@@ -491,12 +496,12 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="256dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="28dp"
                     android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintBottom_toTopOf="@+id/progressBarsept"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.51"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressBarjuly" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
 
                 <TextView
@@ -505,9 +510,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="12dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="Aug"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBaraug"
                     app:layout_constraintEnd_toStartOf="@+id/progressBaraug"
                     app:layout_constraintStart_toStartOf="parent"
@@ -519,9 +524,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/robotosemi"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBaraug"
                     app:layout_constraintStart_toEndOf="@+id/progressBaraug"
                     app:layout_constraintTop_toTopOf="@+id/progressBaraug" />
@@ -532,10 +537,10 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="8dp"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
                     android:textAlignment="textEnd"
-                    android:fontFamily="@font/robotosemi"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBaraug"
                     app:layout_constraintEnd_toEndOf="@+id/progressBaraug"
                     app:layout_constraintTop_toTopOf="@+id/progressBaraug" />
@@ -545,9 +550,9 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginStart="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBaraug"
                     app:layout_constraintStart_toStartOf="@+id/progressBaraug"
                     app:layout_constraintTop_toTopOf="@+id/progressBaraug" />
@@ -557,12 +562,12 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="256dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp"
                     android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintBottom_toTopOf="@+id/progressBaroct"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.51"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressBaraug" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/textViewsept"
@@ -570,9 +575,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="12dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="Sept"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarsept"
                     app:layout_constraintEnd_toStartOf="@+id/progressBarsept"
                     app:layout_constraintStart_toStartOf="parent"
@@ -584,9 +589,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarsept"
                     app:layout_constraintStart_toEndOf="@+id/progressBarsept"
                     app:layout_constraintTop_toTopOf="@+id/progressBarsept" />
@@ -596,10 +601,10 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
                     android:textAlignment="textEnd"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarsept"
                     app:layout_constraintEnd_toEndOf="@+id/progressBarsept"
                     app:layout_constraintTop_toTopOf="@+id/progressBarsept" />
@@ -610,9 +615,9 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginStart="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarsept"
                     app:layout_constraintStart_toStartOf="@+id/progressBarsept"
                     app:layout_constraintTop_toTopOf="@+id/progressBarsept" />
@@ -622,12 +627,12 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="256dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="28dp"
                     android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintBottom_toTopOf="@+id/progressBarnov"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.51"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressBarsept" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/textViewoct"
@@ -635,9 +640,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="12dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="Oct"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBaroct"
                     app:layout_constraintEnd_toStartOf="@+id/progressBaroct"
                     app:layout_constraintStart_toStartOf="parent"
@@ -649,9 +654,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBaroct"
                     app:layout_constraintStart_toEndOf="@+id/progressBaroct"
                     app:layout_constraintTop_toTopOf="@+id/progressBaroct" />
@@ -662,10 +667,10 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
                     android:textAlignment="textEnd"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBaroct"
                     app:layout_constraintEnd_toEndOf="@+id/progressBaroct"
                     app:layout_constraintTop_toTopOf="@+id/progressBaroct" />
@@ -677,9 +682,9 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginStart="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBaroct"
                     app:layout_constraintStart_toStartOf="@+id/progressBaroct"
                     app:layout_constraintTop_toTopOf="@+id/progressBaroct" />
@@ -689,12 +694,12 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="256dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="28dp"
                     android:progressDrawable="@drawable/cusprogressbar"
+                    app:layout_constraintBottom_toTopOf="@+id/progressBardec"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.51"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressBaroct" />
+                    app:layout_constraintHorizontal_bias="0.509"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/textViewnov"
@@ -702,9 +707,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="12dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="Nov"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarnov"
                     app:layout_constraintEnd_toStartOf="@+id/progressBarnov"
                     app:layout_constraintStart_toStartOf="parent"
@@ -715,9 +720,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarnov"
                     app:layout_constraintStart_toEndOf="@+id/progressBarnov"
                     app:layout_constraintTop_toTopOf="@+id/progressBarnov" />
@@ -728,10 +733,10 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
                     android:textAlignment="textEnd"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarnov"
                     app:layout_constraintEnd_toEndOf="@+id/progressBarnov"
                     app:layout_constraintTop_toTopOf="@+id/progressBarnov"
@@ -742,9 +747,9 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginStart="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBarnov"
                     app:layout_constraintStart_toStartOf="@+id/progressBarnov"
                     app:layout_constraintTop_toTopOf="@+id/progressBarnov" />
@@ -755,13 +760,12 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="256dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="28dp"
                     android:progressDrawable="@drawable/cusprogressbar"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressBarnov"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintHorizontal_bias="0.509"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/textViewdec"
@@ -769,9 +773,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="12dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="Dec"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBardec"
                     app:layout_constraintEnd_toStartOf="@+id/progressBardec"
                     app:layout_constraintStart_toStartOf="parent"
@@ -782,9 +786,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBardec"
                     app:layout_constraintStart_toEndOf="@+id/progressBardec"
                     app:layout_constraintTop_toTopOf="@+id/progressBardec" />
@@ -794,10 +798,10 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
                     android:textAlignment="textEnd"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBardec"
                     app:layout_constraintEnd_toEndOf="@+id/progressBardec"
                     app:layout_constraintTop_toTopOf="@+id/progressBardec"
@@ -808,9 +812,9 @@
                     android:layout_width="24dp"
                     android:layout_height="18dp"
                     android:layout_marginStart="8dp"
-                    android:fontFamily="@font/robotosemi"
+                    android:fontFamily="sans-serif"
                     android:text="0"
-                    android:textColor="#000000"
+                    android:textColor="#242331"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBardec"
                     app:layout_constraintStart_toStartOf="@+id/progressBardec"
                     app:layout_constraintTop_toTopOf="@+id/progressBardec" />
@@ -818,6 +822,18 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Timeline"
+            android:textColor="#242331"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

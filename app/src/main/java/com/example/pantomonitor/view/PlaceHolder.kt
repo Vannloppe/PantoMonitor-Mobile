@@ -11,10 +11,13 @@ import android.view.ViewGroup
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Surface
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -66,6 +69,8 @@ class PlaceHolder : Fragment() {
 
         binding.Select.setOnClickListener {
            captureImage()
+          //  uploadComplete()
+
         }
 
         return binding.root
@@ -74,6 +79,14 @@ class PlaceHolder : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupcamera()
     }
+
+   private fun error_handling(imageUri: Uri) {
+
+
+
+
+    }
+
 
 
     private fun predict(imageUri: Uri) {
@@ -128,6 +141,7 @@ class PlaceHolder : Fragment() {
 
         database.push().setValue(uploadData)
 
+
 // Releases model resources if no longer used.
        //  model.close()
     }
@@ -181,9 +195,37 @@ class PlaceHolder : Fragment() {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                     // Image captured and saved to outputFileResults.savedUri
                     val savedUri = Uri.fromFile(imageFile)
-                    predict(savedUri)
+                    val errorchecking = 1
+
+
+
+                    if (errorchecking == 1){
+                        predict(savedUri)
                         // Upload image to Firebase Storage
-                    uploadImageToFirebase(savedUri)
+                        uploadImageToFirebase(savedUri)
+
+                        Handler(Looper.getMainLooper()).post {
+
+                            Toast.makeText(requireContext(), "Upload Completed", Toast.LENGTH_SHORT).show()
+                        }
+                        val mainActivity = activity as MainActivity?
+                        mainActivity?.replaceFragment(HomeFrag())
+
+
+                    } else {
+
+                        Handler(Looper.getMainLooper()).post {
+
+                            Toast.makeText(requireContext(), "Image Rejected", Toast.LENGTH_LONG).show()
+                        }
+                        val mainActivity = activity as MainActivity?
+                        mainActivity?.replaceFragment(HomeFrag())
+
+
+
+
+                    }
+
                 }
 
                 override fun onError(exception: ImageCaptureException) {
@@ -200,8 +242,7 @@ class PlaceHolder : Fragment() {
 
         imageRef.putFile(imageUri)
             .addOnSuccessListener {
-                // Image uploaded successfully
-                // Handle success
+
             }
             .addOnFailureListener {
                 // Handle unsuccessful uploads
@@ -232,6 +273,22 @@ class PlaceHolder : Fragment() {
             null
         }
     }
+
+fun uploadComplete() {
+    val toastMessage = "Upload Completed"
+
+    // Showing the toast message
+    Toast.makeText(requireContext(), toastMessage, Toast.LENGTH_SHORT).show()
+    }
+
+    fun imgRejected() {
+        val toastMessage = "No Pantograph Detected "
+
+        // Showing the toast message
+        Toast.makeText(requireContext(), toastMessage, Toast.LENGTH_LONG).show()
+
+    }
+
 
 
 

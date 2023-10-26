@@ -27,11 +27,14 @@ class HomeFrag : Fragment() {
     private lateinit var viewModel: BdMainViewModel
     private lateinit var pieChart: PieChart
 
+
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentHomeBinding.inflate(inflater, container, false)  // Inflate using ViewBinding
         //viewModel = ViewModelProvider(this).get(BdMainViewModel::class.java)
         viewModel = ViewModelProvider(this, BdViewModelFactoy()).get(BdMainViewModel::class.java)
@@ -40,12 +43,18 @@ class HomeFrag : Fragment() {
         pieChart.setDrawEntryLabels(false)
         pieChart.description.isEnabled = false
         val legend = pieChart.legend
-        legend.isEnabled = false
+       legend.isEnabled = false
         pieChart.isHighlightPerTapEnabled = false
         pieChart.isRotationEnabled = false
+
+
+        pieChart.holeRadius = 1f
         pieChart.setTransparentCircleAlpha(0)
-        pieChart.holeRadius = 80f
+        //pieChart.holeRadius = 80f
         pieChart.rotationAngle = 180f
+
+
+
 
 
 
@@ -53,12 +62,23 @@ class HomeFrag : Fragment() {
         viewModel.getGoodData().observe(viewLifecycleOwner, Observer { data ->
             // Update your UI with the data from the ViewModel
             binding.tvgoodcounter.text = data.toString()
+
         })
         // DEFECT
         viewModel.getDefectData().observe(viewLifecycleOwner, Observer { data ->
             // Update your UI with the data from the ViewModel
             binding.tvdefectcounter.text = data.toString()
+
+
+
         })
+
+        //TOTAL
+        viewModel.gettotalcounter().observe(viewLifecycleOwner, Observer { data ->
+            // Update your UI with the data from the ViewModel
+            binding.totalnumEntries.text = data.toString()
+        })
+
 
         // Pie chart settings
         viewModel.pieChartData.observe(viewLifecycleOwner) { entries ->
@@ -80,6 +100,8 @@ class HomeFrag : Fragment() {
             imageRef.downloadUrl.addOnSuccessListener { uri: Uri? ->
                 // Load the image into an ImageView using a library like Picasso or Glide
                 Picasso.get().load(uri).into(binding.imageView)
+
+
             }.addOnFailureListener { exception: Exception? -> }
 
         }
@@ -95,12 +117,14 @@ class HomeFrag : Fragment() {
 
     private fun setupPieChart(entries: List<PieEntry>) {
         val dataSet = PieDataSet(entries, "Daily Assessment")
-        dataSet.colors = mutableListOf(Color.rgb(248,101,101), Color.rgb(67,126,247))
+        dataSet.colors = mutableListOf(Color.rgb(245, 203, 92), Color.rgb(80, 125, 188))
         dataSet.setDrawValues(false)
         val data = PieData(dataSet)
         pieChart.data = data
         pieChart.invalidate()
     }
+
+
 
 
 }

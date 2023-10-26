@@ -19,15 +19,17 @@
         <FrameLayout
             android:id="@+id/frame_layout_main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-
+            android:layout_height="match_parent" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            android:elevation="15dp"
+            app:titleTextColor="#FDFDFD"
+
+
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" />
+            android:background="#306B34" />
 
 
     </RelativeLayout>
@@ -42,6 +44,7 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content">
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bot_nav_bar"
@@ -58,8 +61,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
-                app:itemIconTint="@color/dark_blue"
-                app:itemTextColor="@color/dark_blue"
+                app:itemIconTint="#354B9C"
+                android:elevation="30dp"
                 app:menu="@menu/botnavmenu" />
 
         </com.google.android.material.bottomappbar.BottomAppBar>
@@ -72,6 +75,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        app:itemIconTint="#354B9C"
+        android:elevation="30dp"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_menu" />
 

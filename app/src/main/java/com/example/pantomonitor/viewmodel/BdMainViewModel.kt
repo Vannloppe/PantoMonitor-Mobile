@@ -1,13 +1,14 @@
 package com.example.pantomonitor.viewmodel
 
 
-import android.util.Log
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 import com.example.pantomonitor.model.StatsProvider
 import com.github.mikephil.charting.data.PieEntry
+import com.google.firebase.auth.FirebaseAuth
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -33,9 +34,13 @@ class BdMainViewModel : ViewModel() {
     private val getoct = database.orderByChild("Date").startAt("10").endAt("10\uf8ff")
     private val getnov = database.orderByChild("Date").startAt("11").endAt("11\uf8ff")
     private val getdec = database.orderByChild("Date").startAt("12").endAt("12\uf8ff")
-
     private val storage = FirebaseStorage.getInstance()
-    val storageRef: StorageReference = storage.reference
+    private val storageRef: StorageReference = storage.reference
+
+
+
+
+
 
 
     private var stats = StatsProvider()
@@ -44,11 +49,15 @@ class BdMainViewModel : ViewModel() {
 
 
     init {
+
+
+
         val entries = mutableListOf<PieEntry>()
        getbad.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(querySnapshot: DataSnapshot) {
                 if (querySnapshot.exists()) {
                     stats.Defectcounterdata.value = querySnapshot.childrenCount.toString()
+                    stats.totalcounterdata.value = querySnapshot.childrenCount.toInt()
                     val defect = querySnapshot.childrenCount.toFloat()
                     entries.add(PieEntry(defect, "defect"))
                     }
@@ -57,8 +66,12 @@ class BdMainViewModel : ViewModel() {
                     override fun onDataChange(querySnapshot: DataSnapshot) {
                         if (querySnapshot.exists()) {
                             stats.Goodcounterdata.value = querySnapshot.childrenCount.toString()
+                            stats.totalcounterdata.value = stats.totalcounterdata.value?.plus(
+                                querySnapshot.childrenCount.toInt()
+                            )
                              // Now you can use 'documentCount' as the total count of documents that match your query.
                             val good = querySnapshot.childrenCount.toFloat()
+
                             entries.add(PieEntry(good, "Good"))
                         }
                         _pieChartData.postValue(entries)
@@ -326,8 +339,9 @@ class BdMainViewModel : ViewModel() {
 
     }
 
-
-
+    fun getUsername(): LiveData<String>{
+        return stats.Username
+    }
 
     fun getGoodData(): LiveData<String>{
         return stats.Goodcounterdata
@@ -410,6 +424,10 @@ class BdMainViewModel : ViewModel() {
     }
     fun getlatestgooddec(): LiveData<Int>{
         return  stats.goodcounterdec
+    }
+
+    fun gettotalcounter(): LiveData<Int>{
+        return  stats.totalcounterdata
     }
 
     fun getlatestpic(img: String): StorageReference {

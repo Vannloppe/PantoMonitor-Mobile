@@ -26,19 +26,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="666dp"
                 android:background="#000"
-                android:src="@drawable/ic_image"
-                android:visibility="invisible" />
+                android:src="@drawable/ic_image" />
         </androidx.camera.view.PreviewView>
 
 
         <Button
             android:id="@+id/Select"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="152dp"
-            android:layout_marginTop="708dp"
-            android:text="Capture"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="684dp"
+            android:background="@drawable/baseline_photo_camera_24"
+            app:layout_constraintStart_toStartOf="@id/preview"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
