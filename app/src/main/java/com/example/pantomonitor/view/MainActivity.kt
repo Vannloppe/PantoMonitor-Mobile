@@ -11,7 +11,9 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.pantomonitor.R
 import com.example.pantomonitor.databinding.ActivityMainBinding
+import com.example.pantomonitor.ml.CnnV1
 import com.example.pantomonitor.ml.LiteModel
+import com.example.pantomonitor.ml.Wearnet1
 import com.example.pantomonitor.viewmodel.BdMainViewModel
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: BdMainViewModel
     private lateinit var binding: ActivityMainBinding
     private lateinit var model: LiteModel
+    private lateinit var errorhandling: Wearnet1
     private lateinit var firebaseAuth: FirebaseAuth
 
 
@@ -32,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-
+        errorhandling = Wearnet1.newInstance(this)
         model = LiteModel.newInstance(this)
         firebaseAuth = FirebaseAuth.getInstance()
 
@@ -158,6 +161,10 @@ class MainActivity : AppCompatActivity() {
     }
     fun getLiteModel(): LiteModel {
         return model
+    }
+
+    fun geterrorhandling(): Wearnet1 {
+        return errorhandling
     }
 
     private fun logout() {

@@ -1,8 +1,6 @@
 package com.example.pantomonitor.view
 
-import android.app.Activity
 import android.content.ContentValues.TAG
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,10 +11,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
-import android.provider.MediaStore
 import android.util.Log
-import android.view.Surface
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -35,7 +30,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import org.tensorflow.lite.DataType
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -46,7 +40,9 @@ import java.util.concurrent.Executors
 
 class PlaceHolder : Fragment() {
 
+
     private lateinit var binding: FragmentPlaceHolderBinding
+
 
 
     private var database = FirebaseDatabase.getInstance().getReference("New_Entries")
@@ -67,6 +63,8 @@ class PlaceHolder : Fragment() {
             .add(ResizeOp(224, 224, ResizeOp.ResizeMethod.BILINEAR))
             .build()
 
+
+
         binding.Select.setOnClickListener {
            captureImage()
           //  uploadComplete()
@@ -80,11 +78,39 @@ class PlaceHolder : Fragment() {
         setupcamera()
     }
 
-   private fun error_handling(imageUri: Uri) {
+    private fun error_handling(imageUri: Uri): Int {
+        val bitmap = uriToBitmap(imageUri)
+        var tensorImage = TensorImage(DataType.FLOAT32)
+        tensorImage.load(bitmap)
+
+        tensorImage = imageProcessor.process(tensorImage)
+
+        val activity = requireActivity() as MainActivity
+      val model = activity.geterrorhandling()
 
 
+       //val model = activity.getLiteModel()
 
 
+// Creates inputs for reference.
+        val inputFeature0 =
+            TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
+        inputFeature0.loadBuffer(tensorImage.buffer)
+
+// Runs model inference and gets result.
+        val outputs = model.process(inputFeature0)
+
+        val outputFeature0 = outputs.outputFeature0AsTensorBuffer.floatArray
+
+
+        var maxIdx = 0
+        outputFeature0.forEachIndexed { index, fl ->
+            if (outputFeature0[maxIdx] < fl) {
+                maxIdx = index
+            }
+        }
+
+        return maxIdx
     }
 
 
@@ -117,7 +143,7 @@ class PlaceHolder : Fragment() {
                 maxIdx = index
             }
         }
-        var check = arrayOf("Good", "Good", "Bad", "Bad")
+        var check = arrayOf("Good", "Replace")
         var bindtext = check[maxIdx]
         val currentTime = Date()
         val timeFormattime = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
@@ -195,13 +221,18 @@ class PlaceHolder : Fragment() {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                     // Image captured and saved to outputFileResults.savedUri
                     val savedUri = Uri.fromFile(imageFile)
-                    val errorchecking = 1
+
+                    val errorchecking = error_handling(savedUri)
 
 
 
-                    if (errorchecking == 1){
+
+
+
+
+                    if (errorchecking == 0){
                         predict(savedUri)
-                        // Upload image to Firebase Storage
+
                         uploadImageToFirebase(savedUri)
 
                         Handler(Looper.getMainLooper()).post {
@@ -274,20 +305,7 @@ class PlaceHolder : Fragment() {
         }
     }
 
-fun uploadComplete() {
-    val toastMessage = "Upload Completed"
 
-    // Showing the toast message
-    Toast.makeText(requireContext(), toastMessage, Toast.LENGTH_SHORT).show()
-    }
-
-    fun imgRejected() {
-        val toastMessage = "No Pantograph Detected "
-
-        // Showing the toast message
-        Toast.makeText(requireContext(), toastMessage, Toast.LENGTH_LONG).show()
-
-    }
 
 
 
