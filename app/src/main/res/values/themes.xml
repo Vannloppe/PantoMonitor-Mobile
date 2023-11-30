@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.PantoMonitor" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:fontFamily">sans-serif-light</item>
 
 
         <item name="colorPrimary">@color/grey</item>
@@ -11,7 +12,11 @@
 
         <item name="colorOnSecondary">@color/black</item>
         <item name="colorPrimaryDark">@color/white</item>
-    </style>me
 
+    </style>
+
+
+
+    
     <style name="Theme.PantoMonitor" parent="Base.Theme.PantoMonitor" />
 </resources>

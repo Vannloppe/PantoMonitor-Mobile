@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/outlinexport">
+
+        <FrameLayout
+            android:id="@+id/frameLayout2"
+            android:layout_width="45dp"
+            android:layout_height="30dp"
+            android:background="@drawable/outlinexport"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/frameLayout4">
+
+            <TextView
+                android:id="@+id/statusviewex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-light"
+                android:text="Status"
+                android:textAlignment="center"
+                android:textColor="#242331"
+                android:textSize="4dp" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout8"
+            android:layout_width="45dp"
+            android:layout_height="30dp"
+            android:background="@drawable/outlinexport"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/frameLayout2">
+
+            <TextView
+                android:id="@+id/dateviewex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-light"
+                android:text="Date:"
+                android:textAlignment="center"
+                android:textColor="#242331"
+                android:textSize="4dp" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout4"
+            android:layout_width="45dp"
+            android:layout_height="30dp"
+            android:background="@drawable/outlinexport"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/imgViewex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="imgviewex"
+                android:textSize="4dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout10"
+            android:layout_width="45dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="231dp"
+            android:background="@drawable/outlinexport"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/frameLayout8">
+
+            <TextView
+                android:id="@+id/timeviewex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-light"
+                android:text="Time"
+                android:textAlignment="center"
+                android:textColor="#242331"
+                android:textSize="4dp" />
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

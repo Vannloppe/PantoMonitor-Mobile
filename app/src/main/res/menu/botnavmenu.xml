@@ -6,15 +6,15 @@
 
     <item
         android:id="@+id/bot_Home"
-       android:icon="@drawable/baseline_home_24"
+       android:icon="@drawable/fi_rr_home"
         android:title="Home" />
 
     <item
         android:id="@+id/bot_Placeholder"
-        android:icon="@drawable/baseline_filter_prediction"
+        android:icon="@drawable/fi_rr_camera"
         android:title="Prediction" />
     <item
         android:id="@+id/bot_Timeline"
-        android:icon="@drawable/baseline_timeline_24"
+        android:icon="@drawable/fi_rr_chart_histogram"
         android:title="Timeline" />
 </menu>

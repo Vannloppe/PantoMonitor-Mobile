@@ -7,23 +7,28 @@
 
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/baseline_home_24"
+            android:icon="@drawable/fi_rr_home"
             android:title="Home"/>
         <item
             android:id="@+id/nav_prediction"
-            android:icon="@drawable/baseline_filter_prediction"
+            android:icon="@drawable/fi_rr_camera"
             android:title="Prediction"/>
         <item
             android:id="@+id/nav_timeline"
-            android:icon="@drawable/baseline_timeline_24"
+            android:icon="@drawable/fi_rr_chart_histogram"
             android:title="Timeline"/>
         <item
+            android:id="@+id/nav_export"
+            android:icon="@drawable/baseline_import_export_24"
+            android:title="Export"/>
+        <item
             android:id="@+id/nav_about"
-            android:icon="@drawable/baseline_about_24"
+            android:icon="@drawable/fi_rr_interrogation"
             android:title="About Us"/>
+
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/baseline_logout_24"
+            android:icon="@drawable/fi_rr_sign_out"
             android:title="Logout"/>
     </group>
 

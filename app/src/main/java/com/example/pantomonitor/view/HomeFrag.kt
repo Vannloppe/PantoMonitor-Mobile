@@ -18,6 +18,7 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.Adapter
 import com.squareup.picasso.Picasso
 
 
@@ -39,19 +40,18 @@ class HomeFrag : Fragment() {
         //viewModel = ViewModelProvider(this).get(BdMainViewModel::class.java)
         viewModel = ViewModelProvider(this, BdViewModelFactoy()).get(BdMainViewModel::class.java)
         pieChart = binding.pieChart
-        pieChart.maxAngle = 180f
+        //pieChart.maxAngle = 180f
         pieChart.setDrawEntryLabels(false)
         pieChart.description.isEnabled = false
         val legend = pieChart.legend
-       legend.isEnabled = false
-        pieChart.isHighlightPerTapEnabled = false
+        legend.isEnabled = false
+        //pieChart.isHighlightPerTapEnabled = false
         pieChart.isRotationEnabled = false
-
-
-        pieChart.holeRadius = 1f
-        pieChart.setTransparentCircleAlpha(0)
+        pieChart.minAngleForSlices = 10f
+        pieChart.holeRadius = 60f
+        pieChart.setTransparentCircleAlpha(255)
         //pieChart.holeRadius = 80f
-        pieChart.rotationAngle = 180f
+        //pieChart.rotationAngle = 180f
 
 
 
@@ -106,19 +106,15 @@ class HomeFrag : Fragment() {
 
         }
 
-
-
-
-
-
             return binding.root
     }
 
 
     private fun setupPieChart(entries: List<PieEntry>) {
         val dataSet = PieDataSet(entries, "Daily Assessment")
-        dataSet.colors = mutableListOf(Color.rgb(245, 203, 92), Color.rgb(80, 125, 188))
+        dataSet.colors = mutableListOf(Color.rgb(241, 201, 59), Color.rgb(159, 187, 115))
         dataSet.setDrawValues(false)
+        dataSet.sliceSpace = 5f
         val data = PieData(dataSet)
         pieChart.data = data
         pieChart.invalidate()

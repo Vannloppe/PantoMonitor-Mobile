@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start"
-    tools:context=".view.MainActivity">
+    tools:context=".view.MainActivity"
+    tools:openDrawer="start">
 
 
     <RelativeLayout
@@ -19,38 +18,34 @@
         <FrameLayout
             android:id="@+id/frame_layout_main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:elevation="15dp"
-            app:titleTextColor="#FDFDFD"
-
-
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#306B34" />
+            android:layout_height="wrap_content"
+            android:background="#E0F4FF"
+            app:navigationIcon="@drawable/fi_rr_menu_burger"
+            app:titleTextColor="#242331" />
 
 
     </RelativeLayout>
 
 
-
-
-
-
-
-
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content">
+
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bot_nav_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            app:backgroundTint="#E0F4FF"
+            app:elevation="0dp"
             app:fabCradleMargin="0dp"
             app:fabCradleRoundedCornerRadius="10dp"
             app:fabCradleVerticalOffset="10dp">
@@ -61,8 +56,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
-                app:itemIconTint="#354B9C"
-                android:elevation="30dp"
+                android:background="#E0F4FF"
+                app:elevation="0dp"
+                app:itemIconTint="?android:attr/textColorTertiary"
+                app:itemTextColor="@android:color/tertiary_text_dark"
                 app:menu="@menu/botnavmenu" />
 
         </com.google.android.material.bottomappbar.BottomAppBar>
@@ -75,9 +72,12 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:itemIconTint="#354B9C"
+        android:background="#FFF6F6"
         android:elevation="30dp"
+        android:visibility="gone"
         app:headerLayout="@layout/nav_header"
+        app:itemIconTint="?android:attr/textColorTertiary"
+        app:itemTextColor="@android:color/tertiary_text_dark"
         app:menu="@menu/nav_menu" />
 
 
