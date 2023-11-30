@@ -67,6 +67,9 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx:22.1.2")
     implementation("androidx.gridlayout:gridlayout:1.0.0")
 
+    implementation ("org.apache.poi:poi:4.1.2")
+    implementation ("org.apache.poi:poi-ooxml:4.1.2")
+
     implementation("com.google.firebase:firebase-storage-ktx:20.2.1")
     implementation("com.google.firebase:firebase-database-ktx:20.2.2")
     implementation("androidx.databinding:databinding-runtime:8.1.1")

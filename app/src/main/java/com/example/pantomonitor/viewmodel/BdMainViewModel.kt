@@ -181,6 +181,30 @@ class BdMainViewModel : ViewModel() {
         })
     }
 
+    fun updateQueryexport(userInput: String, userInput2: String) {
+        // Update the query based on user input
+        val query = database.orderByChild("Date").startAt("$userInput").endAt("$userInput2")
+
+        // Fetch data using the updated query
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val items = mutableListOf<timelinephoto>()
+
+                for (dataSnapshot in snapshot.children) {
+                    val item = dataSnapshot.getValue(timelinephoto::class.java)
+                    item?.let { items.add(it) }
+                }
+
+                // Update _data LiveData with the new filtered data
+                _dataList.value = items
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle errors here
+            }
+        })
+    }
+
     fun updateQuery(userInput: String) {
         // Update the query based on user input
         val query = database.orderByChild("Date").startAt("$userInput-").endAt("$userInput-\uF8FF")

@@ -3,11 +3,7 @@ package com.example.pantomonitor.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.pdf.PdfDocument
-import android.media.Image
+
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -19,7 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.FrameLayout
+
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
@@ -29,27 +25,32 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+
 import com.example.pantomonitor.R
 import com.example.pantomonitor.databinding.ActivityMainBinding
-import com.example.pantomonitor.databinding.PdfexportBinding
+
 import com.example.pantomonitor.ml.LiteModel
 import com.example.pantomonitor.ml.Wearnet1
 
 import com.example.pantomonitor.viewmodel.BdMainViewModel
 import com.example.pantomonitor.viewmodel.BdViewModelFactoy
+import com.example.pantomonitor.viewmodel.timelinephoto
 import com.google.firebase.auth.FirebaseAuth
-import com.itextpdf.text.Document
-import com.itextpdf.text.PageSize
-import com.itextpdf.text.pdf.PdfWriter
-import java.io.ByteArrayOutputStream
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.ss.usermodel.Row
+import org.apache.poi.ss.usermodel.Workbook
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
+
 import java.io.File
+
 import java.io.FileOutputStream
-import java.io.IOException
+
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -59,6 +60,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var errorhandling: Wearnet1
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var exadapter: Adapterexport
+    private val storage = FirebaseStorage.getInstance()
+    private val storageRef: StorageReference = storage.reference
 
 
     @RequiresApi(Build.VERSION_CODES.R)
@@ -99,7 +102,7 @@ class MainActivity : AppCompatActivity() {
             val customActionBar = LayoutInflater.from(this@MainActivity)
                 .inflate(R.layout.actionbar_font, null)
             customView = customActionBar
-        // Set your menu icon here
+            // Set your menu icon here
         }
 
 
@@ -110,7 +113,6 @@ class MainActivity : AppCompatActivity() {
         val headerTextView: TextView = headerView.findViewById(R.id.usernametxtview)
         val headerTextView1: TextView = headerView.findViewById(R.id.dateviewheader)
         val headerTextView2: TextView = headerView.findViewById(R.id.timetodatheader)
-
 
 
         val handler = Handler()
@@ -124,14 +126,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         handler.postDelayed(runnable, 1000)
-
-
-
-
-
-
-
-
 
 
         val firebaseAuth = FirebaseAuth.getInstance()
@@ -158,16 +152,19 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home -> replaceFragment(HomeFrag())
                 R.id.nav_timeline -> replaceFragment(TimelineFragment())
                 R.id.nav_prediction -> replaceFragment(PlaceHolder())
-                R.id.nav_export ->  {  val anchorView: View = findViewById(R.id.nav_export)
+                R.id.nav_export -> {
+                    val anchorView: View = findViewById(R.id.nav_export)
                     showPopup(anchorView)
-                    true}
+                    true
+                }
+
                 R.id.nav_about -> replaceFragment(AboutFragment())
                 R.id.nav_logout -> logout()
 
                 else -> {
                 }
             }
-                binding.drawerLayout.closeDrawers()
+            binding.drawerLayout.closeDrawers()
             true
         }
 
@@ -183,8 +180,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
-        }
+    }
 
     private fun updateDate(): String {
         val currentDateTime = Date()
@@ -205,24 +201,14 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-    fun replaceFragment(fragment: Fragment){
+    fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_layout_main,fragment)
+        fragmentTransaction.replace(R.id.frame_layout_main, fragment)
         fragmentTransaction.commit()
 
     }
+
     fun getLiteModel(): LiteModel {
         return model
     }
@@ -257,10 +243,8 @@ class MainActivity : AppCompatActivity() {
 
         val editText: EditText = popupView.findViewById(R.id.editTextDate)
         val editText1: EditText = popupView.findViewById(R.id.editTextDate2)
-        val btnSubmit: Button = popupView.findViewById(R.id.button1)
         val btnFilter: Button = popupView.findViewById(R.id.buttonfilter)
 
-        val pdfLayout: View = LayoutInflater.from(this).inflate(R.layout.pdfexport, null)
 
         // Find the RecyclerView container
 
@@ -279,116 +263,81 @@ class MainActivity : AppCompatActivity() {
         // Show the popup window
         popupWindow.showAtLocation(anchorView, Gravity.CENTER, 0, 0)
 
-        btnFilter.setOnClickListener{
-            val enteredText = editText.text.toString()
+        btnFilter.setOnClickListener {
+            val enteredText1 = editText.text.toString()
+            val enteredText2 = editText1.text.toString()
 
-            viewModel.updateQuery(enteredText)
+            val Dataname = updateDate() + ".xls"
 
-            val recyclerView = RecyclerView(this)
+            viewModel.updateQueryexport(enteredText1,enteredText2)
+
+
             viewModel.dataList.observe(this) { newData ->
 
-                exadapter = newData?.let { it1 -> Adapterexport(it1) }!!
-
-                recyclerView.layoutManager = LinearLayoutManager(this)
-                recyclerView.adapter = exadapter
-                exadapter.notifyDataSetChanged()
-
-            }
-            val recyclerViewContainer = pdfLayout.findViewById<FrameLayout>(R.id.recyclerViewContainer)
-            recyclerViewContainer.addView(recyclerView)
+                if (!newData.isNullOrEmpty()) {
 
 
 
+                    val workbook: Workbook =   HSSFWorkbook()
+                    val sheet = workbook.createSheet("Exported")
+
+                    val headerRow: Row = sheet.createRow(0)
+                    headerRow.createCell(0).setCellValue("Img-link")
+                    headerRow.createCell(1).setCellValue("Img")
+                    headerRow.createCell(2).setCellValue("Assessment")
+                    headerRow.createCell(3).setCellValue("Date")
+                    headerRow.createCell(4).setCellValue("Time")
+
+                    var rowNum = 1
+                    for (data in newData) {
+                        val row: Row = sheet.createRow(rowNum++)
+                        row.createCell(0).setCellValue(gettimepic(data.Img).toString())
+                        row.createCell(1).setCellValue(data.Img)
+                        row.createCell(2).setCellValue(data.Assessment)
+                        row.createCell(3).setCellValue(data.Date)
+                        row.createCell(4).setCellValue(data.Time)
+                        // Add more cells for additional columns
+                    }
+
+                    // Write the workbook to the file
+
+
+                    val filePath =
+                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                            .absolutePath + File.separator + Dataname
+
+                    val fileOut = FileOutputStream(filePath)
+                    workbook.write(fileOut)
+                    fileOut.close()
 
 
 
-            showToast("FILTERED")
-
-
-        }
-
-
-        btnSubmit.setOnClickListener {
-
-
-
-                val timestr = updateDate() + ".pdf"
-                val document = Document(PageSize.A4)
-                val directoryPath =
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                val file = File(directoryPath, timestr)
-                //val pageInfo = PdfDocument.PageInfo.Builder(pdfLayout.width, pdfLayout.height, 1).create()
-                //val page = pdfDocument.startPage(pageInfo)
-
-                try {
-                    // Create a PdfWriter instance
-
-                        pdfLayout.measure(
-                            View.MeasureSpec.makeMeasureSpec(
-                                PageSize.A4.width.toInt(),
-                                View.MeasureSpec.EXACTLY
-                            ),
-                            View.MeasureSpec.makeMeasureSpec(
-                                PageSize.A4.height.toInt(),
-                                View.MeasureSpec.EXACTLY
-                            )
-                        )
-
-                        pdfLayout.layout(0, 0, pdfLayout.measuredWidth, pdfLayout.measuredHeight)
-
-
-                        val writer = PdfWriter.getInstance(document, FileOutputStream(file))
-                        document.open()
-                        // Convert the inflated view to a Bitmap..
-
-
-                        val bitmap = createBitmapFromView(pdfLayout)
-
-                        // Create an iText Image from the Bitmap
-                        val image = com.itextpdf.text.Image.getInstance(bitmapToByteArray(bitmap))
-
-                        // Set the size of the image to fit the PDF page
-
-                        image.scaleToFit(document.pageSize.width, document.pageSize.height)
-
-                        // Add the image to the PDF document
-                        document.add(image)
-
-
-
-
-
-
-
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    showToast("Failed")
-                } finally {
-                    showToast("Success")
-                    document.close()
+                } else {
+                    showToast("Filter Unsuccessful")
                 }
 
 
+            }
 
 
 
 
 
 
-
-
-
-
-            // Close the popup window
+            showToast("Success")
             popupWindow.dismiss()
+
+
+
         }
-        
-        
-        
+
+
+
+
 
         // Close the popup window when clicked
         popupView.setOnClickListener {
-           // popupWindow.dismiss()
+            //
         }
     }
 
@@ -397,25 +346,19 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    fun createBitmapFromView(view: View): Bitmap {
-        val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-        view.draw(canvas)
-        return bitmap
+    private fun gettimepic(img: String): StorageReference {
+
+        return storageRef.child("images/${img}")
     }
-
-
-    fun bitmapToByteArray(bitmap: Bitmap): ByteArray {
-        val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-        return stream.toByteArray()
-    }
-
-
-
-
-
-
 
 }
+
+
+
+
+
+
+
+
+
 

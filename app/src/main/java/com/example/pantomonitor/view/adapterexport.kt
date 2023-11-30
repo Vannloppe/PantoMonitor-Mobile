@@ -63,5 +63,10 @@ class Adapterexport(private var list: List<timelinephoto>): RecyclerView.Adapter
         notifyDataSetChanged()
     }
 
+    fun getDataList(): List<timelinephoto> {
+        notifyDataSetChanged()
+        return dataList
+    }
+
 
 }

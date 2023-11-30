@@ -16,19 +16,6 @@
         android:layout_height="match_parent">
 
 
-        <ImageView
-            android:layout_width="76dp"
-            android:layout_height="67dp"
-            android:layout_marginEnd="150dp"
-            android:layout_marginBottom="24dp"
-            android:src="@drawable/pepicons_pencil_train_circle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.215"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.735" />
-
         <TextView
             android:id="@+id/usernametxtview"
             android:layout_width="wrap_content"
@@ -80,6 +67,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.55"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="81dp"
+            android:layout_height="74dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView13"
+            app:layout_constraintHorizontal_bias="0.566"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/_701334124272_1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
