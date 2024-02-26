@@ -13,6 +13,7 @@ import com.example.pantomonitor.viewmodel.timelinephoto
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
+import java.text.SimpleDateFormat
 
 class RecylerViewTimeline(private var list: List<timelinephoto>): RecyclerView.Adapter<RecylerViewTimeline.MyView>() {
     private val storage = FirebaseStorage.getInstance()
@@ -62,9 +63,14 @@ class RecylerViewTimeline(private var list: List<timelinephoto>): RecyclerView.A
             Picasso.get().load(uri).into(holder.itemBinding.imageViewtl)
         }
 
-        holder.itemBinding.dateviewtl.text = currentItem.Date
+
+        val date = currentItem.Date.toLong() * 1000L
+        val dateFormat = SimpleDateFormat("MM-dd-yyyy")
+        holder.itemBinding.dateviewtl.text = dateFormat.format(date)
         holder.itemBinding.statusviewtl.text = currentItem.Assessment
         holder.itemBinding.timeviewtl.text = currentItem.Time
+        holder.itemBinding.Trainno.text = currentItem.TrainNo
+        holder.itemBinding.cartno.text = currentItem.CartNo
 
     }
 

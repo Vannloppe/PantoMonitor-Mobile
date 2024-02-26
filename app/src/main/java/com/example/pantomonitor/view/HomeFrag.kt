@@ -20,6 +20,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.Adapter
 import com.squareup.picasso.Picasso
+import java.text.SimpleDateFormat
 
 
 class HomeFrag : Fragment() {
@@ -37,21 +38,18 @@ class HomeFrag : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)  // Inflate using ViewBinding
-        //viewModel = ViewModelProvider(this).get(BdMainViewModel::class.java)
         viewModel = ViewModelProvider(this, BdViewModelFactoy()).get(BdMainViewModel::class.java)
         pieChart = binding.pieChart
-        //pieChart.maxAngle = 180f
+
         pieChart.setDrawEntryLabels(false)
         pieChart.description.isEnabled = false
         val legend = pieChart.legend
         legend.isEnabled = false
-        //pieChart.isHighlightPerTapEnabled = false
+
         pieChart.isRotationEnabled = false
         pieChart.minAngleForSlices = 10f
         pieChart.holeRadius = 60f
         pieChart.setTransparentCircleAlpha(255)
-        //pieChart.holeRadius = 80f
-        //pieChart.rotationAngle = 180f
 
 
 
@@ -85,12 +83,24 @@ class HomeFrag : Fragment() {
             setupPieChart(entries)
         }
 
+
+        viewModel.gettrainno().observe(viewLifecycleOwner) { data ->
+            binding.Trainno.text = data.toString()
+        }
+
+        viewModel.getcartno().observe(viewLifecycleOwner) { data ->
+            binding.cartno.text = data.toString()
+        }
+
         viewModel.getlatestStatus().observe(viewLifecycleOwner) { data ->
             binding.statusview.text = data.toString()
         }
 
         viewModel.getlatestDate().observe(viewLifecycleOwner) { data ->
-            binding.dateview.text = data.toString()
+
+            val date = data.toLong() * 1000L
+            val dateFormat = SimpleDateFormat("MM-dd-yyyy")
+            binding.dateview.text = dateFormat.format(date)
         }
         viewModel.getlatestTime().observe(viewLifecycleOwner) { data ->
             binding.timeview.text = data.toString()

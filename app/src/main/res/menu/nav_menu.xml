@@ -15,16 +15,28 @@
             android:title="Prediction"/>
         <item
             android:id="@+id/nav_timeline"
-            android:icon="@drawable/fi_rr_chart_histogram"
+            android:icon="@drawable/baseline_calendar_today_24"
             android:title="Timeline"/>
         <item
             android:id="@+id/nav_export"
             android:icon="@drawable/baseline_import_export_24"
             android:title="Export"/>
+
+        <item
+            android:id="@+id/nav_analyics"
+            android:icon="@drawable/fi_rr_chart_histogram"
+            android:title="Analytics"/>
+
+
+
+
         <item
             android:id="@+id/nav_about"
-            android:icon="@drawable/fi_rr_interrogation"
+            android:icon="@drawable/fi_rr_comment_alt"
             android:title="About Us"/>
+
+
+
 
         <item
             android:id="@+id/nav_logout"

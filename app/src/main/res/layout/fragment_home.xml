@@ -104,6 +104,110 @@
                 android:layout_height="match_parent">
 
                 <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/imageView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/imageView16"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginBottom="18dp"
+                            android:src="@drawable/bus"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.516" />
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginBottom="18dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Train No."
+                            android:textColor="#242331"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView16"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/imageView17"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginEnd="7dp"
+                            android:layout_marginBottom="18dp"
+                            android:src="@drawable/scanner"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/textView17"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView17"
+                            android:layout_width="wrap_content"
+                            android:layout_height="19dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginEnd="56dp"
+                            android:layout_marginBottom="18dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Cart No."
+                            android:textColor="#242331"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="1.0" />
+
+                        <TextView
+                            android:id="@+id/cartno"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="19dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="18dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="00"
+                            android:textColor="#242331"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/textView17"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <TextView
+                            android:id="@+id/Trainno"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginBottom="19dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="00"
+                            android:textColor="#242331"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/textView15"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </FrameLayout>
+
+                <FrameLayout
                     android:id="@+id/frameLayout10"
                     android:layout_width="118dp"
                     android:layout_height="40dp"
@@ -119,7 +223,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:fontFamily="sans-serif-light"
+                            android:fontFamily="sans-serif-medium"
                             android:paddingStart="8dp"
                             android:text="Time"
                             android:textAlignment="textStart"
@@ -166,7 +270,7 @@
                             android:layout_height="18dp"
 
                             android:layout_marginTop="9dp"
-                            android:fontFamily="sans-serif-light"
+                            android:fontFamily="sans-serif-medium"
                             android:paddingStart="14dp"
                             android:text="STATUS"
                             android:textAlignment="textStart"
@@ -227,7 +331,7 @@
                             android:layout_width="0dp"
                             android:layout_height="18dp"
                             android:layout_marginTop="10dp"
-                            android:fontFamily="sans-serif-light"
+                            android:fontFamily="sans-serif-medium"
                             android:paddingStart="8dp"
                             android:text="Date:"
                             android:textAlignment="textStart"
@@ -245,7 +349,7 @@
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="316dp"
 
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
@@ -255,11 +359,12 @@
                     android:scaleType="fitXY"
                     app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@drawable/ic_image"
 
-                    />
+                    app:layout_constraintVertical_bias="1.0"
+                    tools:src="@drawable/ic_image" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </FrameLayout>
@@ -326,7 +431,7 @@
                     android:layout_marginTop="75dp"
                     android:layout_marginEnd="99dp"
                     android:layout_marginBottom="89dp"
-                    android:fontFamily="sans-serif-thin"
+                    android:fontFamily="sans-serif-light"
                     android:text="0"
                     android:textColor="#242331"
                     android:textSize="48sp"
@@ -340,7 +445,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="92dp"
-                    android:fontFamily="sans-serif-thin"
+                    android:fontFamily="sans-serif-light"
                     android:text="TOTAL "
                     android:textAlignment="center"
                     android:textColor="#242331"
@@ -386,7 +491,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginBottom="8dp"
-                    android:fontFamily="sans-serif-thin"
+                    android:fontFamily="sans-serif-light"
                     android:text="0"
                     android:textColor="#242331"
                     android:textSize="34sp"
@@ -400,7 +505,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:fontFamily="sans-serif-thin"
+                    android:fontFamily="sans-serif-light"
                     android:text="Good"
                     android:textColor="#242331"
                     android:textSize="20sp"
@@ -446,7 +551,7 @@
 
                     android:layout_marginStart="8dp"
                     android:layout_marginBottom="8dp"
-                    android:fontFamily="sans-serif-thin"
+                    android:fontFamily="sans-serif-light"
                     android:text="0"
                     android:textAlignment="center"
                     android:textColor="#242331"
@@ -461,7 +566,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:fontFamily="sans-serif-thin"
+                    android:fontFamily="sans-serif-light"
                     android:text="Replace"
                     android:textAlignment="textStart"
                     android:textColor="#242331"

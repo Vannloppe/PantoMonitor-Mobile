@@ -1,5 +1,6 @@
 package com.example.pantomonitor.view
 
+import android.app.Dialog
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,9 +10,15 @@ import android.view.ViewGroup
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.Gravity
+import android.widget.Button
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -20,8 +27,11 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import com.example.pantomonitor.R
 import com.example.pantomonitor.databinding.FragmentPlaceHolderBinding
+import com.example.pantomonitor.databinding.TrainnoBinding
+import com.example.pantomonitor.viewmodel.BdMainViewModel
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
@@ -29,8 +39,12 @@ import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.ss.usermodel.Row
+import org.apache.poi.ss.usermodel.Workbook
 import org.tensorflow.lite.DataType
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -38,10 +52,16 @@ import java.util.Locale
 import java.util.concurrent.Executors
 
 
-class PlaceHolder : Fragment() {
+interface PopupInteractionListener {
+    fun updateTextView(text: String,text2: String)
+}
+
+class PlaceHolder : Fragment(),PopupInteractionListener {
 
 
     private lateinit var binding: FragmentPlaceHolderBinding
+
+
 
 
 
@@ -50,13 +70,18 @@ class PlaceHolder : Fragment() {
     private lateinit var imageCapture: ImageCapture
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentPlaceHolderBinding.inflate(inflater, container, false)
+
+
+
+
+
+
         imageProcessor = ImageProcessor.Builder()
             //.add(NormalizeOp(0.0f, 225.0f))
             //.add(TransformToGrayscaleOp())
@@ -66,16 +91,22 @@ class PlaceHolder : Fragment() {
 
 
         binding.Select.setOnClickListener {
-           captureImage()
-          //  uploadComplete()
+            captureImage()
+            //  uploadComplete()
 
         }
 
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupcamera()
+
+        binding.Frametrain.setOnClickListener {
+            showPopup()
+
+        }
     }
 
     private fun error_handling(imageUri: Uri): Int {
@@ -86,10 +117,10 @@ class PlaceHolder : Fragment() {
         tensorImage = imageProcessor.process(tensorImage)
 
         val activity = requireActivity() as MainActivity
-      val model = activity.geterrorhandling()
+        //val model = activity.geterrorhandling()
 
 
-       //val model = activity.getLiteModel()
+        val model = activity.getLiteModel()
 
 
 // Creates inputs for reference.
@@ -112,7 +143,6 @@ class PlaceHolder : Fragment() {
 
         return maxIdx
     }
-
 
 
     private fun predict(imageUri: Uri) {
@@ -143,25 +173,28 @@ class PlaceHolder : Fragment() {
                 maxIdx = index
             }
         }
-        var check = arrayOf("Good", "Replace")
+        var check = arrayOf("Not-Pantograph", "Bad", "Bad", "Good", "Good")
         var bindtext = check[maxIdx]
         val currentTime = Date()
         val timeFormattime = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-        val dateFormat = SimpleDateFormat("MM-dd-yyyy", Locale.getDefault())
+        val dateFormat = System.currentTimeMillis() / 1000L
+        val trainno = binding.textView12.text.toString()
+        val cartno = binding.textView14.text.toString()
 
-        val formattedDate = dateFormat.format(currentTime)
+        val formattedDate = dateFormat
 
         val formattedTime = timeFormattime.format(currentTime)
 
 
-
-
-        val upload = Upload("$bindtext", "$formattedDate", "${imageUri.lastPathSegment}", "$formattedTime")
+        val upload =
+            Upload("$bindtext", "$formattedDate", "${imageUri.lastPathSegment}", "$formattedTime","$trainno","$cartno")
         val uploadData = mapOf(
             "Assessment" to upload.Assessment,
             "Date" to upload.Date,
             "Img" to upload.Img,
-            "Time" to upload.Time
+            "Time" to upload.Time,
+            "TrainNo" to upload.TrainNo,
+            "CartNo" to upload.CartNo
         )
 
 
@@ -169,9 +202,10 @@ class PlaceHolder : Fragment() {
 
 
 // Releases model resources if no longer used.
-       //  model.close()
+        //  model.close()
     }
-    private fun setupcamera (){
+
+    private fun setupcamera() {
         val previewView: PreviewView = binding.preview
         val cameraExecutor = Executors.newSingleThreadExecutor()
 
@@ -204,8 +238,6 @@ class PlaceHolder : Fragment() {
         }, ContextCompat.getMainExecutor(requireContext()))
 
 
-
-
     }
 
     private fun captureImage() {
@@ -230,30 +262,24 @@ class PlaceHolder : Fragment() {
 
 
 
-                    if (errorchecking == 0){
+                    if (errorchecking == 0) {
+                        Handler(Looper.getMainLooper()).post {
+                            Toast.makeText(requireContext(), "Image Rejected", Toast.LENGTH_LONG)
+                                .show()
+                        }
+
+
+                    } else {
+
                         predict(savedUri)
 
                         uploadImageToFirebase(savedUri)
 
                         Handler(Looper.getMainLooper()).post {
 
-                            Toast.makeText(requireContext(), "Upload Completed", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "Upload Completed", Toast.LENGTH_SHORT)
+                                .show()
                         }
-                        val mainActivity = activity as MainActivity?
-                        mainActivity?.replaceFragment(HomeFrag())
-
-
-                    } else {
-
-                        Handler(Looper.getMainLooper()).post {
-
-                            Toast.makeText(requireContext(), "Image Rejected", Toast.LENGTH_LONG).show()
-                        }
-                        val mainActivity = activity as MainActivity?
-                        mainActivity?.replaceFragment(HomeFrag())
-
-
-
 
                     }
 
@@ -306,15 +332,48 @@ class PlaceHolder : Fragment() {
     }
 
 
+    private fun showPopup() {
+
+
+        val popupView = layoutInflater.inflate(R.layout.trainno, null)
+        // Create a PopupWindow with the inflated view
+        val editText: EditText = popupView.findViewById(R.id.editTextNumber)
+        val editText1: EditText = popupView.findViewById(R.id.editTextNumber2)
+        val btnAcpt: Button = popupView.findViewById(R.id.buttonaccept)
 
 
 
+        val popupWindow = PopupWindow(
+            popupView,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+
+        // Set some options for the popup window
+        popupWindow.isOutsideTouchable = true
+        popupWindow.isFocusable = true
+
+        // Show the popup window
+        popupWindow.showAtLocation(binding.imgplaceholder,Gravity.CENTER, 0, 0)
+
+        val popupInteractionListener: PopupInteractionListener = this
+        btnAcpt.setOnClickListener{
+            popupInteractionListener.updateTextView(editText.text.toString(),editText1.text.toString())
+            popupWindow.dismiss()
 
 
+        }
+    }
 
+    override fun updateTextView(text: String,text2: String) {
+            binding.textView12.text = text
+            binding.textView14.text = text2
+    }
 
 
 }
+
+
 
 
 
@@ -322,6 +381,10 @@ data class Upload(
     val Assessment: String = "",
     val Date: String = "",
     val Img: String = "",
-    val Time: String = ""
+    val Time: String = "",
+    val TrainNo: String = "",
+    val CartNo: String = ""
 
 )
+
+

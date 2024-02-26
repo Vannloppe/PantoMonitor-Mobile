@@ -12,8 +12,9 @@
 
         <androidx.camera.view.PreviewView
             android:id="@+id/preview"
-            android:layout_width="413dp"
-            android:layout_height="663dp"
+            android:layout_width="410dp"
+            android:layout_height="617dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -24,7 +25,7 @@
             <ImageView
                 android:id="@+id/imgplaceholder"
                 android:layout_width="match_parent"
-                android:layout_height="666dp"
+                android:layout_height="617dp"
                 android:background="#000"
                 android:src="@drawable/ic_image" />
         </androidx.camera.view.PreviewView>
@@ -40,6 +41,75 @@
             app:layout_constraintStart_toStartOf="@id/preview"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.9" />
+
+        <FrameLayout
+            android:id="@+id/Frametrain"
+            android:layout_width="404dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:clickable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/preview">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:layout_marginStart="32dp"
+                    android:text="Train -"
+                    android:textSize="25dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textView12"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="0"
+                    android:textSize="25dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView11"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:layout_marginEnd="28dp"
+                    android:text="0"
+                    android:textSize="25dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.512" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Cart -"
+                    android:textSize="25dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textView14"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.512" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

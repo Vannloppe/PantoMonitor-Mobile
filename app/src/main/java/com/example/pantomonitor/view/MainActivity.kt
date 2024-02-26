@@ -30,18 +30,17 @@ import com.example.pantomonitor.R
 import com.example.pantomonitor.databinding.ActivityMainBinding
 
 import com.example.pantomonitor.ml.LiteModel
+import com.example.pantomonitor.ml.NasnetmobileModel
 import com.example.pantomonitor.ml.Wearnet1
 
 import com.example.pantomonitor.viewmodel.BdMainViewModel
 import com.example.pantomonitor.viewmodel.BdViewModelFactoy
-import com.example.pantomonitor.viewmodel.timelinephoto
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Workbook
-import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
 import java.io.File
 
@@ -60,6 +59,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var errorhandling: Wearnet1
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var exadapter: Adapterexport
+    private lateinit var latestmodel: NasnetmobileModel
     private val storage = FirebaseStorage.getInstance()
     private val storageRef: StorageReference = storage.reference
 
@@ -87,6 +87,7 @@ class MainActivity : AppCompatActivity() {
         errorhandling = Wearnet1.newInstance(this)
         model = LiteModel.newInstance(this)
         firebaseAuth = FirebaseAuth.getInstance()
+        latestmodel = NasnetmobileModel.newInstance((this))
 
         setSupportActionBar(binding.toolbar)
 
@@ -104,6 +105,7 @@ class MainActivity : AppCompatActivity() {
             customView = customActionBar
             // Set your menu icon here
         }
+
 
 
         replaceFragment(HomeFrag())
@@ -152,6 +154,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home -> replaceFragment(HomeFrag())
                 R.id.nav_timeline -> replaceFragment(TimelineFragment())
                 R.id.nav_prediction -> replaceFragment(PlaceHolder())
+                R.id.nav_analyics -> replaceFragment(AnalyticsFragment())
                 R.id.nav_export -> {
                     val anchorView: View = findViewById(R.id.nav_export)
                     showPopup(anchorView)
@@ -164,7 +167,7 @@ class MainActivity : AppCompatActivity() {
                 else -> {
                 }
             }
-            binding.drawerLayout.closeDrawers()
+
             true
         }
 
@@ -173,6 +176,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.bot_Home -> replaceFragment(HomeFrag())
                 R.id.bot_Timeline -> replaceFragment(TimelineFragment())
                 R.id.bot_Placeholder -> replaceFragment(PlaceHolder())
+                R.id.bot_Analytics -> replaceFragment(AnalyticsFragment())
                 else -> {
                 }
             }
@@ -209,8 +213,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun getLiteModel(): LiteModel {
-        return model
+    fun getLiteModel(): NasnetmobileModel {
+        return latestmodel
     }
 
     fun geterrorhandling(): Wearnet1 {
@@ -243,7 +247,7 @@ class MainActivity : AppCompatActivity() {
 
         val editText: EditText = popupView.findViewById(R.id.editTextDate)
         val editText1: EditText = popupView.findViewById(R.id.editTextDate2)
-        val btnFilter: Button = popupView.findViewById(R.id.buttonfilter)
+        val btnFilter: Button = popupView.findViewById(R.id.buttonaccept)
 
 
         // Find the RecyclerView container
@@ -264,8 +268,8 @@ class MainActivity : AppCompatActivity() {
         popupWindow.showAtLocation(anchorView, Gravity.CENTER, 0, 0)
 
         btnFilter.setOnClickListener {
-            val enteredText1 = editText.text.toString()
-            val enteredText2 = editText1.text.toString()
+            val enteredText1 = viewModel.getunixtimestampexport(editText.text.toString())
+            val enteredText2 = viewModel. getunixtimestampexport(editText1.text.toString())
 
             val Dataname = updateDate() + ".xls"
 
@@ -287,6 +291,8 @@ class MainActivity : AppCompatActivity() {
                     headerRow.createCell(2).setCellValue("Assessment")
                     headerRow.createCell(3).setCellValue("Date")
                     headerRow.createCell(4).setCellValue("Time")
+                    headerRow.createCell(5).setCellValue("TrainNo")
+                    headerRow.createCell(6).setCellValue("CartNo")
 
                     var rowNum = 1
                     for (data in newData) {
@@ -294,8 +300,12 @@ class MainActivity : AppCompatActivity() {
                         row.createCell(0).setCellValue(gettimepic(data.Img).toString())
                         row.createCell(1).setCellValue(data.Img)
                         row.createCell(2).setCellValue(data.Assessment)
-                        row.createCell(3).setCellValue(data.Date)
+                        val date = data.Date.toLong() * 1000L
+                        val dateFormat = SimpleDateFormat("MM-dd-yyyy")
+                        row.createCell(3).setCellValue(dateFormat.format(date))
                         row.createCell(4).setCellValue(data.Time)
+                        row.createCell(5).setCellValue(data.TrainNo)
+                        row.createCell(6).setCellValue(data.CartNo)
                         // Add more cells for additional columns
                     }
 

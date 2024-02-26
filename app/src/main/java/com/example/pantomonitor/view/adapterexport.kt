@@ -10,6 +10,7 @@ import com.example.pantomonitor.viewmodel.timelinephoto
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
+import java.text.SimpleDateFormat
 
 class Adapterexport(private var list: List<timelinephoto>): RecyclerView.Adapter<Adapterexport.MyView>(){
      private val storage = FirebaseStorage.getInstance()
@@ -45,7 +46,9 @@ class Adapterexport(private var list: List<timelinephoto>): RecyclerView.Adapter
 
 
         holder.itemBinding.imgViewex.text = pic.toString()
-        holder.itemBinding.dateviewex.text = currentItem.Date
+        val date = currentItem.Date.toLong() * 1000L
+        val dateFormat = SimpleDateFormat("MM-dd-yyyy")
+        holder.itemBinding.dateviewex.text = dateFormat.format(date)
         holder.itemBinding.statusviewex.text = currentItem.Assessment
         holder.itemBinding.timeviewex.text = currentItem.Time
 

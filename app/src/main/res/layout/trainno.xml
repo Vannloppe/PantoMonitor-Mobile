@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
 
     <FrameLayout
-        android:layout_width="356dp"
-        android:layout_height="238dp"
+        android:layout_width="371dp"
+        android:layout_height="176dp"
         android:background="@drawable/outlinexport"
         tools:layout_editor_absoluteX="28dp"
         tools:layout_editor_absoluteY="147dp">
@@ -23,42 +23,8 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Export"
+                android:text="Train No."
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/editTextDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:autoText="false"
-                android:ems="10"
-                android:fontFamily="sans-serif"
-                android:hint="MM-DD-YYYY"
-                android:inputType="datetime|date"
-                android:singleLine="true"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.041"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/editTextDate2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:ems="10"
-                android:fontFamily="sans-serif"
-                android:hint="MM-DD-YYYY"
-                android:inputType="date"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.933"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,8 +33,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="Export"
+                android:layout_marginBottom="4dp"
+                android:text="ACCEPT"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -90,20 +56,40 @@
                 android:textSize="34sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.512" />
+                app:layout_constraintVertical_bias="0.396" />
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Date Range"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/editTextDate"
-                app:layout_constraintStart_toStartOf="@+id/editTextDate" />
+            <EditText
+                android:id="@+id/editTextNumber"
+                android:layout_width="148dp"
+                android:layout_height="52dp"
+                android:ems="10"
+                android:hint="Train No."
+                android:inputType="number"
+                android:textColorHint="@color/grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView7"
+                app:layout_constraintHorizontal_bias="0.484"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.419" />
+
+            <EditText
+                android:id="@+id/editTextNumber2"
+                android:layout_width="148dp"
+                android:layout_height="52dp"
+                android:ems="10"
+                android:hint="Cart No."
+                android:inputType="number"
+                android:textColorHint="@color/grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView7"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.419" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>

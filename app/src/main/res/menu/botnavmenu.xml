@@ -15,6 +15,11 @@
         android:title="Prediction" />
     <item
         android:id="@+id/bot_Timeline"
-        android:icon="@drawable/fi_rr_chart_histogram"
+        android:icon="@drawable/baseline_calendar_today_24"
         android:title="Timeline" />
+
+    <item
+        android:id="@+id/bot_Analytics"
+        android:icon="@drawable/fi_rr_chart_histogram"
+        android:title="Analytics" />
 </menu>
