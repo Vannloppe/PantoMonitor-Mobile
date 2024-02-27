@@ -2,6 +2,7 @@ package com.example.pantomonitor.view
 
 import android.app.Dialog
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Rect
 import android.net.Uri
 import android.os.Environment
 import android.os.Handler
@@ -42,6 +44,7 @@ import com.google.firebase.storage.StorageReference
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Workbook
+import org.apache.poi.ss.util.ImageUtils
 import org.tensorflow.lite.DataType
 import java.io.File
 import java.io.FileOutputStream
@@ -246,21 +249,19 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
         val imageFile = File(outputDirectory, "${imageFileName}.jpg")
         val outputFileOptions = ImageCapture.OutputFileOptions.Builder(imageFile).build()
 
+        //for cropping
+
+
         imageCapture.takePicture(
             outputFileOptions,
             Executors.newSingleThreadExecutor(),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                     // Image captured and saved to outputFileResults.savedUri
+
                     val savedUri = Uri.fromFile(imageFile)
 
                     val errorchecking = error_handling(savedUri)
-
-
-
-
-
-
 
                     if (errorchecking == 0) {
                         Handler(Looper.getMainLooper()).post {
@@ -271,7 +272,9 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
                     } else {
 
-                        predict(savedUri)
+
+                            predict(savedUri)
+
 
                         uploadImageToFirebase(savedUri)
 
@@ -330,6 +333,28 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
             null
         }
     }
+
+    fun bitmapToUri(bitmap: Bitmap): Uri? {
+        return try {
+            val context = requireContext() // Get the context from the Fragment
+            val imagesDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            val imageFile = File.createTempFile(
+                SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date()),
+                ".jpg",
+                imagesDir
+            )
+            val outputStream = FileOutputStream(imageFile)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            outputStream.close()
+            Uri.fromFile(imageFile)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+
+
 
 
     private fun showPopup() {
