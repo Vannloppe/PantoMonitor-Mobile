@@ -93,26 +93,6 @@ class AnalyticsFragment : Fragment() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         viewModel.getdgood().observe(viewLifecycleOwner, Observer { data1 ->
             // Update your UI with the data from the ViewModel
             binding.Dgood.text = data1.toString()

@@ -176,11 +176,10 @@ class BdMainViewModel : ViewModel() {
 
         //DAILY
         val curdate = getCurrentDate()
-        val current = getunixtimestampexport(curdate)
+        val current = getUnixTimestamp(curdate)
 
 
-        val getdatedaily = database.orderByChild("Date").startAt("$current")
-
+        val getdatedaily = database.orderByChild("Date").equalTo("$current")
 
         getdatedaily.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -190,19 +189,16 @@ class BdMainViewModel : ViewModel() {
                     if (parse != null) {
                         if (parse.Assessment == "Good"){
                             stats.Goodcounterdatadaily.value = (stats.Goodcounterdatadaily.value ?: 0) + 1
-                                stats.Goodcounterdatadaily.value?.toFloat()
-                                    ?.let { PieEntry(it, "Good") }?.let { entriesdaily.add(it) }
+
                         }
                         else{
                             stats.Defectcounterdatadaily.value = (stats.Defectcounterdatadaily.value ?: 0) + 1
-                            stats.Defectcounterdatadaily.value?.toFloat()
-                                ?.let { PieEntry(it, "defect") }?.let { entriesdaily.add(it) }
+
                         }
                     }
 
                 }
 
-                _pieChartDatad.postValue(entriesdaily)
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 // Handle errors here
@@ -523,6 +519,15 @@ class BdMainViewModel : ViewModel() {
         val unixTimestamp = dateTime.toEpochSecond(ZoneOffset.UTC)
         return unixTimestamp.toString()
     }
+
+    fun getUnixTimestamp(dateString: String): Long {
+        val dateFormat = SimpleDateFormat("MM-dd-yyyy", Locale.US)
+        val date = dateFormat.parse(dateString)
+        return date?.time ?: 0L / 1000 // dividing by 1000 to convert milliseconds to seconds
+    }
+
+
+
 
     fun getunixtimestampexport(dateString:String):String {
         val formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy")
