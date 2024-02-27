@@ -1,6 +1,6 @@
 package com.example.pantomonitor.view
 
-import android.app.Dialog
+import  android.app.Dialog
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
@@ -19,6 +19,7 @@ import android.util.Log
 import android.view.Gravity
 import android.widget.Button
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.Toast
@@ -41,6 +42,7 @@ import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.squareup.picasso.Picasso
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Workbook
@@ -82,9 +84,6 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
 
 
-
-
-
         imageProcessor = ImageProcessor.Builder()
             //.add(NormalizeOp(0.0f, 225.0f))
             //.add(TransformToGrayscaleOp())
@@ -114,6 +113,12 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
     private fun error_handling(imageUri: Uri): Int {
         val bitmap = uriToBitmap(imageUri)
+
+
+
+
+
+
         var tensorImage = TensorImage(DataType.FLOAT32)
         tensorImage.load(bitmap)
 
@@ -249,7 +254,9 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
         val imageFile = File(outputDirectory, "${imageFileName}.jpg")
         val outputFileOptions = ImageCapture.OutputFileOptions.Builder(imageFile).build()
 
+
         //for cropping
+
 
 
         imageCapture.takePicture(
@@ -260,8 +267,18 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
                     // Image captured and saved to outputFileResults.savedUri
 
                     val savedUri = Uri.fromFile(imageFile)
+                    val bitmap = uriToBitmap(savedUri)
+                    val croppedBitmap = bitmap?.let { cropCenter(it, 4f) }
+                    val bittiuri = croppedBitmap?.let { bitmapToUri(it) }
 
-                    val errorchecking = error_handling(savedUri)
+
+
+
+
+
+
+                    val errorchecking = bittiuri?.let { error_handling(it) }
+
 
                     if (errorchecking == 0) {
                         Handler(Looper.getMainLooper()).post {
@@ -273,10 +290,14 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
                     } else {
 
 
-                            predict(savedUri)
+                        if (bittiuri != null) {
+                            predict(bittiuri)
+                        }
 
 
-                        uploadImageToFirebase(savedUri)
+                        if (bittiuri != null) {
+                            uploadImageToFirebase(bittiuri)
+                        }
 
                         Handler(Looper.getMainLooper()).post {
 
@@ -357,6 +378,7 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
 
 
+
     private fun showPopup() {
 
 
@@ -379,7 +401,7 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
         popupWindow.isFocusable = true
 
         // Show the popup window
-        popupWindow.showAtLocation(binding.imgplaceholder,Gravity.CENTER, 0, 0)
+        popupWindow.showAtLocation(binding.preview,Gravity.CENTER, 0, 0)
 
         val popupInteractionListener: PopupInteractionListener = this
         btnAcpt.setOnClickListener{
@@ -393,6 +415,27 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
     override fun updateTextView(text: String,text2: String) {
             binding.textView12.text = text
             binding.textView14.text = text2
+    }
+
+    fun cropCenter(bitmap: Bitmap, aspectRatio: Float): Bitmap {
+        // Get the dimensions of the original bitmap
+        val originalWidth = bitmap.width
+        val originalHeight = bitmap.height
+
+        // Calculate the dimensions of the cropped region
+        val croppedWidth = originalWidth
+        val croppedHeight = (croppedWidth / aspectRatio).toInt()
+
+        // Calculate the coordinates of the center of the original bitmap
+        val centerX = originalWidth / 2
+        val centerY = originalHeight / 2
+
+        // Calculate the coordinates of the top-left corner of the cropping area
+        val cropX = centerX - (croppedWidth / 2)
+        val cropY = centerY - (croppedHeight / 2)
+
+        // Create a new Bitmap representing the cropped region
+        return Bitmap.createBitmap(bitmap, cropX, cropY, croppedWidth, croppedHeight)
     }
 
 

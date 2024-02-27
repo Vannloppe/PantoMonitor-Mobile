@@ -22,12 +22,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
-            <ImageView
-                android:id="@+id/imgplaceholder"
-                android:layout_width="match_parent"
-                android:layout_height="617dp"
-                android:background="#000"
-                android:src="@drawable/ic_image" />
 
         </androidx.camera.view.PreviewView>
 
@@ -43,10 +37,10 @@
             app:layout_constraintTop_toBottomOf="@+id/preview"
             app:layout_constraintVertical_bias="0.392" />
 
-        <FrameLayout
+        <View
             android:id="@+id/overlayview"
-            android:layout_width="104dp"
-            android:layout_height="530dp"
+            android:layout_width="135dp"
+            android:layout_height="0dp"
             android:background="@drawable/total_bg_copy"
             app:layout_constraintBottom_toBottomOf="@+id/preview"
             app:layout_constraintEnd_toEndOf="@+id/preview"
@@ -123,4 +117,5 @@
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>
