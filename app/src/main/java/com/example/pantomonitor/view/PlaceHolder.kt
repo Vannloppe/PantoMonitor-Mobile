@@ -113,12 +113,6 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
     private fun error_handling(imageUri: Uri): Int {
         val bitmap = uriToBitmap(imageUri)
-
-
-
-
-
-
         var tensorImage = TensorImage(DataType.FLOAT32)
         tensorImage.load(bitmap)
 
@@ -269,7 +263,13 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
                     val savedUri = Uri.fromFile(imageFile)
                     val bitmap = uriToBitmap(savedUri)
                     val croppedBitmap = bitmap?.let { cropCenter(it, 4f) }
-                    val bittiuri = croppedBitmap?.let { bitmapToUri(it) }
+                    val cropleft = croppedBitmap?.let { cropLeftToCenter(it) }
+                    val cropright = croppedBitmap?.let { cropRightToCenter(it) }
+
+
+
+                    val bittiurileft = cropleft?.let { bitmapToUri(it) }
+                    val bittiuriright = cropright?.let { bitmapToUri(it) }
 
 
 
@@ -277,10 +277,11 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
 
 
-                    val errorchecking = bittiuri?.let { error_handling(it) }
+                    val errorcheckingleft = bittiurileft?.let { error_handling(it) }
+                    val errorcheckingright = bittiurileft?.let { error_handling(it) }
 
 
-                    if (errorchecking == 0) {
+                    if (errorcheckingleft == 0 && errorcheckingright == 0) {
                         Handler(Looper.getMainLooper()).post {
                             Toast.makeText(requireContext(), "Image Rejected", Toast.LENGTH_LONG)
                                 .show()
@@ -290,14 +291,24 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
                     } else {
 
 
-                        if (bittiuri != null) {
-                            predict(bittiuri)
+                        if (bittiuriright != null) {
+                            predict(bittiuriright)
                         }
 
 
-                        if (bittiuri != null) {
-                            uploadImageToFirebase(bittiuri)
+                        if (bittiuriright != null) {
+                            uploadImageToFirebase(bittiuriright)
                         }
+
+                        if (bittiurileft != null) {
+                            predict(bittiurileft)
+                        }
+
+
+                        if (bittiurileft != null) {
+                            uploadImageToFirebase(bittiurileft)
+                        }
+
 
                         Handler(Looper.getMainLooper()).post {
 
@@ -437,6 +448,43 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
         // Create a new Bitmap representing the cropped region
         return Bitmap.createBitmap(bitmap, cropX, cropY, croppedWidth, croppedHeight)
     }
+
+    fun cropLeftToCenter(bitmap: Bitmap): Bitmap {
+        // Get the dimensions of the original bitmap
+        val originalWidth = bitmap.width
+        val originalHeight = bitmap.height
+
+        // Calculate the dimensions of the cropped region (full width, half of the original height)
+        val croppedWidth = originalWidth
+        val croppedHeight = 440
+
+        // Calculate the coordinates of the top-left corner of the cropping area
+        val cropX = 0 // Start from the left edge
+        val cropY = 0
+
+        // Create a new Bitmap representing the cropped region
+
+        return Bitmap.createBitmap(bitmap, cropX, cropY, croppedWidth, croppedHeight)
+    }
+
+    fun cropRightToCenter(bitmap: Bitmap): Bitmap {
+        // Get the dimensions of the original bitmap
+        val originalWidth = bitmap.width
+        val originalHeight = bitmap.height
+
+        // Calculate the dimensions of the cropped region (full width, half of the original height)
+
+        val croppedWidth = originalWidth
+        val croppedHeight = 440
+
+        // Calculate the coordinates of the top-left corner of the cropping area
+        val cropX = 0 // Start from the right edge
+        val cropY = originalHeight  - croppedHeight
+
+        // Create a new Bitmap representing the cropped region
+        return Bitmap.createBitmap(bitmap, cropX, cropY, croppedWidth, croppedHeight)
+    }
+
 
 
 }

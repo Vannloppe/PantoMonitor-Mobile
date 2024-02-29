@@ -39,11 +39,23 @@
 
         <View
             android:id="@+id/overlayview"
-            android:layout_width="135dp"
+            android:layout_width="60dp"
             android:layout_height="0dp"
-            android:background="@drawable/total_bg_copy"
+            android:background="@drawable/guideline"
             app:layout_constraintBottom_toBottomOf="@+id/preview"
             app:layout_constraintEnd_toEndOf="@+id/preview"
+            app:layout_constraintHorizontal_bias="0.35"
+            app:layout_constraintStart_toStartOf="@+id/preview"
+            app:layout_constraintTop_toTopOf="@+id/preview" />
+
+        <View
+            android:id="@+id/overlayview2"
+            android:layout_width="60dp"
+            android:layout_height="0dp"
+            android:background="@drawable/guideline2"
+            app:layout_constraintBottom_toBottomOf="@+id/preview"
+            app:layout_constraintEnd_toEndOf="@+id/preview"
+            app:layout_constraintHorizontal_bias="0.65"
             app:layout_constraintStart_toStartOf="@+id/preview"
             app:layout_constraintTop_toTopOf="@+id/preview" />
 

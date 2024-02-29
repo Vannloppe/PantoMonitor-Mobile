@@ -101,7 +101,7 @@ class AnalyticsFragment : Fragment() {
             viewModel.getdbad().observe(viewLifecycleOwner, Observer { data2 ->
                 // Update your UI with the data from the ViewModel
 
-               // var cur = viewModel.getCurrentDate()
+                // var cur = viewModel.getCurrentDate()
 
                 var currentDated = Calendar.getInstance()
                 var dateFormat = SimpleDateFormat("MMMM dd, yyyy")
@@ -264,7 +264,7 @@ class AnalyticsFragment : Fragment() {
 
 
 
-            return binding.root
+        return binding.root
     }
 
     private fun setupPieChartdaily(entries: List<PieEntry>) {

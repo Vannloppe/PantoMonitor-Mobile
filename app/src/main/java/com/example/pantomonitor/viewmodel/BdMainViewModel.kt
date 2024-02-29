@@ -61,45 +61,45 @@ class BdMainViewModel : ViewModel() {
 
 
 
-/*
-    fun fetdchData() {
-        // Simulated data fetching from a repository or network call
-        val newData = getNewEntriesFromRepository()
+    /*
+        fun fetdchData() {
+            // Simulated data fetching from a repository or network call
+            val newData = getNewEntriesFromRepository()
 
-        // Update the LiveData with the new data
-        _dataList.value = newData
-    }
+            // Update the LiveData with the new data
+            _dataList.value = newData
+        }
 
-    private fun getNewEntriesFromRepository(): MutableList<timelinephoto> {
-        val getdate = database.orderByChild("Date").startAt(_dataFromView.value)
-            .endAt(_dataFromView.value + "\uf8ff")
-        val data = mutableListOf<timelinephoto>()
-        getdate.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
+        private fun getNewEntriesFromRepository(): MutableList<timelinephoto> {
+            val getdate = database.orderByChild("Date").startAt(_dataFromView.value)
+                .endAt(_dataFromView.value + "\uf8ff")
+            val data = mutableListOf<timelinephoto>()
+            getdate.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                for (itemSnapshot in dataSnapshot.children) {
-                    var parse = itemSnapshot.getValue(parsed::class.java)
+                    for (itemSnapshot in dataSnapshot.children) {
+                        var parse = itemSnapshot.getValue(parsed::class.java)
 
-                    if (parse != null) {
-                        val assessmnet = parse.Assessment
-                        val datedata = parse.Date
-                        val imgdata = parse.Img
-                        val timedata = parse.Time
-                        val model = timelinephoto(assessmnet, datedata, imgdata, timedata)
-                        data.add(model)
+                        if (parse != null) {
+                            val assessmnet = parse.Assessment
+                            val datedata = parse.Date
+                            val imgdata = parse.Img
+                            val timedata = parse.Time
+                            val model = timelinephoto(assessmnet, datedata, imgdata, timedata)
+                            data.add(model)
+                        }
                     }
+
                 }
 
-            }
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle errors
+                }
+            })
+            return data
+        }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Handle errors
-            }
-        })
-        return data
-    }
-
- */
+     */
 
 
     init {
@@ -359,7 +359,7 @@ class BdMainViewModel : ViewModel() {
                         itemList.add(it)
                     }
                 }
-                _dataList.value = itemList
+                _dataList.value = itemList.asReversed()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -409,7 +409,7 @@ class BdMainViewModel : ViewModel() {
                 }
 
                 // Update _data LiveData with the new filtered data
-                _dataList.value = items
+                _dataList.value = items.asReversed()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -436,75 +436,75 @@ class BdMainViewModel : ViewModel() {
     // CALENDAR
 
 
-        fun getGoodData(): LiveData<String> {
-            return stats.Goodcounterdata
-        }
+    fun getGoodData(): LiveData<String> {
+        return stats.Goodcounterdata
+    }
 
-        fun getDefectData(): LiveData<String> {
-            return stats.Defectcounterdata
-        }
+    fun getDefectData(): LiveData<String> {
+        return stats.Defectcounterdata
+    }
 
-        fun getlatestStatus(): LiveData<String> {
-            return stats.lateststatus
-        }
+    fun getlatestStatus(): LiveData<String> {
+        return stats.lateststatus
+    }
 
-        fun getlatestDate(): LiveData<String> {
-            return stats.timestampdate
-        }
+    fun getlatestDate(): LiveData<String> {
+        return stats.timestampdate
+    }
 
-        fun getlatestTime(): LiveData<String> {
-            return stats.timestamptime
-        }
+    fun getlatestTime(): LiveData<String> {
+        return stats.timestamptime
+    }
 
-        fun getlatestImg(): LiveData<String> {
-            return stats.latestimg
-        }
+    fun getlatestImg(): LiveData<String> {
+        return stats.latestimg
+    }
 
-        fun gettotalcounter(): LiveData<Int> {
-            return stats.totalcounterdata
-        }
+    fun gettotalcounter(): LiveData<Int> {
+        return stats.totalcounterdata
+    }
 
-        fun getdgood(): LiveData<Int> {
+    fun getdgood(): LiveData<Int> {
         return stats.Goodcounterdatadaily
-        }
+    }
 
-        fun getdbad(): LiveData<Int> {
+    fun getdbad(): LiveData<Int> {
         return stats.Defectcounterdatadaily
-        }
+    }
 
-        fun getwgood(): LiveData<Int> {
+    fun getwgood(): LiveData<Int> {
         return stats.Goodcounterdataweekly
-        }
+    }
 
-        fun getwbad(): LiveData<Int> {
+    fun getwbad(): LiveData<Int> {
         return stats.Defectcounterdataweekly
-        }
+    }
 
-        fun getmgood(): LiveData<Int> {
+    fun getmgood(): LiveData<Int> {
         return stats.Goodcounterdatamonthly
-        }
+    }
 
-        fun getmbad(): LiveData<Int> {
+    fun getmbad(): LiveData<Int> {
         return stats.Defectcounterdatamonthly
-        }
+    }
 
-        fun gettrainno(): LiveData<String> {
+    fun gettrainno(): LiveData<String> {
         return stats.trainno
-        }
-        fun getcartno(): LiveData<String> {
+    }
+    fun getcartno(): LiveData<String> {
         return stats.trainno
-        }
+    }
 
 
-        fun getlatestpic(img: String): StorageReference {
+    fun getlatestpic(img: String): StorageReference {
 
-            return storageRef.child("images/${img}")
-        }
+        return storageRef.child("images/${img}")
+    }
 
-        fun updateLiveData(newValue: String) {
-            _dataFromView.value = newValue
+    fun updateLiveData(newValue: String) {
+        _dataFromView.value = newValue
 
-        }
+    }
 
 
     fun getCurrentDate(): String {
@@ -550,24 +550,24 @@ class BdMainViewModel : ViewModel() {
 
 
 
-    data class parsed(
-        val Assessment: String = "",
-        val Date: String = "",
-        val Img: String = "",
-        val Time: String = "",
-        val TrainNo: String = "",
-        val CartNo: String = ""
+data class parsed(
+    val Assessment: String = "",
+    val Date: String = "",
+    val Img: String = "",
+    val Time: String = "",
+    val TrainNo: String = "",
+    val CartNo: String = ""
 
-    )
+)
 
-    data class timelinephoto(
-        val Assessment: String = "",
-        val Date: String = "",
-        val Img: String = "",
-        val Time: String = "",
-        val TrainNo: String = "",
-        val CartNo: String = ""
-    )
+data class timelinephoto(
+    val Assessment: String = "",
+    val Date: String = "",
+    val Img: String = "",
+    val Time: String = "",
+    val TrainNo: String = "",
+    val CartNo: String = ""
+)
 
 
 
