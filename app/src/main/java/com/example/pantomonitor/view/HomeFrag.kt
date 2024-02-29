@@ -21,7 +21,6 @@ import com.google.firebase.storage.StorageReference
 import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.Adapter
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
-import java.util.Calendar
 
 
 class HomeFrag : Fragment() {
@@ -116,61 +115,6 @@ class HomeFrag : Fragment() {
             }.addOnFailureListener { exception: Exception? -> }
 
         }
-
-
-        viewModel.getdgood().observe(viewLifecycleOwner, Observer { data1 ->
-            // Update your UI with the data from the ViewModel
-            binding.Dgood.text = data1.toString()
-
-
-            viewModel.getdbad().observe(viewLifecycleOwner, Observer { data2 ->
-                // Update your UI with the data from the ViewModel
-
-                // var cur = viewModel.getCurrentDate()
-
-                var currentDated = Calendar.getInstance()
-                var dateFormat = SimpleDateFormat("MMMM dd, yyyy")
-                var current = dateFormat.format(currentDated.time).toString()
-
-
-                var total = data1 + data2
-                var good = data1.toInt()
-                var bad = data2.toInt()
-                binding.Dbad.text = data2.toString()
-
-                binding.tvgoodcounterdaily.text = good.toString()
-                binding.tvdefectcounterdaily.text = bad.toString()
-                binding.totacounterdaily.text = total.toString()
-                binding.datedaily.text = current
-
-
-
-                if ( total== 0 ){
-                    binding.dailyconclu.text = "The data reveals that,there are zero records for both operational and replacement carbon strips. Please provide additional data for further analysis."
-
-                }
-                else if (good > bad){
-                    binding.dailyconclu.text = "The records indicate that the ratio between functional and replacement-worthy carbon strips is within."
-                }
-                else if (good < bad) {
-                    binding.dailyconclu.text =  "The records suggest an abnormal ratio between functional and replacement carbon strips, with a notably ."
-                }
-
-                else if (bad == 0){
-                    binding.dailyconclu.text = "The records indicate an abnormal ratio between operational and replacement carbon strips, as there are currently no records marked for replacement"
-                }
-
-
-
-
-            })
-
-
-
-        })
-
-
-
 
             return binding.root
     }
