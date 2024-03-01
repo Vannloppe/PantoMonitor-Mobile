@@ -247,7 +247,9 @@ class MainActivity : AppCompatActivity() {
 
         val editText: EditText = popupView.findViewById(R.id.editTextDate)
         val editText1: EditText = popupView.findViewById(R.id.editTextDate2)
+        val editText2: EditText = popupView.findViewById(R.id.editTextNumber3)
         val btnFilter: Button = popupView.findViewById(R.id.buttonaccept)
+
 
 
         // Find the RecyclerView container
@@ -270,10 +272,11 @@ class MainActivity : AppCompatActivity() {
         btnFilter.setOnClickListener {
             val enteredText1 = viewModel.getunixtimestampexport(editText.text.toString())
             val enteredText2 = viewModel. getunixtimestampexport(editText1.text.toString())
+            val enteredText3 = editText2.text.toString()
 
             val Dataname = updateDate() + ".xls"
 
-            viewModel.updateQueryexport(enteredText1,enteredText2)
+            viewModel.updateQueryexport(enteredText1,enteredText2,enteredText3)
 
 
             viewModel.dataList.observe(this) { newData ->

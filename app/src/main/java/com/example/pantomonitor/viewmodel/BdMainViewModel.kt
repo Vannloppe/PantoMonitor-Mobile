@@ -368,12 +368,12 @@ class BdMainViewModel : ViewModel() {
         })
     }
 
-    fun updateQueryexport(userInput: String, userInput2: String) {
+    fun updateQueryexport(userInput: String, userInput2: String,userInput3: String) {
         // Update the query based on user input
 
 
         val query = database.orderByChild("Date").startAt("$userInput").endAt("$userInput2")
-
+        val filter = userInput3
         // Fetch data using the updated query
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -381,7 +381,11 @@ class BdMainViewModel : ViewModel() {
 
                 for (dataSnapshot in snapshot.children) {
                     val item = dataSnapshot.getValue(timelinephoto::class.java)
-                    item?.let { items.add(it) }
+                    if (item?.TrainNo == filter)
+                        {
+                            item?.let { items.add(it) }
+                        }
+
                 }
 
                 // Update _data LiveData with the new filtered data
