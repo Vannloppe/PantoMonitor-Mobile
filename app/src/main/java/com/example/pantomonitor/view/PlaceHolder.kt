@@ -67,12 +67,10 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
     private lateinit var binding: FragmentPlaceHolderBinding
 
 
-
-
-
     private var database = FirebaseDatabase.getInstance().getReference("New_Entries")
     private lateinit var imageProcessor: ImageProcessor
     private lateinit var imageCapture: ImageCapture
+    private var isButtonClickable = true
 
 
     override fun onCreateView(
@@ -93,10 +91,31 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
 
         binding.Select.setOnClickListener {
-            captureImage()
+            if (isButtonClickable) {
+                // Disable the button to prevent multiple clicks
+                isButtonClickable = false
+                binding.Select.isEnabled = false
+                captureImage()
+
+                // Perform your button click action here
+                // For example, you can initiate some operation or navigation
+
+                // Simulate some delay (e.g., 2 seconds) to re-enable the button
+                Handler().postDelayed({
+                    // Re-enable the button after the delay
+                    isButtonClickable = true
+                    binding.Select.isEnabled = true
+                }, 2000) // 2000 milliseconds = 2 seconds
+            }
+        }
+
+
+
+
+
             //  uploadComplete()
 
-        }
+
 
         return binding.root
     }

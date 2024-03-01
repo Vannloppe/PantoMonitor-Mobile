@@ -142,7 +142,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:layout_marginEnd="3dp"
                             android:fontFamily="sans-serif-light"
                             android:text="Replace"
                             android:textAlignment="textStart"
@@ -150,6 +149,8 @@
                             android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.75"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </FrameLayout>
@@ -371,7 +372,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="10dp"
-                            android:fontFamily="sans-serif-thin"
+                            android:fontFamily="sans-serif-light"
                             android:text="Total"
                             android:textAlignment="textStart"
                             android:textColor="#242331"
@@ -436,14 +437,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:layout_marginEnd="3dp"
-                            android:fontFamily="sans-serif-thin"
+                            android:fontFamily="sans-serif-light"
                             android:text="Replace"
                             android:textAlignment="textStart"
                             android:textColor="#242331"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.75"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </FrameLayout>
@@ -492,7 +494,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="10dp"
-                            android:fontFamily="sans-serif-thin"
+                            android:fontFamily="sans-serif-light"
                             android:text="Good"
                             android:textColor="#242331"
                             android:textSize="16sp"
@@ -652,7 +654,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:layout_marginEnd="3dp"
                             android:fontFamily="sans-serif-light"
                             android:text="Replace"
                             android:textAlignment="textStart"
@@ -660,6 +661,8 @@
                             android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.75"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </FrameLayout>

@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var exadapter: Adapterexport
    // private lateinit var latestmodel: NasnetmobileModel
+   private var isButtonClickable = true
     private val storage = FirebaseStorage.getInstance()
     private val storageRef: StorageReference = storage.reference
 
@@ -240,7 +241,6 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("MissingInflatedId")
     private fun showPopup(anchorView: View) {
-        // Inflate the popup_layout.xml
         val inflater = getSystemService(LayoutInflater::class.java)
         val popupView: View = inflater.inflate(R.layout.popupwindow, null)
 
@@ -270,78 +270,84 @@ class MainActivity : AppCompatActivity() {
         popupWindow.showAtLocation(anchorView, Gravity.CENTER, 0, 0)
 
         btnFilter.setOnClickListener {
-            val enteredText1 = viewModel.getunixtimestampexport(editText.text.toString())
-            val enteredText2 = viewModel. getunixtimestampexport(editText1.text.toString())
-            val enteredText3 = editText2.text.toString()
-
-            val Dataname = updateDate() + ".xls"
-
-            viewModel.updateQueryexport(enteredText1,enteredText2,enteredText3)
+            if (isButtonClickable) {
+                // Disable the button to prevent multiple clicks
+                isButtonClickable = false
+                btnFilter.isEnabled = false
 
 
-            viewModel.dataList.observe(this) { newData ->
+                val enteredText1 = viewModel.getunixtimestampexport(editText.text.toString())
+                val enteredText2 = viewModel. getunixtimestampexport(editText1.text.toString())
+                val enteredText3 = editText2.text.toString()
 
-                if (!newData.isNullOrEmpty()) {
+                val Dataname = updateDate() + ".xls"
+
+                viewModel.updateQueryexport(enteredText1,enteredText2,enteredText3)
+
+
+                viewModel.dataList.observe(this) { newData ->
+
+                    if (!newData.isNullOrEmpty()) {
 
 
 
-                    val workbook: Workbook =   HSSFWorkbook()
-                    val sheet = workbook.createSheet("Exported")
+                        val workbook: Workbook =   HSSFWorkbook()
+                        val sheet = workbook.createSheet("Exported")
 
-                    val headerRow: Row = sheet.createRow(0)
-                    headerRow.createCell(0).setCellValue("Img-link")
-                    headerRow.createCell(1).setCellValue("Img")
-                    headerRow.createCell(2).setCellValue("Assessment")
-                    headerRow.createCell(3).setCellValue("Date")
-                    headerRow.createCell(4).setCellValue("Time")
-                    headerRow.createCell(5).setCellValue("TrainNo")
-                    headerRow.createCell(6).setCellValue("CartNo")
+                        val headerRow: Row = sheet.createRow(0)
+                        headerRow.createCell(0).setCellValue("Img-link")
+                        headerRow.createCell(1).setCellValue("Img")
+                        headerRow.createCell(2).setCellValue("Assessment")
+                        headerRow.createCell(3).setCellValue("Date")
+                        headerRow.createCell(4).setCellValue("Time")
+                        headerRow.createCell(5).setCellValue("TrainNo")
+                        headerRow.createCell(6).setCellValue("CartNo")
 
-                    var rowNum = 1
-                    for (data in newData) {
-                        val row: Row = sheet.createRow(rowNum++)
-                        row.createCell(0).setCellValue(gettimepic(data.Img).toString())
-                        row.createCell(1).setCellValue(data.Img)
-                        row.createCell(2).setCellValue(data.Assessment)
-                        val date = data.Date.toLong() * 1000L
-                        val dateFormat = SimpleDateFormat("MM-dd-yyyy")
-                        row.createCell(3).setCellValue(dateFormat.format(date))
-                        row.createCell(4).setCellValue(data.Time)
-                        row.createCell(5).setCellValue(data.TrainNo)
-                        row.createCell(6).setCellValue(data.CartNo)
-                        // Add more cells for additional columns
+                        var rowNum = 1
+                        for (data in newData) {
+                            val row: Row = sheet.createRow(rowNum++)
+                            row.createCell(0).setCellValue(gettimepic(data.Img).toString())
+                            row.createCell(1).setCellValue(data.Img)
+                            row.createCell(2).setCellValue(data.Assessment)
+                            val date = data.Date.toLong() * 1000L
+                            val dateFormat = SimpleDateFormat("MM-dd-yyyy")
+                            row.createCell(3).setCellValue(dateFormat.format(date))
+                            row.createCell(4).setCellValue(data.Time)
+                            row.createCell(5).setCellValue(data.TrainNo)
+                            row.createCell(6).setCellValue(data.CartNo)
+                            // Add more cells for additional columns
+                        }
+
+                        // Write the workbook to the file
+
+
+                        val filePath =
+                            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                                .absolutePath + File.separator + Dataname
+
+                        val fileOut = FileOutputStream(filePath)
+                        workbook.write(fileOut)
+                        fileOut.close()
+
+
+
+                    } else {
+                        showToast("Filter Unsuccessful")
                     }
 
-                    // Write the workbook to the file
 
-
-                    val filePath =
-                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                            .absolutePath + File.separator + Dataname
-
-                    val fileOut = FileOutputStream(filePath)
-                    workbook.write(fileOut)
-                    fileOut.close()
-
-
-
-                } else {
-                    showToast("Filter Unsuccessful")
                 }
 
 
+                showToast("Success")
+                popupWindow.dismiss()
+
+                Handler().postDelayed({
+                    // Re-enable the button after the delay
+                    isButtonClickable = true
+                    btnFilter.isEnabled = true
+                }, 2000) // 2000 milliseconds = 2 seconds
             }
-
-
-
-
-
-
-            showToast("Success")
-            popupWindow.dismiss()
-
-
-
         }
 
 

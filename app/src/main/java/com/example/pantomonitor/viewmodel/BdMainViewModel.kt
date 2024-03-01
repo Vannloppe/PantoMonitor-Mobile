@@ -175,10 +175,11 @@ class BdMainViewModel : ViewModel() {
 
         //DAILY
         val curdate = getCurrentDate()
-        val current = getUnixTimestamp(curdate)
+        val current = getUnixTimestamp(curdate).toString()
 
 
-        val getdatedaily = database.orderByChild("Date").equalTo("$current")
+
+        val getdatedaily = database.orderByChild("Date").startAt(current)
 
         getdatedaily.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -223,9 +224,8 @@ class BdMainViewModel : ViewModel() {
         var endDateweek = getunixtimestampexport(dateFormat.format(currentDatew.time).toString())
 
 
-        val getdateweekly = database.orderByChild("Date").startAt(startDateweek).endAt(
-            endDateweek
-        )
+        val getdateweekly = database.orderByChild("Date").startAt(startDateweek).endAt(endDateweek)
+
         getdateweekly.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
@@ -267,7 +267,7 @@ class BdMainViewModel : ViewModel() {
 
 
 // Set the calendar to the first day of the month
-        currentDatem.set(Calendar.DAY_OF_MONTH, 1)
+        currentDatem.set(Calendar.DAY_OF_MONTH, 0)
 
 // Format the start date (first day of the current month)
 
@@ -282,7 +282,7 @@ class BdMainViewModel : ViewModel() {
         var endDatemon = currentDatem.time.toString()
         var endmon = getunixtimestamp(endDatemon)
 
-        val getdatemonthly = database.orderByChild("Date").startAt("$startmon\uF8FF").endAt("$endmon\uF8FF")
+        val getdatemonthly = database.orderByChild("Date").endAt("$endmon\uF8FF").startAt("$startmon\uF8FF")
 
         getdatemonthly.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

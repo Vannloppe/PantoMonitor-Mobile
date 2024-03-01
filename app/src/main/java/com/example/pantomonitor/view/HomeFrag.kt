@@ -31,9 +31,6 @@ class HomeFrag : Fragment() {
     private lateinit var pieChart: PieChart
 
 
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,50 +50,39 @@ class HomeFrag : Fragment() {
         pieChart.setTransparentCircleAlpha(255)
 
 
-
-
-
-
         // GOOD
         viewModel.getGoodData().observe(viewLifecycleOwner, Observer { data ->
             // Update your UI with the data from the ViewModel
             binding.tvgoodcounter.text = data.toString()
-
         })
         // DEFECT
         viewModel.getDefectData().observe(viewLifecycleOwner, Observer { data ->
             // Update your UI with the data from the ViewModel
             binding.tvdefectcounter.text = data.toString()
-
-
-
         })
-
         //TOTAL
         viewModel.gettotalcounter().observe(viewLifecycleOwner, Observer { data ->
             // Update your UI with the data from the ViewModel
             binding.totalnumEntries.text = data.toString()
         })
-
-
         // Pie chart settings
         viewModel.pieChartData.observe(viewLifecycleOwner) { entries ->
             setupPieChart(entries)
         }
 
-
+        //TRAIN NO
         viewModel.gettrainno().observe(viewLifecycleOwner) { data ->
             binding.Trainno.text = data.toString()
         }
-
+        //CART NO
         viewModel.getcartno().observe(viewLifecycleOwner) { data ->
             binding.cartno.text = data.toString()
         }
-
+        //STATUS
         viewModel.getlatestStatus().observe(viewLifecycleOwner) { data ->
             binding.statusview.text = data.toString()
         }
-
+        //DATE
         viewModel.getlatestDate().observe(viewLifecycleOwner) { data ->
 
             val date = data.toLong() * 1000L
@@ -117,17 +103,12 @@ class HomeFrag : Fragment() {
 
         }
 
-
+        //DAILY ANALYTICS
         viewModel.getdgood().observe(viewLifecycleOwner, Observer { data1 ->
             // Update your UI with the data from the ViewModel
             binding.Dgood.text = data1.toString()
 
-
             viewModel.getdbad().observe(viewLifecycleOwner, Observer { data2 ->
-                // Update your UI with the data from the ViewModel
-
-                // var cur = viewModel.getCurrentDate()
-
                 var currentDated = Calendar.getInstance()
                 var dateFormat = SimpleDateFormat("MMMM dd, yyyy")
                 var current = dateFormat.format(currentDated.time).toString()
@@ -150,28 +131,17 @@ class HomeFrag : Fragment() {
 
                 }
                 else if (good > bad){
-                    binding.dailyconclu.text = "The records indicate that the ratio between functional and replacement-worthy carbon strips is within."
+                    binding.dailyconclu.text = "The records indicate that the ratio between functional and replacement-worthy carbon strips is within normal boundaries."
                 }
                 else if (good < bad) {
-                    binding.dailyconclu.text =  "The records suggest an abnormal ratio between functional and replacement carbon strips, with a notably ."
+                    binding.dailyconclu.text =  "The records suggest an abnormal ratio between functional and replacement carbon strips, with a notably high amount of inoperative carbon strips."
                 }
 
                 else if (bad == 0){
                     binding.dailyconclu.text = "The records indicate an abnormal ratio between operational and replacement carbon strips, as there are currently no records marked for replacement"
                 }
-
-
-
-
             })
-
-
-
         })
-
-
-
-
         return binding.root
     }
 
@@ -185,9 +155,6 @@ class HomeFrag : Fragment() {
         pieChart.data = data
         pieChart.invalidate()
     }
-
-
-
 
 }
 

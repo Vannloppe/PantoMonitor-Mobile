@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat
 class Adapterexport(private var list: List<timelinephoto>): RecyclerView.Adapter<Adapterexport.MyView>(){
      private val storage = FirebaseStorage.getInstance()
      private val storageRef: StorageReference = storage.reference
-     private var dataList: List<timelinephoto> = emptyList()
+
 
 
     class MyView(val itemBinding: AdapterexportBinding) :
@@ -51,22 +51,9 @@ class Adapterexport(private var list: List<timelinephoto>): RecyclerView.Adapter
         holder.itemBinding.timeviewex.text = currentItem.Time
 
     }
-
     private fun gettimepic(img: String): StorageReference {
 
         return storageRef.child("images/${img}")
-    }
-
-    fun setData(newData: List<timelinephoto>?) {
-        if (newData != null) {
-            dataList = newData
-        }
-        notifyDataSetChanged()
-    }
-
-    fun getDataList(): List<timelinephoto> {
-        notifyDataSetChanged()
-        return dataList
     }
 
 

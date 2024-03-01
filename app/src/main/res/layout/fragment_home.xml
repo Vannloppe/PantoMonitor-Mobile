@@ -700,11 +700,13 @@
                             android:id="@+id/imageView5"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginStart="52dp"
-                            android:layout_marginTop="52dp"
                             android:src="@drawable/check_all_big"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.9"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.9" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </FrameLayout>
 
@@ -741,11 +743,13 @@
                             android:id="@+id/imageView13daily"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginStart="52dp"
-                            android:layout_marginTop="52dp"
                             android:src="@drawable/baseline_autorenew_24"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.9"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.9" />
 
                         <TextView
                             android:id="@+id/textView15daily"
@@ -782,11 +786,13 @@
                             android:id="@+id/imageView16d"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginStart="52dp"
-                            android:layout_marginTop="52dp"
                             android:src="@drawable/baseline_check_circle_outline_24"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.90"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.90" />
 
                         <TextView
                             android:id="@+id/tvgoodcounterdaily"

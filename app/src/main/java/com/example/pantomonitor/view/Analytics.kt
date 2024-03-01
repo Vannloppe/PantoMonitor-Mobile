@@ -32,9 +32,6 @@ class AnalyticsFragment : Fragment() {
     private lateinit var pieChartdaily: PieChart
     private lateinit var pieChartmonthly: PieChart
     private lateinit var pieChartweekly: PieChart
-    val normal = "Normal parameters"
-    val abnormal = "high number designated for replacement"
-    val norecord = "no records marked for replacement"
 
 
 
@@ -121,18 +118,18 @@ class AnalyticsFragment : Fragment() {
 
 
                 if ( total== 0 ){
-                    binding.dailyconclu.text = "The data reveals that,there are ${boldWholeString("zero records for both operational and replacement carbon strips")}. Please provide additional data for further analysis."
+                    binding.dailyconclu.text = "The data reveals that,there are zero records for both operational and replacement carbon strips Please provide additional data for further analysis."
 
                 }
                 else if (good > bad){
-                    binding.dailyconclu.text = "The records indicate that the ratio between functional and replacement-worthy carbon strips is within ${boldWholeString(normal)}."
+                    binding.dailyconclu.text = "The records indicate that the ratio between functional and replacement-worthy carbon strips is within normal boundaries."
                 }
                 else if (good < bad) {
-                    binding.dailyconclu.text =  "The records suggest an abnormal ratio between functional and replacement carbon strips, with a notably ${boldWholeString(abnormal)}."
+                    binding.dailyconclu.text =  "The records suggest an abnormal ratio between functional and replacement carbon strips, with a notably high amount of inoperative carbon strips."
                 }
 
                 else if (bad == 0){
-                    binding.dailyconclu.text = "The records indicate an abnormal ratio between operational and replacement carbon strips, as there are currently ${boldWholeString("no records marked for replacement")}."
+                    binding.dailyconclu.text = "The records indicate an abnormal ratio between operational and replacement carbon strips, as there are currently no records marked for replacement."
                 }
 
 
@@ -182,13 +179,13 @@ class AnalyticsFragment : Fragment() {
 
 
                 if (good > bad){
-                    binding.weeklyconclu.text = "The records indicate that the ratio between functional and replacement-worthy carbon strips is within ${boldWholeString(normal)}."
+                    binding.weeklyconclu.text = "The records indicate that the ratio between functional and replacement-worthy carbon strips is within normal parameters."
                 }
                 else if (good < bad) {
-                    binding.weeklyconclu.text =  "The records suggest an abnormal ratio between functional and replacement carbon strips, with a notably ${boldWholeString(abnormal)}."
+                    binding.weeklyconclu.text =  "The records suggest an abnormal ratio between functional and replacement carbon strips, with a notably abnormal amount of faulty carbon strips."
                 }
                 else if (bad == 0){
-                    binding.weeklyconclu.text = "The records indicate an abnormal ratio between operational and replacement carbon strips, as there are currently ${boldWholeString(norecord)}."
+                    binding.weeklyconclu.text = "The records indicate an abnormal ratio between operational and replacement carbon strips, as there are currently no record of faulty carbon strips."
                 }
 
 
@@ -229,13 +226,13 @@ class AnalyticsFragment : Fragment() {
 
 
                 if (good > bad){
-                    binding.monthlyconclu.text = "The records indicate that the ratio between functional and replacement-worthy carbon strips is within .${boldWholeString("normal parameters")}."
+                    binding.monthlyconclu.text = "The records indicate that the ratio between functional and replacement-worthy carbon strips is within. normal parameters"
                 }
                 else if (good < bad) {
-                    binding.monthlyconclu.text =  "The records suggest an abnormal ratio between functional and replacement carbon strips, with a notably ${boldWholeString("high number designated for replacement")}."
+                    binding.monthlyconclu.text =  "The records suggest an abnormal ratio between functional and replacement carbon strips, with a notably high number designated for replacement."
                 }
                 else if (bad == 0){
-                    binding.monthlyconclu.text = "The records indicate an abnormal ratio between operational and replacement carbon strips, as there are currently ${boldWholeString(" no records marked for replacement")}."
+                    binding.monthlyconclu.text = "The records indicate an abnormal ratio between operational and replacement carbon strips, as there are currently no records marked for replacement."
                 }
             })
 
