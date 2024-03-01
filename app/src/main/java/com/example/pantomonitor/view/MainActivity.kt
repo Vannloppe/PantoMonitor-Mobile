@@ -30,7 +30,7 @@ import com.example.pantomonitor.R
 import com.example.pantomonitor.databinding.ActivityMainBinding
 
 import com.example.pantomonitor.ml.LiteModel
-import com.example.pantomonitor.ml.NasnetmobileModel
+//import com.example.pantomonitor.ml.NasnetmobileModel
 import com.example.pantomonitor.ml.Wearnet1
 
 import com.example.pantomonitor.viewmodel.BdMainViewModel
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var errorhandling: Wearnet1
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var exadapter: Adapterexport
-    private lateinit var latestmodel: NasnetmobileModel
+   // private lateinit var latestmodel: NasnetmobileModel
     private val storage = FirebaseStorage.getInstance()
     private val storageRef: StorageReference = storage.reference
 
@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         errorhandling = Wearnet1.newInstance(this)
         model = LiteModel.newInstance(this)
         firebaseAuth = FirebaseAuth.getInstance()
-        latestmodel = NasnetmobileModel.newInstance((this))
+      //  latestmodel = NasnetmobileModel.newInstance((this))
 
         setSupportActionBar(binding.toolbar)
 
@@ -213,11 +213,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun getLiteModel(): NasnetmobileModel {
-        return latestmodel
-    }
+   // fun : NasnetmobileModel {
+     //   return latestmodel
+    //}
 
-    fun geterrorhandling(): Wearnet1 {
+    fun getLiteModel(): Wearnet1 {
         return errorhandling
     }
 

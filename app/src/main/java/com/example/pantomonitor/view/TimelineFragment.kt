@@ -46,6 +46,7 @@ class TimelineFragment : Fragment(),DatePickerDialog.OnDateSetListener {
             // Update the adapter when the data changes
             Adapter = newData?.let { RecylerViewTimeline(it) }!!
             binding.detailsviewtl.adapter = Adapter
+
             Adapter.notifyDataSetChanged()
         }
 
@@ -91,23 +92,17 @@ class TimelineFragment : Fragment(),DatePickerDialog.OnDateSetListener {
 
         val calendar = Calendar.getInstance()
         calendar.set(year, month, dayOfMonth)
-
-
-
-       calendar.set(Calendar.DAY_OF_MONTH, 1)
+       calendar.set(Calendar.DAY_OF_MONTH, 0)
 
 // Format the start date (first day of the current month)
-
         var startDatemon = calendar.time.toString()
         var startmon = viewModel.getunixtimestamp(startDatemon)
-
 // Move to the end of the month
-       calendar.add(Calendar.MONTH, 1)
+        calendar.add(Calendar.MONTH, 1)
         calendar.add(Calendar.DAY_OF_MONTH, -1)
 
         var endDatemon = calendar.time.toString()
         var endmon = viewModel.getunixtimestamp(endDatemon)
-
 
 
         var monthh = SimpleDateFormat("MMMM", Locale.getDefault())
@@ -115,21 +110,9 @@ class TimelineFragment : Fragment(),DatePickerDialog.OnDateSetListener {
         var monthhh = monthh.format(calendar.time)
 
 
-
         binding.Monthdate.text = monthhh
         viewModel.updateQuery(startmon,endmon)
-       Adapter.clearList()
-
-
-
-
-
-
-
-
-
-
-
+        Adapter.clearList()
     }
 
 

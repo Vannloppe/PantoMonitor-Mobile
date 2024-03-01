@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 import com.example.pantomonitor.model.StatsProvider
+import com.example.pantomonitor.view.RecylerViewTimeline
 import com.github.mikephil.charting.data.PieEntry
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -108,8 +109,6 @@ class BdMainViewModel : ViewModel() {
         val entriesweekly = mutableListOf<PieEntry>()
         val entriesmonthly = mutableListOf<PieEntry>()
         val gooddaaily = 0
-
-
         fetchData()
 
 
@@ -332,7 +331,7 @@ class BdMainViewModel : ViewModel() {
         val currentDate = Calendar.getInstance()
 
 // Set the calendar to the first day of the month
-        currentDate.set(Calendar.DAY_OF_MONTH, 1)
+        currentDate.set(Calendar.DAY_OF_MONTH, 0)
 
 // Format the start date (first day of the current month)
 
@@ -348,7 +347,7 @@ class BdMainViewModel : ViewModel() {
         var endmon = getunixtimestamp(endDatemon)
 
 
-        val getdate = database.orderByChild("Date").startAt("$startmon").endAt("$endmon\uf8ff")
+        val getdate = database.orderByChild("Date").endAt("$endmon").startAt("$startmon")
         getdate.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val itemList = mutableListOf<timelinephoto>()
@@ -372,7 +371,7 @@ class BdMainViewModel : ViewModel() {
         // Update the query based on user input
 
 
-        val query = database.orderByChild("Date").startAt("$userInput").endAt("$userInput2")
+        val query = database.orderByChild("Date").endAt("$userInput2").startAt("$userInput")
         val filter = userInput3
         // Fetch data using the updated query
         query.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -414,6 +413,7 @@ class BdMainViewModel : ViewModel() {
 
                 // Update _data LiveData with the new filtered data
                 _dataList.value = items.asReversed()
+
             }
 
             override fun onCancelled(error: DatabaseError) {

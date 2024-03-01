@@ -43,8 +43,6 @@ class Adapterexport(private var list: List<timelinephoto>): RecyclerView.Adapter
     override fun onBindViewHolder(holder: MyView, position: Int) {
         val currentItem = list[position]
         val pic = gettimepic(currentItem.Img)
-
-
         holder.itemBinding.imgViewex.text = pic.toString()
         val date = currentItem.Date.toLong() * 1000L
         val dateFormat = SimpleDateFormat("MM-dd-yyyy")
