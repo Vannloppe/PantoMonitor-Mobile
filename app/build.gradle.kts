@@ -86,6 +86,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.1")
     implementation("androidx.camera:camera-lifecycle:1.2.3")
     implementation("androidx.camera:camera-view:1.2.3")
+    implementation("com.google.firebase:firebase-database:20.3.1")
     testImplementation("junit:junit:4.13.2")
     implementation ("com.itextpdf:itextpdf:5.5.13.3")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
