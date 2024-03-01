@@ -21,9 +21,7 @@ class Adapterexport(private var list: List<timelinephoto>): RecyclerView.Adapter
     class MyView(val itemBinding: AdapterexportBinding) :
         RecyclerView.ViewHolder(itemBinding.root
 
-        ) {
-
-    }
+        )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyView {
         return MyView(

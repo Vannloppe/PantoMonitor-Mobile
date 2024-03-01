@@ -382,7 +382,7 @@ class BdMainViewModel : ViewModel() {
                     val item = dataSnapshot.getValue(timelinephoto::class.java)
                     if (item?.TrainNo == filter)
                         {
-                            item?.let { items.add(it) }
+                            item.let { items.add(it) }
                         }
 
                 }

@@ -137,9 +137,9 @@ class MainActivity : AppCompatActivity() {
 
 
         if (user != null) {
-            user?.let {
+            user.let {
                 // Name, email address, and profile photo Url
-                val email = user!!.email
+                val email = user.email
                 headerTextView.text = email.toString()
 
 
