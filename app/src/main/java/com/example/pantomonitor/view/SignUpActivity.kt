@@ -6,12 +6,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pantomonitor.databinding.ActivitySignUpBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+
 
 class SignUpActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivitySignUpBinding
-    private lateinit var firebaseAuth: FirebaseAuth
+   // private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var databaseemu: Firebase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +26,8 @@ class SignUpActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        firebaseAuth = FirebaseAuth.getInstance()
+        //firebaseAuth = FirebaseAuth.getInstance()
+        databaseemu.auth.useEmulator("10.0.2.2", 9000)
 
         binding.SignintextView2.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
@@ -40,7 +45,7 @@ class SignUpActivity : AppCompatActivity() {
             if (fName.isNotEmpty() && email.isNotEmpty() && pass.isNotEmpty() && confirmPass.isNotEmpty()) {
                 if (pass == confirmPass) {
 
-                    firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
+                    databaseemu.auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
                         if (it.isSuccessful) {
                             val intent = Intent(this, LoginActivity::class.java)
                             startActivity(intent)
