@@ -16,7 +16,7 @@ import com.google.firebase.ktx.Firebase
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var firebaseAuth: FirebaseAuth
+    //private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var databaseemu: Firebase
 
 
@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         databaseemu.auth.useEmulator("10.0.2.2", 9000)
-        firebaseAuth = FirebaseAuth.getInstance()
+        //firebaseAuth = FirebaseAuth.getInstance()
 
 
         binding.RegTextBut.setOnClickListener{
@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
 
 
             if ( email.isNotEmpty() && pass.isNotEmpty()) {
-                    firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
+                databaseemu.auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                         if (it.isSuccessful) {
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
