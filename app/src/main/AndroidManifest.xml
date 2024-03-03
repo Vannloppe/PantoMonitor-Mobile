@@ -42,9 +42,16 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
             android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/path_provider" />
+
+            <meta-data  android:name="com.example.pantomonitor.utils.FirebaseAuthinit"
+                android:value="androidx.startup" />
+
+            <meta-data  android:name="com.example.pantomonitor.utils.FirebaseRealtimeinit"
+                android:value="androidx.startup" />
+
+            <meta-data  android:name="com.example.pantomonitor.utils.FirebaseStorageinit"
+                android:value="androidx.startup" />
+
         </provider>
         <meta-data
             android:name="preloaded_fonts"
