@@ -75,11 +75,9 @@ dependencies {
 //FIREBASE
     implementation ("com.google.firebase:firebase-database:20.0.2")
     implementation ("com.google.firebase:firebase-auth:21.0.1")
-
-
-
-    implementation("com.google.firebase:firebase-storage-ktx:20.2.1")
     implementation("com.google.firebase:firebase-database-ktx:20.2.2")
+
+
     implementation("androidx.databinding:databinding-runtime:8.1.1")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("androidx.compose.ui:ui-graphics")
