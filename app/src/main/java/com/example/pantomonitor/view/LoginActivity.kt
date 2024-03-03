@@ -6,12 +6,20 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pantomonitor.databinding.ActivityLoginBinding
 import com.example.pantomonitor.viewmodel.BdMainViewModel
+
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var databaseemu: Firebase
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +29,9 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        databaseemu.auth.useEmulator("10.0.2.2", 9000)
         firebaseAuth = FirebaseAuth.getInstance()
+
 
         binding.RegTextBut.setOnClickListener{
             val intent = Intent(this, SignUpActivity::class.java)

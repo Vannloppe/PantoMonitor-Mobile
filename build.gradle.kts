@@ -18,4 +18,6 @@ repositories {
 plugins {
     id("com.android.application") version "8.1.1" apply false
     id("org.jetbrains.kotlin.android") version "1.8.10" apply false
+    // Add the dependency for the App Distribution Gradle plugin
+    id("com.google.firebase.appdistribution") version "4.2.0" apply false
 }

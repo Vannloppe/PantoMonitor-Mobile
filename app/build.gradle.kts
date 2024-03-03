@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
     id("kotlin-android")
+    id("com.google.firebase.appdistribution")
 
 
 }
@@ -29,6 +30,7 @@ android {
                 "proguard-rules.pro"
             )
         }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -70,6 +72,11 @@ dependencies {
 
     implementation ("org.apache.poi:poi:4.1.2")
     implementation ("org.apache.poi:poi-ooxml:4.1.2")
+//FIREBASE
+    implementation ("com.google.firebase:firebase-database:20.0.2")
+    implementation ("com.google.firebase:firebase-auth:21.0.1")
+    implementation ("com.google.firebase:firebase-appdistribution-ktx:22.1.0")
+
 
     implementation("com.google.firebase:firebase-storage-ktx:20.2.1")
     implementation("com.google.firebase:firebase-database-ktx:20.2.2")
