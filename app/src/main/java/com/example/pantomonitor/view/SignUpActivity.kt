@@ -15,7 +15,8 @@ class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
    // private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var databaseemu: Firebase
+   private lateinit var databaseemu: FirebaseAuth
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +28,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //firebaseAuth = FirebaseAuth.getInstance()
-        databaseemu.auth.useEmulator("10.0.2.2", 9000)
+        databaseemu.useEmulator("10.0.2.2", 9000)
 
         binding.SignintextView2.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
@@ -45,7 +46,7 @@ class SignUpActivity : AppCompatActivity() {
             if (fName.isNotEmpty() && email.isNotEmpty() && pass.isNotEmpty() && confirmPass.isNotEmpty()) {
                 if (pass == confirmPass) {
 
-                    databaseemu.auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
+                    databaseemu.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
                         if (it.isSuccessful) {
                             val intent = Intent(this, LoginActivity::class.java)
                             startActivity(intent)
