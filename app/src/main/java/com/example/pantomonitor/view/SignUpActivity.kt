@@ -26,8 +26,8 @@ class SignUpActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        //firebaseAuth = FirebaseAuth.getInstance()
-        databaseemu.useEmulator("10.0.2.2", 9000)
+        databaseemu = FirebaseAuth.getInstance()
+        databaseemu.useEmulator("127.0.0.1", 9099)
 
         binding.SignintextView2.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)

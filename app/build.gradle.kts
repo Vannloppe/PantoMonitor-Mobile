@@ -73,10 +73,10 @@ dependencies {
 
 //FIREBASE
     implementation("com.google.firebase:firebase-auth-ktx:22.1.2")
-    implementation("com.google.firebase:firebase-database:20.3.1")
+    //implementation("com.google.firebase:firebase-database:20.3.1")
     implementation ("com.google.firebase:firebase-auth:21.0.1")
     implementation("com.google.firebase:firebase-database-ktx:20.2.2")
-
+    implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
 
     implementation("androidx.databinding:databinding-runtime:8.1.1")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
@@ -92,7 +92,7 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:1.2.3")
     implementation("androidx.camera:camera-view:1.2.3")
     implementation("androidx.startup:startup-runtime:1.1.1")
-    implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
+
 
     testImplementation("junit:junit:4.13.2")
     implementation ("com.itextpdf:itextpdf:5.5.13.3")
