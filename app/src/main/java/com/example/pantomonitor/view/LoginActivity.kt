@@ -22,6 +22,7 @@ class LoginActivity : AppCompatActivity() {
 
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -57,7 +58,8 @@ class LoginActivity : AppCompatActivity() {
                     }
               } else {
                 Toast.makeText(this, "Empty Fields Are not Allowed !!", Toast.LENGTH_SHORT).show()
-
+                startActivity(intent)
+                finish()
             }
         }
 

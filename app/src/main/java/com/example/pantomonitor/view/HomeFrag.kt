@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 
 
-class HomeFrag : Fragment() {
+class   HomeFrag : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: BdMainViewModel

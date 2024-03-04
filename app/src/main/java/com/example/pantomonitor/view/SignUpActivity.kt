@@ -49,10 +49,11 @@ class SignUpActivity : AppCompatActivity() {
                         if (it.isSuccessful) {
                             val intent = Intent(this, LoginActivity::class.java)
                             startActivity(intent)
-                            finish()
+                                finish()
                         } else {
                             Toast.makeText(this, it.exception.toString(), Toast.LENGTH_LONG).show()
                             binding.textView19.text = it.exception.toString()
+
                         }
                     }
                 } else {

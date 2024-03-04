@@ -12,9 +12,12 @@ import com.example.pantomonitor.view.RecylerViewTimeline
 import com.github.mikephil.charting.data.PieEntry
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.lang.reflect.Array.get
@@ -29,9 +32,13 @@ import java.util.Locale
 
 
 class BdMainViewModel : ViewModel() {
-    private var database = FirebaseDatabase.getInstance().getReference("New_Entries")
-    private val getbad = database.orderByChild("Assessment").equalTo("Bad")
-    private val getgood = database.orderByChild("Assessment").equalTo("Good")
+    private lateinit var database: FirebaseDatabase
+
+    //private var database = FirebaseDatabase.getInstance().getReference("New_Entries")
+
+
+  //  private val getbad = database.orderByChild("Assessment").equalTo("Bad")
+  //  private val getgood = database.orderByChild("Assessment").equalTo("Good")
 
 
 
@@ -45,9 +52,6 @@ class BdMainViewModel : ViewModel() {
     private val _pieChartDataw = MutableLiveData<List<PieEntry>>()
     private val _pieChartDatam = MutableLiveData<List<PieEntry>>()
     val pieChartData: LiveData<List<PieEntry>> get() = _pieChartData
-    val pieChartDatad: LiveData<List<PieEntry>> get() = _pieChartDatad
-    val pieChartDataw: LiveData<List<PieEntry>> get() = _pieChartDataw
-    val pieChartDatam: LiveData<List<PieEntry>> get() = _pieChartDatam
 
 
     private var _dataList = MutableLiveData<List<timelinephoto>?>()
@@ -56,60 +60,24 @@ class BdMainViewModel : ViewModel() {
     private val _dataFromView = MutableLiveData<String>()
     val dataFromView: LiveData<String> get() = _dataFromView
 
-
-
-
-
-
-
-    /*
-        fun fetdchData() {
-            // Simulated data fetching from a repository or network call
-            val newData = getNewEntriesFromRepository()
-
-            // Update the LiveData with the new data
-            _dataList.value = newData
-        }
-
-        private fun getNewEntriesFromRepository(): MutableList<timelinephoto> {
-            val getdate = database.orderByChild("Date").startAt(_dataFromView.value)
-                .endAt(_dataFromView.value + "\uf8ff")
-            val data = mutableListOf<timelinephoto>()
-            getdate.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                    for (itemSnapshot in dataSnapshot.children) {
-                        var parse = itemSnapshot.getValue(parsed::class.java)
-
-                        if (parse != null) {
-                            val assessmnet = parse.Assessment
-                            val datedata = parse.Date
-                            val imgdata = parse.Img
-                            val timedata = parse.Time
-                            val model = timelinephoto(assessmnet, datedata, imgdata, timedata)
-                            data.add(model)
-                        }
-                    }
-
-                }
-
-                override fun onCancelled(databaseError: DatabaseError) {
-                    // Handle errors
-                }
-            })
-            return data
-        }
-
-     */
-
-
     init {
         val entries = mutableListOf<PieEntry>()
         val entriesdaily = mutableListOf<PieEntry>()
         val entriesweekly = mutableListOf<PieEntry>()
         val entriesmonthly = mutableListOf<PieEntry>()
         val gooddaaily = 0
-        fetchData()
+
+
+
+       database = FirebaseDatabase.getInstance()
+        database.useEmulator("10.0.2.2", 9000)
+
+        val mainref = database.getReference("New_Entries")
+        fetchData(mainref)
+
+
+       val getbad = mainref.orderByChild("Assessment").equalTo("Bad")
+        val getgood = mainref.orderByChild("Assessment").equalTo("Good")
 
 
         getbad.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -148,7 +116,7 @@ class BdMainViewModel : ViewModel() {
 
         })
 
-        database.limitToLast(1).addValueEventListener(object : ValueEventListener {
+        mainref.limitToLast(1).addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (entrySnapshot in dataSnapshot.children) {
@@ -180,7 +148,7 @@ class BdMainViewModel : ViewModel() {
 
 
 
-        val getdatedaily = database.orderByChild("Date").startAt(current)
+        val getdatedaily = mainref.orderByChild("Date").startAt(current)
 
         getdatedaily.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -225,7 +193,7 @@ class BdMainViewModel : ViewModel() {
         var endDateweek = getunixtimestampexport(dateFormat.format(currentDatew.time).toString())
 
 
-        val getdateweekly = database.orderByChild("Date").startAt(startDateweek).endAt(endDateweek)
+        val getdateweekly = mainref.orderByChild("Date").startAt(startDateweek).endAt(endDateweek)
 
         getdateweekly.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -283,7 +251,7 @@ class BdMainViewModel : ViewModel() {
         var endDatemon = currentDatem.time.toString()
         var endmon = getunixtimestamp(endDatemon)
 
-        val getdatemonthly = database.orderByChild("Date").endAt("$endmon\uF8FF").startAt("$startmon\uF8FF")
+        val getdatemonthly = mainref.orderByChild("Date").endAt("$endmon\uF8FF").startAt("$startmon\uF8FF")
 
         getdatemonthly.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -327,7 +295,7 @@ class BdMainViewModel : ViewModel() {
     }
 
 
-    fun fetchData() {
+    fun fetchData(mainref: DatabaseReference) {
         // Read from the database
         val currentDate = Calendar.getInstance()
 
@@ -348,7 +316,7 @@ class BdMainViewModel : ViewModel() {
         var endmon = getunixtimestamp(endDatemon)
 
 
-        val getdate = database.orderByChild("Date").endAt("$endmon").startAt("$startmon")
+        val getdate = mainref.orderByChild("Date").endAt("$endmon").startAt("$startmon")
         getdate.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val itemList = mutableListOf<timelinephoto>()
@@ -368,11 +336,11 @@ class BdMainViewModel : ViewModel() {
         })
     }
 
-    fun updateQueryexport(userInput: String, userInput2: String,userInput3: String) {
+    fun updateQueryexport(userInput: String, userInput2: String,userInput3: String,mainref: DatabaseReference) {
         // Update the query based on user input
 
 
-        val query = database.orderByChild("Date").endAt("$userInput2").startAt("$userInput")
+        val query = mainref.orderByChild("Date").endAt("$userInput2").startAt("$userInput")
         val filter = userInput3
         // Fetch data using the updated query
         query.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -398,9 +366,9 @@ class BdMainViewModel : ViewModel() {
         })
     }
 
-    fun updateQuery(userInput: String, userInput2: String) {
+    fun updateQuery(userInput: String, userInput2: String,mainref: DatabaseReference) {
         // Update the query based on user input
-        val query = database.orderByChild("Date").startAt("$userInput").endAt("$userInput2")
+        val query = mainref.orderByChild("Date").startAt("$userInput").endAt("$userInput2")
 
         // Fetch data using the updated query
         query.addListenerForSingleValueEvent(object : ValueEventListener {
