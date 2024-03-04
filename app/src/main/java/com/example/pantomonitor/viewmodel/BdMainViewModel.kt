@@ -45,62 +45,12 @@ class BdMainViewModel : ViewModel() {
     private val _pieChartDataw = MutableLiveData<List<PieEntry>>()
     private val _pieChartDatam = MutableLiveData<List<PieEntry>>()
     val pieChartData: LiveData<List<PieEntry>> get() = _pieChartData
-    val pieChartDatad: LiveData<List<PieEntry>> get() = _pieChartDatad
-    val pieChartDataw: LiveData<List<PieEntry>> get() = _pieChartDataw
-    val pieChartDatam: LiveData<List<PieEntry>> get() = _pieChartDatam
 
 
     private var _dataList = MutableLiveData<List<timelinephoto>?>()
     val dataList: MutableLiveData<List<timelinephoto>?> get() = _dataList
 
     private val _dataFromView = MutableLiveData<String>()
-    val dataFromView: LiveData<String> get() = _dataFromView
-
-
-
-
-
-
-
-    /*
-        fun fetdchData() {
-            // Simulated data fetching from a repository or network call
-            val newData = getNewEntriesFromRepository()
-
-            // Update the LiveData with the new data
-            _dataList.value = newData
-        }
-
-        private fun getNewEntriesFromRepository(): MutableList<timelinephoto> {
-            val getdate = database.orderByChild("Date").startAt(_dataFromView.value)
-                .endAt(_dataFromView.value + "\uf8ff")
-            val data = mutableListOf<timelinephoto>()
-            getdate.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                    for (itemSnapshot in dataSnapshot.children) {
-                        var parse = itemSnapshot.getValue(parsed::class.java)
-
-                        if (parse != null) {
-                            val assessmnet = parse.Assessment
-                            val datedata = parse.Date
-                            val imgdata = parse.Img
-                            val timedata = parse.Time
-                            val model = timelinephoto(assessmnet, datedata, imgdata, timedata)
-                            data.add(model)
-                        }
-                    }
-
-                }
-
-                override fun onCancelled(databaseError: DatabaseError) {
-                    // Handle errors
-                }
-            })
-            return data
-        }
-
-     */
 
 
     init {
@@ -203,8 +153,6 @@ class BdMainViewModel : ViewModel() {
             override fun onCancelled(databaseError: DatabaseError) {
                 // Handle errors here
             }
-
-
 
 
 

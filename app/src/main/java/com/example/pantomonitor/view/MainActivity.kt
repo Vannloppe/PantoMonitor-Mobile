@@ -77,8 +77,6 @@ class MainActivity : AppCompatActivity() {
         if (Environment.isExternalStorageManager()) {
             // The app has been granted the MANAGE_EXTERNAL_STORAGE permission
         } else {
-            // The app has not been granted the MANAGE_EXTERNAL_STORAGE permission
-            // Request the permission from the user
             val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
             intent.data = Uri.parse("package:" + packageName)
             startActivity(intent)
@@ -99,7 +97,7 @@ class MainActivity : AppCompatActivity() {
             setDisplayShowCustomEnabled(true)
             setDisplayHomeAsUpEnabled(true)
 
-            //setHomeAsUpIndicator(R.drawable.baseline_menu_24)
+
 
             val customActionBar = LayoutInflater.from(this@MainActivity)
                 .inflate(R.layout.actionbar_font, null)
@@ -135,7 +133,6 @@ class MainActivity : AppCompatActivity() {
         var user = firebaseAuth.currentUser
 
 
-
         if (user != null) {
             user.let {
                 // Name, email address, and profile photo Url
@@ -145,10 +142,6 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
-
-
-
-
 
         binding.navViewer.setNavigationItemSelectedListener {
             when (it.itemId) {
@@ -168,7 +161,6 @@ class MainActivity : AppCompatActivity() {
                 else -> {
                 }
             }
-
             true
         }
 
@@ -189,22 +181,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateDate(): String {
         val currentDateTime = Date()
-
         val dateFormat = SimpleDateFormat("EEE, MMM d, yyyy", Locale.getDefault())
-
-
         return dateFormat.format(currentDateTime)
     }
 
     private fun updateTime(): String {
         val currentDateTime = Date()
-
-
         val timeFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
-
         return timeFormat.format(currentDateTime)
     }
-
 
     fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
@@ -243,17 +228,12 @@ class MainActivity : AppCompatActivity() {
     private fun showPopup(anchorView: View) {
         val inflater = getSystemService(LayoutInflater::class.java)
         val popupView: View = inflater.inflate(R.layout.popupwindow, null)
-
-
         val editText: EditText = popupView.findViewById(R.id.editTextDate)
         val editText1: EditText = popupView.findViewById(R.id.editTextDate2)
         val editText2: EditText = popupView.findViewById(R.id.editTextNumber3)
         val btnFilter: Button = popupView.findViewById(R.id.buttonaccept)
 
-
-
         // Find the RecyclerView container
-
 
         // Create a PopupWindow with the inflated view
         val popupWindow = PopupWindow(
@@ -261,7 +241,6 @@ class MainActivity : AppCompatActivity() {
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
-
         // Set some options for the popup window
         popupWindow.isOutsideTouchable = true
         popupWindow.isFocusable = true
@@ -349,9 +328,6 @@ class MainActivity : AppCompatActivity() {
                 }, 2000) // 2000 milliseconds = 2 seconds
             }
         }
-
-
-
 
 
         // Close the popup window when clicked

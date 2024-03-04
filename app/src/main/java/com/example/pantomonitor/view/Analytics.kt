@@ -33,10 +33,6 @@ class AnalyticsFragment : Fragment() {
     private lateinit var pieChartmonthly: PieChart
     private lateinit var pieChartweekly: PieChart
 
-
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,15 +43,12 @@ class AnalyticsFragment : Fragment() {
             container,
             false
         )  // Inflate using ViewBinding
-        //viewModel = ViewModelProvider(this).get(BdMainViewModel::class.java)
         viewModel = ViewModelProvider(this, BdViewModelFactoy()).get(BdMainViewModel::class.java)
         viewModel.getdgood().observe(viewLifecycleOwner, Observer { data1 ->
             // Update your UI with the data from the ViewModel
             binding.Dgood.text = data1.toString()
             viewModel.getdbad().observe(viewLifecycleOwner, Observer { data2 ->
                 // Update your UI with the data from the ViewModel
-
-                // var cur = viewModel.getCurrentDate()
 
                 var currentDated = Calendar.getInstance()
                 var dateFormat = SimpleDateFormat("MMMM dd, yyyy")
