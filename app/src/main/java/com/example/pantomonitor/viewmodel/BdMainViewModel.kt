@@ -161,6 +161,7 @@ class BdMainViewModel : ViewModel() {
                         stats.timestamptime.value = parse.Time
                         stats.trainno.value = parse.TrainNo
                         stats.cartno.value = parse.CartNo
+
                     }
                 }
             }
@@ -500,6 +501,7 @@ class BdMainViewModel : ViewModel() {
     }
 
 
+
     fun getlatestpic(img: String): StorageReference {
 
         return storageRef.child("images/${img}")
@@ -561,7 +563,6 @@ data class parsed(
     val Time: String = "",
     val TrainNo: String = "",
     val CartNo: String = ""
-
 )
 
 data class timelinephoto(

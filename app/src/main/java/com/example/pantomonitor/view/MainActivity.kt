@@ -57,7 +57,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var model: LiteModel
     private lateinit var errorhandling: Wearnet1
-    private lateinit var firebaseAuth: FirebaseAuth
+    //private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var databaseemu: FirebaseAuth
     private lateinit var exadapter: Adapterexport
    // private lateinit var latestmodel: NasnetmobileModel
    private var isButtonClickable = true
@@ -87,7 +88,8 @@ class MainActivity : AppCompatActivity() {
 
         errorhandling = Wearnet1.newInstance(this)
         model = LiteModel.newInstance(this)
-        firebaseAuth = FirebaseAuth.getInstance()
+        //firebaseAuth = FirebaseAuth.getInstance()
+        databaseemu.useEmulator("10.0.2.2", 9000)
       //  latestmodel = NasnetmobileModel.newInstance((this))
 
         setSupportActionBar(binding.toolbar)
@@ -131,9 +133,10 @@ class MainActivity : AppCompatActivity() {
         handler.postDelayed(runnable, 1000)
 
 
-        val firebaseAuth = FirebaseAuth.getInstance()
-        var user = firebaseAuth.currentUser
+        //val firebaseAuth = FirebaseAuth.getInstance()
+        //var user = firebaseAuth.currentUser
 
+        var user = databaseemu.currentUser
 
 
         if (user != null) {
@@ -223,7 +226,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun logout() {
-        firebaseAuth.signOut()
+        databaseemu.signOut()
+        //firebaseAuth.signOut()
         // Redirect the user to the login screen or any other appropriate screen after logout
         // For example, you can start a new LoginActivity
         val intent = Intent(this, LoginActivity::class.java)

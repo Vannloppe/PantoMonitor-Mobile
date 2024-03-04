@@ -92,6 +92,7 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:1.2.3")
     implementation("androidx.camera:camera-view:1.2.3")
     implementation("androidx.startup:startup-runtime:1.1.1")
+    implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
 
     testImplementation("junit:junit:4.13.2")
     implementation ("com.itextpdf:itextpdf:5.5.13.3")

@@ -12,7 +12,6 @@ import com.google.firebase.ktx.Firebase
 
 class SignUpActivity : AppCompatActivity() {
 
-
     private lateinit var binding: ActivitySignUpBinding
    // private lateinit var firebaseAuth: FirebaseAuth
    private lateinit var databaseemu: FirebaseAuth
