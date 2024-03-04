@@ -27,7 +27,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         databaseemu = FirebaseAuth.getInstance()
-        databaseemu.useEmulator("127.0.0.1", 9099)
+        databaseemu.useEmulator("10.0.2.2", 9099)
 
         binding.SignintextView2.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
@@ -51,8 +51,8 @@ class SignUpActivity : AppCompatActivity() {
                             startActivity(intent)
                             finish()
                         } else {
-                            Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
-
+                            Toast.makeText(this, it.exception.toString(), Toast.LENGTH_LONG).show()
+                            binding.textView19.text = it.exception.toString()
                         }
                     }
                 } else {

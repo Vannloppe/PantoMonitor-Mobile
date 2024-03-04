@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         databaseemu = FirebaseAuth.getInstance()
-        databaseemu.useEmulator("127.0.0.1", 9099)
+        databaseemu.useEmulator("10.0.2.2", 9099)
 
 
 

@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         errorhandling = Wearnet1.newInstance(this)
         model = LiteModel.newInstance(this)
         databaseemu = FirebaseAuth.getInstance()
-        databaseemu.useEmulator("127.0.0.1", 9099)
+        databaseemu.useEmulator("10.0.2.2", 9099)
 
       //  latestmodel = NasnetmobileModel.newInstance((this))
 
