@@ -309,7 +309,6 @@ class MainActivity : AppCompatActivity() {
                         fileOut.close()
 
 
-
                     } else {
                         showToast("Filter Unsuccessful")
                     }

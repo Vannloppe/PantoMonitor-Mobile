@@ -32,18 +32,10 @@ class BdMainViewModel : ViewModel() {
     private var database = FirebaseDatabase.getInstance().getReference("New_Entries")
     private val getbad = database.orderByChild("Assessment").equalTo("Bad")
     private val getgood = database.orderByChild("Assessment").equalTo("Good")
-
-
-
     private val storage = FirebaseStorage.getInstance()
     private val storageRef: StorageReference = storage.reference
-
-
     private var stats = StatsProvider()
     private val _pieChartData = MutableLiveData<List<PieEntry>>()
-    private val _pieChartDatad = MutableLiveData<List<PieEntry>>()
-    private val _pieChartDataw = MutableLiveData<List<PieEntry>>()
-    private val _pieChartDatam = MutableLiveData<List<PieEntry>>()
     val pieChartData: LiveData<List<PieEntry>> get() = _pieChartData
 
 
@@ -55,10 +47,6 @@ class BdMainViewModel : ViewModel() {
 
     init {
         val entries = mutableListOf<PieEntry>()
-        val entriesdaily = mutableListOf<PieEntry>()
-        val entriesweekly = mutableListOf<PieEntry>()
-        val entriesmonthly = mutableListOf<PieEntry>()
-        val gooddaaily = 0
         fetchData()
 
 
@@ -98,7 +86,7 @@ class BdMainViewModel : ViewModel() {
 
         })
 
-        database.limitToLast(1).addValueEventListener(object : ValueEventListener {
+        database.limitToLast(1).addValueEventListener(object : ValueEventListener { // GETTING THE LAST ENTRY FOR LATEST ENTRY
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (entrySnapshot in dataSnapshot.children) {
@@ -126,8 +114,6 @@ class BdMainViewModel : ViewModel() {
         //DAILY
         val curdate = getCurrentDate()
         val current = getUnixTimestamp(curdate).toString()
-
-
 
         val getdatedaily = database.orderByChild("Date").startAt(current)
 
@@ -180,29 +166,20 @@ class BdMainViewModel : ViewModel() {
 
                 for (entrySnapshot in dataSnapshot.children) {
                     var parse = entrySnapshot.getValue(parsed::class.java)
-                    var good = 0
-                    var bad = 0
                     //    val check = entrySnapshot.getValue(StatsProvider.parsed::class.java)
                     if (parse != null) {
                         if (parse.Assessment == "Good"){
                             stats.Goodcounterdataweekly.value = (stats.Goodcounterdataweekly.value ?: 0) + 1
-                            good = + 1
-                            entriesweekly.add(PieEntry(good.toFloat(), "Good"))
 
                         }
                         else{
                             stats.Defectcounterdataweekly.value = (stats.Defectcounterdataweekly.value ?: 0) + 1
-                            bad = + 1
-                            entriesweekly.add(PieEntry(bad.toFloat(), "Defect"))
 
                         }
                     }
 
                 }
 
-
-
-                _pieChartDataw.postValue(entriesweekly)
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 // Handle errors here
@@ -249,14 +226,6 @@ class BdMainViewModel : ViewModel() {
                         }
                     }
                 }
-                stats.Goodcounterdatamonthly.value?.toFloat()
-                    ?.let { PieEntry(it, "Good") }?.let { entriesmonthly.add(it) }
-
-                stats.Defectcounterdatamonthly.value?.toFloat()
-
-
-                    ?.let { PieEntry(it, "Defect") }?.let { entriesmonthly.add(it) }
-                _pieChartDatam.postValue(entriesmonthly)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -274,7 +243,7 @@ class BdMainViewModel : ViewModel() {
     }
 
 
-    fun fetchData() {
+    fun fetchData() { //FETCH DATA FOR TIMELINE
         // Read from the database
         val currentDate = Calendar.getInstance()
 
@@ -315,37 +284,9 @@ class BdMainViewModel : ViewModel() {
         })
     }
 
-    fun updateQueryexport(userInput: String, userInput2: String,userInput3: String) {
-        // Update the query based on user input
 
 
-        val query = database.orderByChild("Date").endAt("$userInput2").startAt("$userInput")
-        val filter = userInput3
-        // Fetch data using the updated query
-        query.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val items = mutableListOf<timelinephoto>()
-
-                for (dataSnapshot in snapshot.children) {
-                    val item = dataSnapshot.getValue(timelinephoto::class.java)
-                    if (item?.TrainNo == filter)
-                        {
-                            item.let { items.add(it) }
-                        }
-
-                }
-
-                // Update _data LiveData with the new filtered data
-                _dataList.value = items
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Handle errors here
-            }
-        })
-    }
-
-    fun updateQuery(userInput: String, userInput2: String) {
+    fun updateQuery(userInput: String, userInput2: String) { //FETCH DATA FROM USER FOR TIMELINE
         // Update the query based on user input
         val query = database.orderByChild("Date").startAt("$userInput").endAt("$userInput2")
 
@@ -370,24 +311,35 @@ class BdMainViewModel : ViewModel() {
         })
     }
 
-    // ANALYTICS
+    fun updateQueryexport(userInput: String, userInput2: String,userInput3: String) { //FETCH DATA FROM USER FOR EXPORT XLS
+        // Update the query based on user input
 
 
+        val query = database.orderByChild("Date").endAt("$userInput2").startAt("$userInput")
+        val filter = userInput3
+        // Fetch data using the updated query
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val items = mutableListOf<timelinephoto>()
 
+                for (dataSnapshot in snapshot.children) {
+                    val item = dataSnapshot.getValue(timelinephoto::class.java)
+                    if (item?.TrainNo == filter)
+                    {
+                        item.let { items.add(it) }
+                    }
 
+                }
 
+                // Update _data LiveData with the new filtered data
+                _dataList.value = items
+            }
 
-
-
-
-
-
-
-
-
-    // CALENDAR
-
-
+            override fun onCancelled(error: DatabaseError) {
+                // Handle errors here
+            }
+        })
+    }
     fun getGoodData(): LiveData<String> {
         return stats.Goodcounterdata
     }
@@ -453,11 +405,6 @@ class BdMainViewModel : ViewModel() {
         return storageRef.child("images/${img}")
     }
 
-    fun updateLiveData(newValue: String) {
-        _dataFromView.value = newValue
-
-    }
-
 
     fun getCurrentDate(): String {
         val dateFormat = SimpleDateFormat("MM-dd-yyyy")
@@ -478,20 +425,12 @@ class BdMainViewModel : ViewModel() {
         return date?.time ?: 0L / 1000 // dividing by 1000 to convert milliseconds to seconds
     }
 
-
-
-
     fun getunixtimestampexport(dateString:String):String {
         val formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy")
         val dateTime = LocalDate.parse(dateString, formatter)
         val unixtimestamp = LocalDateTime.of(dateTime, LocalDateTime.MIN.toLocalTime())
         return unixtimestamp.toEpochSecond(ZoneOffset.UTC).toString()
     }
-
-
-
-
-
 
 
 

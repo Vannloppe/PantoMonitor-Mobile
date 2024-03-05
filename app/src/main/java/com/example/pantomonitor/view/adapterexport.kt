@@ -16,8 +16,6 @@ class Adapterexport(private var list: List<timelinephoto>): RecyclerView.Adapter
      private val storage = FirebaseStorage.getInstance()
      private val storageRef: StorageReference = storage.reference
 
-
-
     class MyView(val itemBinding: AdapterexportBinding) :
         RecyclerView.ViewHolder(itemBinding.root
 
@@ -50,7 +48,6 @@ class Adapterexport(private var list: List<timelinephoto>): RecyclerView.Adapter
 
     }
     private fun gettimepic(img: String): StorageReference {
-
         return storageRef.child("images/${img}")
     }
 

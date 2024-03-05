@@ -29,9 +29,7 @@ class AnalyticsFragment : Fragment() {
 
     private lateinit var binding: FragmentAnalyticsBinding
     private lateinit var viewModel: BdMainViewModel
-    private lateinit var pieChartdaily: PieChart
-    private lateinit var pieChartmonthly: PieChart
-    private lateinit var pieChartweekly: PieChart
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +42,10 @@ class AnalyticsFragment : Fragment() {
             false
         )  // Inflate using ViewBinding
         viewModel = ViewModelProvider(this, BdViewModelFactoy()).get(BdMainViewModel::class.java)
+
+
+        //ANALYTICS
+        //Daily
         viewModel.getdgood().observe(viewLifecycleOwner, Observer { data1 ->
             // Update your UI with the data from the ViewModel
             binding.Dgood.text = data1.toString()
@@ -65,8 +67,6 @@ class AnalyticsFragment : Fragment() {
                 binding.totacounterdaily.text = total.toString()
                 binding.datedaily.text = current
 
-
-
                 if ( total== 0 ){
                     binding.dailyconclu.text = "The data reveals that,there are zero records for both operational and replacement carbon strips Please provide additional data for further analysis."
 
@@ -82,9 +82,6 @@ class AnalyticsFragment : Fragment() {
                     binding.dailyconclu.text = "The records indicate an abnormal ratio between operational and replacement carbon strips, as there are currently no records marked for replacement."
                 }
 
-
-
-
             })
 
 
@@ -92,41 +89,28 @@ class AnalyticsFragment : Fragment() {
         })
 
 
-
+        //Weekly
         viewModel.getwgood().observe(viewLifecycleOwner, Observer { data1 ->
             binding.Wgood.text = data1.toString()
-
-
             viewModel.getwbad().observe(viewLifecycleOwner, Observer { data2 ->
-
                 var currentDatew = Calendar.getInstance()
                 currentDatew.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
                 currentDatew.add(Calendar.WEEK_OF_YEAR, -1)
                 var dateFormat = SimpleDateFormat("MMMM dd, yyyy")
                 currentDatew.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
                 var startDateweek = dateFormat.format(currentDatew.time).toString()
-
-
                 currentDatew.add(Calendar.DAY_OF_YEAR,6)
                 var endDateweek = (dateFormat.format(currentDatew.time).toString())
-
-
 
                 var total = data1 + data2
                 var good = data1.toInt()
                 var bad = data2.toInt()
-
-
 
                 binding.Wbad.text = data2.toString()
                 binding.tvgoodcounterweekly.text = good.toString()
                 binding.tvdefectcounterweekly.text = bad.toString()
                 binding.totacounterweekly.text = total.toString()
                 binding.dateweekly.text = "$startDateweek - $endDateweek"
-
-
-
-
 
                 if (good > bad){
                     binding.weeklyconclu.text = "The records indicate that the ratio between functional and replacement-worthy carbon strips is within normal parameters."
@@ -144,7 +128,7 @@ class AnalyticsFragment : Fragment() {
         })
 
 
-
+        //Monthly
         viewModel.getmgood().observe(viewLifecycleOwner, Observer { data1 ->
             // Update your UI with the data from the ViewModel
             binding.Mgood.text = data1.toString()
