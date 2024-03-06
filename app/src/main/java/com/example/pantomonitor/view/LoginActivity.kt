@@ -46,16 +46,17 @@ class LoginActivity : AppCompatActivity() {
             if ( email.isNotEmpty() && pass.isNotEmpty()) {
                     firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                         if (it.isSuccessful) {
+                            Toast.makeText(this, "Login Successful!", Toast.LENGTH_LONG).show()
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                             finish()
                         } else {
-                            Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Login Error! Check your email or password", Toast.LENGTH_LONG).show()
 
                         }
                     }
               } else {
-                Toast.makeText(this, "Empty Fields Are not Allowed !!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Empty Fields Are not Allowed !!", Toast.LENGTH_LONG).show()
 
             }
         }

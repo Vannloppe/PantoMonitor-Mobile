@@ -25,14 +25,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-
 import com.example.pantomonitor.R
 import com.example.pantomonitor.databinding.ActivityMainBinding
-
-import com.example.pantomonitor.ml.LiteModel
-//import com.example.pantomonitor.ml.NasnetmobileModel
-import com.example.pantomonitor.ml.Wearnet1
-
+import com.example.pantomonitor.ml.NasnetmobileModel985
 import com.example.pantomonitor.viewmodel.BdMainViewModel
 import com.example.pantomonitor.viewmodel.BdViewModelFactoy
 import com.google.firebase.auth.FirebaseAuth
@@ -55,12 +50,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: BdMainViewModel
     private lateinit var binding: ActivityMainBinding
-    private lateinit var model: LiteModel
-    private lateinit var errorhandling: Wearnet1
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var exadapter: Adapterexport
-   // private lateinit var latestmodel: NasnetmobileModel
-   private var isButtonClickable = true
+    private  lateinit var  nasnetlatest: NasnetmobileModel985
+    private var isButtonClickable = true
     private val storage = FirebaseStorage.getInstance()
     private val storageRef: StorageReference = storage.reference
 
@@ -83,10 +75,9 @@ class MainActivity : AppCompatActivity() {
         }
         setContentView(binding.root)
 
-        errorhandling = Wearnet1.newInstance(this)
-        model = LiteModel.newInstance(this)
+
         firebaseAuth = FirebaseAuth.getInstance()
-      //  latestmodel = NasnetmobileModel.newInstance((this))
+        nasnetlatest = NasnetmobileModel985.newInstance((this))
 
         setSupportActionBar(binding.toolbar)
 
@@ -199,12 +190,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-   // fun : NasnetmobileModel {
-     //   return latestmodel
-    //}
 
-    fun getLiteModel(): Wearnet1 {
-        return errorhandling
+
+    fun getLatestmodel():NasnetmobileModel985 {
+        return nasnetlatest
     }
 
     private fun logout() {

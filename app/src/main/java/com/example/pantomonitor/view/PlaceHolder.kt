@@ -134,20 +134,12 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
         val bitmap = uriToBitmap(imageUri)
         var tensorImage = TensorImage(DataType.FLOAT32)
         tensorImage.load(bitmap)
-
         tensorImage = imageProcessor.process(tensorImage)
-
         val activity = requireActivity() as MainActivity
-        //val model = activity.geterrorhandling()
-
-
-        val model = activity.getLiteModel()
-
-
+        val model = activity.getLatestmodel()
 // Creates inputs for reference.
-        val inputFeature0 =
-            TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
-        inputFeature0.loadBuffer(tensorImage.buffer)
+        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
+            inputFeature0.loadBuffer(tensorImage.buffer)
 
 // Runs model inference and gets result.
         val outputs = model.process(inputFeature0)
@@ -174,7 +166,7 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
         tensorImage = imageProcessor.process(tensorImage)
 
         val activity = requireActivity() as MainActivity
-        val model = activity.getLiteModel()
+        val model = activity.getLatestmodel()
 
 
 // Creates inputs for reference.
@@ -285,59 +277,44 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
                     val cropleft = croppedBitmap?.let { cropLeftToCenter(it) }
                     val cropright = croppedBitmap?.let { cropRightToCenter(it) }
 
+                    val resizeleft = cropleft?.let { resizeImage(it) }
+                    val resizeright = cropright?.let { resizeImage(it) }
+
+
 
 
                     val bittiurileft = cropleft?.let { bitmapToUri(it) }
                     val bittiuriright = cropright?.let { bitmapToUri(it) }
-
-
-
-
-
-
-
                     val errorcheckingleft = bittiurileft?.let { error_handling(it) }
                     val errorcheckingright = bittiurileft?.let { error_handling(it) }
 
 
-                    if (errorcheckingleft == 0 && errorcheckingright == 0) {
-                        Handler(Looper.getMainLooper()).post {
-                            Toast.makeText(requireContext(), "Image Rejected", Toast.LENGTH_LONG)
-                                .show()
+                    if (errorcheckingright != null) {
+                        if (errorcheckingleft != null) {
+                           // if (errorcheckingleft  > 0 && errorcheckingright > 0) {
+                                if (bittiuriright != null) {
+                                    predict(bittiuriright)
+                                    uploadImageToFirebase(bittiuriright)
+                                }
+                                if (bittiurileft != null) {
+                                    predict(bittiurileft)
+                                    uploadImageToFirebase(bittiurileft)
+                                }
+                                Handler(Looper.getMainLooper()).post {
+                                    Toast.makeText(requireContext(), "Upload Completed", Toast.LENGTH_LONG)
+                                        .show()
+                                }
+                            } else  {
+                                Handler(Looper.getMainLooper()).post {
+                                    Toast.makeText(requireContext(), "Image Rejected", Toast.LENGTH_LONG)
+                                        .show()
+                                }
+                            }
                         }
-
-
-                    } else {
-
-
-                        if (bittiuriright != null) {
-                            predict(bittiuriright)
-                        }
-
-
-                        if (bittiuriright != null) {
-                            uploadImageToFirebase(bittiuriright)
-                        }
-
-                        if (bittiurileft != null) {
-                            predict(bittiurileft)
-                        }
-
-
-                        if (bittiurileft != null) {
-                            uploadImageToFirebase(bittiurileft)
-                        }
-
-
-                        Handler(Looper.getMainLooper()).post {
-
-                            Toast.makeText(requireContext(), "Upload Completed", Toast.LENGTH_SHORT)
-                                .show()
-                        }
-
                     }
 
-                }
+
+
 
                 override fun onError(exception: ImageCaptureException) {
                     // Handle error
@@ -503,6 +480,15 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
         // Create a new Bitmap representing the cropped region
         return Bitmap.createBitmap(bitmap, cropX, cropY, croppedWidth, croppedHeight)
     }
+
+    fun resizeImage(originalBitmap: Bitmap): Bitmap {
+        val newWidth = 224
+        val newHeight = 224
+
+
+        return Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, false)
+    }
+
 
 
 

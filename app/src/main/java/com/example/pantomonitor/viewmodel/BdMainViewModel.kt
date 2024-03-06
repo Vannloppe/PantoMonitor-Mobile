@@ -127,7 +127,7 @@ class BdMainViewModel : ViewModel() {
                             stats.Goodcounterdatadaily.value = (stats.Goodcounterdatadaily.value ?: 0) + 1
 
                         }
-                        else{
+                        else if (parse.Assessment == "Bad"){
                             stats.Defectcounterdatadaily.value = (stats.Defectcounterdatadaily.value ?: 0) + 1
 
                         }
@@ -172,7 +172,7 @@ class BdMainViewModel : ViewModel() {
                             stats.Goodcounterdataweekly.value = (stats.Goodcounterdataweekly.value ?: 0) + 1
 
                         }
-                        else{
+                        else if (parse.Assessment == "Bad"){
                             stats.Defectcounterdataweekly.value = (stats.Defectcounterdataweekly.value ?: 0) + 1
 
                         }
@@ -219,7 +219,7 @@ class BdMainViewModel : ViewModel() {
                             stats.Goodcounterdatamonthly.value =
                                 (stats.Goodcounterdatamonthly.value ?: 0) + 1
 
-                        } else {
+                        } else if (parse.Assessment == "Bad") {
                             stats.Defectcounterdatamonthly.value =
                                 (stats.Defectcounterdatamonthly.value ?: 0) + 1
 
