@@ -71,9 +71,9 @@ dependencies {
     implementation ("org.apache.poi:poi:4.1.2")
     implementation ("org.apache.poi:poi-ooxml:4.1.2")
 //FIREBASE
-    implementation("com.google.firebase:firebase-auth-ktx:22.1.2")
-    implementation("com.google.firebase:firebase-storage-ktx:20.2.1")
-    implementation("com.google.firebase:firebase-database-ktx:20.2.2")
+    implementation("com.google.firebase:firebase-auth:22.3.1")
+    implementation("com.google.firebase:firebase-database:20.3.1")
+    implementation("com.google.firebase:firebase-storage:20.3.0")
 
 
 

@@ -70,16 +70,6 @@
                 app:layout_constraintBottom_toTopOf="@+id/editTextDate"
                 app:layout_constraintStart_toStartOf="@+id/editTextDate" />
 
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="Train No."
-                android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/editTextNumber3"
-                app:layout_constraintStart_toStartOf="@+id/editTextNumber3" />
-
             <EditText
                 android:id="@+id/editTextDate"
                 android:layout_width="150dp"
@@ -89,8 +79,8 @@
                 android:ems="10"
                 android:fontFamily="sans-serif"
                 android:hint="MM-DD-YYYY"
-                android:inputType="datetime|date"
-                android:singleLine="true"
+                android:inputType="date"
+                android:singleLine="false"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -118,18 +108,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/baseline_import_export_24" />
-
-            <EditText
-                android:id="@+id/editTextNumber3"
-                android:layout_width="63dp"
-                android:layout_height="47dp"
-                android:layout_marginBottom="36dp"
-                android:ems="10"
-                android:inputType="number"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/editTextDate" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

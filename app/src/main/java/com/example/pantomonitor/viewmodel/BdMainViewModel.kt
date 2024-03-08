@@ -2,22 +2,18 @@ package com.example.pantomonitor.viewmodel
 
 
 
-import androidx.databinding.ObservableField
+import android.provider.ContactsContract
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-
 import com.example.pantomonitor.model.StatsProvider
-import com.example.pantomonitor.view.RecylerViewTimeline
 import com.github.mikephil.charting.data.PieEntry
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import java.lang.reflect.Array.get
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -25,6 +21,7 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Date
+import java.util.EventListener
 import java.util.Locale
 
 
@@ -42,7 +39,11 @@ class BdMainViewModel : ViewModel() {
     private var _dataList = MutableLiveData<List<timelinephoto>?>()
     val dataList: MutableLiveData<List<timelinephoto>?> get() = _dataList
 
-    private val _dataFromView = MutableLiveData<String>()
+
+    private var _dataListentry = MutableLiveData<List<timelinephoto>?>()
+    val dataListEntry: MutableLiveData<List<timelinephoto>?> get() = _dataListentry
+
+
 
 
     init {
@@ -137,7 +138,7 @@ class BdMainViewModel : ViewModel() {
 
             }
             override fun onCancelled(databaseError: DatabaseError) {
-                // Handle errors here
+
             }
 
 
@@ -288,7 +289,7 @@ class BdMainViewModel : ViewModel() {
 
     fun updateQuery(userInput: String, userInput2: String) { //FETCH DATA FROM USER FOR TIMELINE
         // Update the query based on user input
-        val query = database.orderByChild("Date").startAt("$userInput").endAt("$userInput2")
+        val query = database.orderByChild("Date").startAt("$userInput2\uF8FF").endAt("$userInput\uF8FF")
 
         // Fetch data using the updated query
         query.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -311,32 +312,30 @@ class BdMainViewModel : ViewModel() {
         })
     }
 
-    fun updateQueryexport(userInput: String, userInput2: String,userInput3: String) { //FETCH DATA FROM USER FOR EXPORT XLS
+    fun updateQueryexport(userInput:String, userInput2: String,) { //FETCH DATA FROM USER FOR EXPORT XLS
         // Update the query based on user input
 
 
-        val query = database.orderByChild("Date").endAt("$userInput2").startAt("$userInput")
-        val filter = userInput3
+        val query = database.orderByChild("Date").startAt(userInput).endAt(userInput2)
+
         // Fetch data using the updated query
-        query.addListenerForSingleValueEvent(object : ValueEventListener {
+        query.addValueEventListener(object :ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val items = mutableListOf<timelinephoto>()
+                var items = mutableListOf<timelinephoto>();
+                // Update _data LiveData with the new filtered data
 
                 for (dataSnapshot in snapshot.children) {
                     val item = dataSnapshot.getValue(timelinephoto::class.java)
-                    if (item?.TrainNo == filter)
-                    {
-                        item.let { items.add(it) }
-                    }
-
+                    item?.let { items.add(it) }
                 }
 
-                // Update _data LiveData with the new filtered data
-                _dataList.value = items
+                _dataListentry.value = items
             }
 
+
+
             override fun onCancelled(error: DatabaseError) {
-                // Handle errors here
+
             }
         })
     }
@@ -425,15 +424,12 @@ class BdMainViewModel : ViewModel() {
         return date?.time ?: 0L / 1000 // dividing by 1000 to convert milliseconds to seconds
     }
 
-    fun getunixtimestampexport(dateString:String):String {
+    fun getunixtimestampexport(dateString: String):String {
         val formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy")
         val dateTime = LocalDate.parse(dateString, formatter)
         val unixtimestamp = LocalDateTime.of(dateTime, LocalDateTime.MIN.toLocalTime())
         return unixtimestamp.toEpochSecond(ZoneOffset.UTC).toString()
     }
-
-
-
 
 }
 

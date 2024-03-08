@@ -1,37 +1,26 @@
 {
   "project_info": {
-    "project_number": "384341039795",
-    "firebase_url": "https://pd-last-dance-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "pd-last-dance",
-    "storage_bucket": "pd-last-dance.appspot.com"
+    "project_number": "859399446641",
+    "project_id": "pantosnap",
+    "storage_bucket": "pantosnap.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:384341039795:android:81c1d5425abf0d6def2ec6",
+        "mobilesdk_app_id": "1:859399446641:android:1ade6db22f10ff1e06bbd0",
         "android_client_info": {
           "package_name": "com.example.pantomonitor"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "384341039795-9rdndqr7a6i3j7ik90n4b9v96k8kh5pb.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC58gd7yuJfljvVemBWBX2TAcZmPsrwYNI"
+          "current_key": "AIzaSyCP1ACu7THo2XYIXauJcVaZFaD0G_37qfk"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "384341039795-9rdndqr7a6i3j7ik90n4b9v96k8kh5pb.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

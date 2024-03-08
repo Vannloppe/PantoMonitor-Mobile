@@ -11,6 +11,7 @@ import android.os.Environment
 import android.os.Handler
 import android.provider.Settings
 import android.view.Gravity
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -27,7 +28,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.pantomonitor.R
 import com.example.pantomonitor.databinding.ActivityMainBinding
-import com.example.pantomonitor.ml.NasnetmobileModel985
+import com.example.pantomonitor.ml.NasnetmobileModel
 import com.example.pantomonitor.viewmodel.BdMainViewModel
 import com.example.pantomonitor.viewmodel.BdViewModelFactoy
 import com.google.firebase.auth.FirebaseAuth
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: BdMainViewModel
     private lateinit var binding: ActivityMainBinding
     private lateinit var firebaseAuth: FirebaseAuth
-    private  lateinit var  nasnetlatest: NasnetmobileModel985
+    private  lateinit var  nasnetlatest: NasnetmobileModel
     private var isButtonClickable = true
     private val storage = FirebaseStorage.getInstance()
     private val storageRef: StorageReference = storage.reference
@@ -77,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 
 
         firebaseAuth = FirebaseAuth.getInstance()
-        nasnetlatest = NasnetmobileModel985.newInstance((this))
+        nasnetlatest = NasnetmobileModel.newInstance((this))
 
         setSupportActionBar(binding.toolbar)
 
@@ -124,14 +125,12 @@ class MainActivity : AppCompatActivity() {
         var user = firebaseAuth.currentUser
 
 
-        if (user != null) {
-            user.let {
-                // Name, email address, and profile photo Url
-                val email = user.email
-                headerTextView.text = email.toString()
+        user?.let {
+            // Name, email address, and profile photo Url
+            val email = user.email
+            headerTextView.text = email.toString()
 
 
-            }
         }
 
         binding.navViewer.setNavigationItemSelectedListener {
@@ -192,7 +191,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    fun getLatestmodel():NasnetmobileModel985 {
+    fun getLatestmodel():NasnetmobileModel {
         return nasnetlatest
     }
 
@@ -219,7 +218,6 @@ class MainActivity : AppCompatActivity() {
         val popupView: View = inflater.inflate(R.layout.popupwindow, null)
         val editText: EditText = popupView.findViewById(R.id.editTextDate)
         val editText1: EditText = popupView.findViewById(R.id.editTextDate2)
-        val editText2: EditText = popupView.findViewById(R.id.editTextNumber3)
         val btnFilter: Button = popupView.findViewById(R.id.buttonaccept)
 
         // Find the RecyclerView container
@@ -244,27 +242,26 @@ class MainActivity : AppCompatActivity() {
                 btnFilter.isEnabled = false
 
 
-                val enteredText1 = viewModel.getunixtimestampexport(editText.text.toString())
-                val enteredText2 = viewModel. getunixtimestampexport(editText1.text.toString())
-                val enteredText3 = editText2.text.toString()
+                val enteredText1 = viewModel.getUnixTimestamp(editText.text.toString())
+                val enteredText2 = viewModel.getUnixTimestamp(editText1.text.toString())
+
 
                 val Dataname = updateDate() + ".xls"
 
-                viewModel.updateQueryexport(enteredText1,enteredText2,enteredText3)
+                viewModel.updateQueryexport(enteredText1.toString(),enteredText2.toString())
 
 
-                viewModel.dataList.observe(this) { newData ->
+                viewModel.dataListEntry.observe(this) { newData ->
 
                     if (!newData.isNullOrEmpty()) {
-
 
 
                         val workbook: Workbook =   HSSFWorkbook()
                         val sheet = workbook.createSheet("Exported")
 
                         val headerRow: Row = sheet.createRow(0)
-                        headerRow.createCell(0).setCellValue("Img-link")
-                        headerRow.createCell(1).setCellValue("Img")
+                        headerRow.createCell(0).setCellValue("Img")
+                        headerRow.createCell(1).setCellValue("Img-name")
                         headerRow.createCell(2).setCellValue("Assessment")
                         headerRow.createCell(3).setCellValue("Date")
                         headerRow.createCell(4).setCellValue("Time")
@@ -274,7 +271,8 @@ class MainActivity : AppCompatActivity() {
                         var rowNum = 1
                         for (data in newData) {
                             val row: Row = sheet.createRow(rowNum++)
-                            row.createCell(0).setCellValue(gettimepic(data.Img).toString())
+
+                            row.createCell(0).setCellValue(gettimepic(data.Img))
                             row.createCell(1).setCellValue(data.Img)
                             row.createCell(2).setCellValue(data.Assessment)
                             val date = data.Date.toLong() * 1000L
@@ -296,17 +294,17 @@ class MainActivity : AppCompatActivity() {
                         val fileOut = FileOutputStream(filePath)
                         workbook.write(fileOut)
                         fileOut.close()
+                        showToast("Success")
 
 
-                    } else {
-                        showToast("Filter Unsuccessful")
-                    }
+
+
+                    }else{showToast("ERROR")}
 
 
                 }
 
 
-                showToast("Success")
                 popupWindow.dismiss()
 
                 Handler().postDelayed({
@@ -329,14 +327,29 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun gettimepic(img: String): StorageReference {
 
-        return storageRef.child("images/${img}")
+
+    private fun gettimepic(img: String): String {
+
+        return storageRef.child("images/${img}").toString()
     }
 
-}
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        // Intercept volume button events
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+            // Get reference to your fragment
+            val fragment = supportFragmentManager.findFragmentById(R.id.frame_layout_main) as? PlaceHolder
+            // Call your function in the fragment
+            fragment?.captureImage()
+
+            return true // Consume the event
+        }
+        return super.onKeyDown(keyCode, event)
+
+    }
 
 
+    }
 
 
 

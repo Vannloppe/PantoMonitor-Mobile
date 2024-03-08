@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/framelayoutplace"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.PlaceHolder">
@@ -41,10 +42,10 @@
             android:id="@+id/overlayview"
             android:layout_width="60dp"
             android:layout_height="0dp"
+            android:layout_marginEnd="100dp"
             android:background="@drawable/guideline"
             app:layout_constraintBottom_toBottomOf="@+id/preview"
-            app:layout_constraintEnd_toEndOf="@+id/preview"
-            app:layout_constraintHorizontal_bias="0.35"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/preview"
             app:layout_constraintTop_toTopOf="@+id/preview" />
 
@@ -52,10 +53,10 @@
             android:id="@+id/overlayview2"
             android:layout_width="60dp"
             android:layout_height="0dp"
+            android:layout_marginStart="100dp"
             android:background="@drawable/guideline2"
             app:layout_constraintBottom_toBottomOf="@+id/preview"
             app:layout_constraintEnd_toEndOf="@+id/preview"
-            app:layout_constraintHorizontal_bias="0.65"
             app:layout_constraintStart_toStartOf="@+id/preview"
             app:layout_constraintTop_toTopOf="@+id/preview" />
 

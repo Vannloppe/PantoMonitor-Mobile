@@ -20,6 +20,10 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.Adapter
 import com.squareup.picasso.Picasso
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URI
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -155,6 +159,9 @@ class HomeFrag : Fragment() {
         pieChart.data = data
         pieChart.invalidate()
     }
+
+
+
 
 }
 

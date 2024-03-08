@@ -1,8 +1,7 @@
 package com.example.pantomonitor.view
 
-import  android.app.Dialog
+
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,16 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Rect
 import android.net.Uri
 import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.Gravity
+import android.view.KeyEvent
 import android.widget.Button
 import android.widget.EditText
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.Toast
@@ -30,11 +28,8 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import com.example.pantomonitor.R
 import com.example.pantomonitor.databinding.FragmentPlaceHolderBinding
-import com.example.pantomonitor.databinding.TrainnoBinding
-import com.example.pantomonitor.viewmodel.BdMainViewModel
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
@@ -42,11 +37,6 @@ import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.squareup.picasso.Picasso
-import org.apache.poi.hssf.usermodel.HSSFWorkbook
-import org.apache.poi.ss.usermodel.Row
-import org.apache.poi.ss.usermodel.Workbook
-import org.apache.poi.ss.util.ImageUtils
 import org.tensorflow.lite.DataType
 import java.io.File
 import java.io.FileOutputStream
@@ -57,8 +47,7 @@ import java.util.Locale
 import java.util.concurrent.Executors
 
 
-interface PopupInteractionListener {
-    fun updateTextView(text: String,text2: String)
+interface PopupInteractionListener {                                fun updateTextView(text: String,text2: String)
 }
 
 class PlaceHolder : Fragment(),PopupInteractionListener {
@@ -84,8 +73,9 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
         imageProcessor = ImageProcessor.Builder()
             //.add(NormalizeOp(0.0f, 225.0f))
-            //.add(TransformToGrayscaleOp())
+
             .add(ResizeOp(224, 224, ResizeOp.ResizeMethod.BILINEAR))
+            //.add(TransformToGrayscaleOp())
             .build()
 
 
@@ -139,7 +129,8 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
         val model = activity.getLatestmodel()
 // Creates inputs for reference.
         val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
-            inputFeature0.loadBuffer(tensorImage.buffer)
+
+        inputFeature0.loadBuffer(tensorImage.buffer)
 
 // Runs model inference and gets result.
         val outputs = model.process(inputFeature0)
@@ -186,8 +177,17 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
                 maxIdx = index
             }
         }
-        var check = arrayOf("Not-Pantograph", "Bad", "Bad", "Good", "Good")
+        var check = arrayOf("Not-Pantograph", "Replace", "Replace", "Good", "Good")
         var bindtext = check[maxIdx]
+
+
+
+        Handler(Looper.getMainLooper()).post {
+            Toast.makeText(requireContext(), "$maxIdx", Toast.LENGTH_SHORT)
+                .show()
+        }
+
+
         val currentTime = Date()
         val timeFormattime = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
         val dateFormat = System.currentTimeMillis() / 1000L
@@ -195,7 +195,6 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
         val cartno = binding.textView14.text.toString()
 
         val formattedDate = dateFormat
-
         val formattedTime = timeFormattime.format(currentTime)
 
 
@@ -229,6 +228,7 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
             // Build and bind the camera use cases
             val preview = Preview.Builder().build().also {
+
                 it.setSurfaceProvider(previewView.surfaceProvider)
             }
 
@@ -253,12 +253,11 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
     }
 
-    private fun captureImage() {
+    fun captureImage() {
         val outputDirectory = getOutputDirectory()
         val imageFileName = generateImageFileName()
         val imageFile = File(outputDirectory, "${imageFileName}.jpg")
         val outputFileOptions = ImageCapture.OutputFileOptions.Builder(imageFile).build()
-
 
         //for cropping
 
@@ -452,7 +451,7 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
         // Calculate the dimensions of the cropped region (full width, half of the original height)
         val croppedWidth = originalWidth
-        val croppedHeight = 440
+        val croppedHeight = 400
 
         // Calculate the coordinates of the top-left corner of the cropping area
         val cropX = 0 // Start from the left edge
@@ -471,7 +470,7 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
         // Calculate the dimensions of the cropped region (full width, half of the original height)
 
         val croppedWidth = originalWidth
-        val croppedHeight = 440
+        val croppedHeight = 400
 
         // Calculate the coordinates of the top-left corner of the cropping area
         val cropX = 0 // Start from the right edge
@@ -487,6 +486,25 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
 
         return Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, false)
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        // Register volume button events when the fragment resumes
+        activity?.let {
+            it.volumeControlStream = KeyEvent.KEYCODE_VOLUME_DOWN // You can set to other volume button if you want
+            it.volumeControlStream = KeyEvent.KEYCODE_VOLUME_UP
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Unregister volume button events when the fragment pauses
+        activity?.let {
+            it.volumeControlStream = KeyEvent.KEYCODE_VOLUME_DOWN
+            it.volumeControlStream = KeyEvent.KEYCODE_VOLUME_UP
+        }
     }
 
 

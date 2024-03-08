@@ -31,7 +31,7 @@ class StatsProvider {
     var Defectcounterdatamonthly = MutableLiveData<Int>(0)
 
 
-    var timelinelist = mutableListOf<timelinephoto>()
+
 
 
 
