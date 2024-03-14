@@ -2,7 +2,10 @@ package com.example.pantomonitor.view
 
 
 import android.annotation.SuppressLint
+import android.content.ContentResolver
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 
 import android.net.Uri
 import android.os.Build
@@ -21,6 +24,7 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -31,16 +35,21 @@ import com.example.pantomonitor.databinding.ActivityMainBinding
 import com.example.pantomonitor.ml.NasnetmobileModel
 import com.example.pantomonitor.viewmodel.BdMainViewModel
 import com.example.pantomonitor.viewmodel.BdViewModelFactoy
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import org.apache.poi.hssf.usermodel.HSSFClientAnchor
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Workbook
+import java.io.ByteArrayOutputStream
 
 import java.io.File
 
 import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
 
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -241,68 +250,75 @@ class MainActivity : AppCompatActivity() {
                 isButtonClickable = false
                 btnFilter.isEnabled = false
 
-
-                val enteredText1 = viewModel.getUnixTimestamp(editText.text.toString())
-                val enteredText2 = viewModel.getUnixTimestamp(editText1.text.toString())
+                if (editText.text.isNotEmpty() && editText1.text.isNotEmpty()) {
 
 
-                val Dataname = updateDate() + ".xls"
-
-                viewModel.updateQueryexport(enteredText1.toString(),enteredText2.toString())
-
-
-                viewModel.dataListEntry.observe(this) { newData ->
-
-                    if (!newData.isNullOrEmpty()) {
+                    val enteredText1 = viewModel.getUnixTimestamp(editText.text.toString())
+                    val enteredText2 = viewModel.getUnixTimestamp(editText1.text.toString())
 
 
-                        val workbook: Workbook =   HSSFWorkbook()
-                        val sheet = workbook.createSheet("Exported")
+                    val Dataname = updateDate() + ".xls"
 
-                        val headerRow: Row = sheet.createRow(0)
-                        headerRow.createCell(0).setCellValue("Img")
-                        headerRow.createCell(1).setCellValue("Img-name")
-                        headerRow.createCell(2).setCellValue("Assessment")
-                        headerRow.createCell(3).setCellValue("Date")
-                        headerRow.createCell(4).setCellValue("Time")
-                        headerRow.createCell(5).setCellValue("TrainNo")
-                        headerRow.createCell(6).setCellValue("CartNo")
+                    viewModel.updateQueryexport(enteredText1.toString(), enteredText2.toString())
 
-                        var rowNum = 1
-                        for (data in newData) {
-                            val row: Row = sheet.createRow(rowNum++)
 
-                            row.createCell(0).setCellValue(gettimepic(data.Img))
-                            row.createCell(1).setCellValue(data.Img)
-                            row.createCell(2).setCellValue(data.Assessment)
-                            val date = data.Date.toLong() * 1000L
-                            val dateFormat = SimpleDateFormat("MM-dd-yyyy")
-                            row.createCell(3).setCellValue(dateFormat.format(date))
-                            row.createCell(4).setCellValue(data.Time)
-                            row.createCell(5).setCellValue(data.TrainNo)
-                            row.createCell(6).setCellValue(data.CartNo)
-                            // Add more cells for additional columns
+                    viewModel.dataListEntry.observe(this) { newData ->
+
+                        if (!newData.isNullOrEmpty()) {
+
+
+                            val workbook: Workbook = HSSFWorkbook()
+                            val sheet = workbook.createSheet("Exported")
+
+                            val headerRow: Row = sheet.createRow(0)
+                            headerRow.createCell(0).setCellValue("Img")
+                            headerRow.createCell(1).setCellValue("Img-name")
+                            headerRow.createCell(2).setCellValue("Assessment")
+                            headerRow.createCell(3).setCellValue("Date")
+                            headerRow.createCell(4).setCellValue("Time")
+                            headerRow.createCell(5).setCellValue("TrainNo")
+                            headerRow.createCell(6).setCellValue("CartNo")
+
+                            var rowNum = 1
+                            for (data in newData) {
+                                val row: Row = sheet.createRow(rowNum++)
+
+                                row.createCell(0).setCellValue("storage.googleapis.com/pantosnap.appspot.com/images/"+data.Img)
+                                row.createCell(1).setCellValue(data.Img)
+                                row.createCell(2).setCellValue(data.Assessment)
+                                val date = data.Date.toLong() * 1000L
+                                val dateFormat = SimpleDateFormat("MM-dd-yyyy")
+                                row.createCell(3).setCellValue(dateFormat.format(date))
+                                row.createCell(4).setCellValue(data.Time)
+                                row.createCell(5).setCellValue(data.TrainNo)
+                                row.createCell(6).setCellValue(data.CartNo)
+
+
+                                //rowNum++
+
+
+                            }
+
+                            // Write the workbook to the file
+
+
+                            val filePath =
+                                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                                    .absolutePath + File.separator + Dataname
+
+                            val fileOut = FileOutputStream(filePath)
+                            workbook.write(fileOut)
+                            fileOut.close()
+                            showToast("Success")
+
+
+                        } else {
+                            showToast("ERROR")
                         }
 
-                        // Write the workbook to the file
 
-
-                        val filePath =
-                            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                                .absolutePath + File.separator + Dataname
-
-                        val fileOut = FileOutputStream(filePath)
-                        workbook.write(fileOut)
-                        fileOut.close()
-                        showToast("Success")
-
-
-
-
-                    }else{showToast("ERROR")}
-
-
-                }
+                    }
+                }else{ showToast("Fill up both Entries.")}
 
 
                 popupWindow.dismiss()
@@ -322,16 +338,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showToast(message: String) {
+    private fun showToast(message: String?) {
         // Replace this with your desired method of displaying a message (e.g., Toast)
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
 
 
-    private fun gettimepic(img: String): String {
+    private fun gettimepic(img: String): StorageReference {
 
-        return storageRef.child("images/${img}").toString()
+
+
+
+
+        return storageRef.child("images/${img}")
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -347,6 +367,10 @@ class MainActivity : AppCompatActivity() {
         return super.onKeyDown(keyCode, event)
 
     }
+
+
+
+
 
 
     }
