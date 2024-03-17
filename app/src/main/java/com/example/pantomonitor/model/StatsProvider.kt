@@ -25,8 +25,10 @@ class StatsProvider {
 
     var Goodcounterdatadaily = MutableLiveData<Int>(0)
     var Defectcounterdatadaily = MutableLiveData<Int>(0)
+
     var Goodcounterdataweekly = MutableLiveData<Int>(0)
     var Defectcounterdataweekly = MutableLiveData<Int>(0)
+
     var Goodcounterdatamonthly = MutableLiveData<Int>(0)
     var Defectcounterdatamonthly = MutableLiveData<Int>(0)
 

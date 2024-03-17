@@ -276,10 +276,6 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
                     val cropleft = croppedBitmap?.let { cropLeftToCenter(it) }
                     val cropright = croppedBitmap?.let { cropRightToCenter(it) }
 
-                    val resizeleft = cropleft?.let { resizeImage(it) }
-                    val resizeright = cropright?.let { resizeImage(it) }
-
-
 
 
                     val bittiurileft = cropleft?.let { bitmapToUri(it) }
@@ -472,9 +468,10 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
         val croppedWidth = originalWidth
         val croppedHeight = 400
 
+
         // Calculate the coordinates of the top-left corner of the cropping area
-        val cropX = 0 // Start from the right edge
-        val cropY = originalHeight  - croppedHeight
+        val cropX = 0// Start from the right edge
+        val cropY = 600
 
         // Create a new Bitmap representing the cropped region
         return Bitmap.createBitmap(bitmap, cropX, cropY, croppedWidth, croppedHeight)

@@ -51,12 +51,12 @@ class LoginActivity : AppCompatActivity() {
                             startActivity(intent)
                             finish()
                         } else {
-                            Toast.makeText(this, "Login Error! Check your email or password", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "Incorrect email or password. Please try again.", Toast.LENGTH_LONG).show()
 
                         }
                     }
               } else {
-                Toast.makeText(this, "Empty Fields Are not Allowed !!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Please fill out all required fields.", Toast.LENGTH_LONG).show()
 
             }
         }

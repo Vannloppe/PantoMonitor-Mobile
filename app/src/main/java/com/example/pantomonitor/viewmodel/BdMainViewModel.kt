@@ -27,7 +27,7 @@ import java.util.Locale
 
 class BdMainViewModel : ViewModel() {
     private var database = FirebaseDatabase.getInstance().getReference("New_Entries")
-    private val getbad = database.orderByChild("Assessment").equalTo("Bad")
+    private val getbad = database.orderByChild("Assessment").equalTo("Replace")
     private val getgood = database.orderByChild("Assessment").equalTo("Good")
     private val storage = FirebaseStorage.getInstance()
     private val storageRef: StorageReference = storage.reference
@@ -57,7 +57,7 @@ class BdMainViewModel : ViewModel() {
                     stats.Defectcounterdata.value = querySnapshot.childrenCount.toString()
                     stats.totalcounterdata.value = querySnapshot.childrenCount.toInt()
                     val defect = querySnapshot.childrenCount.toFloat()
-                    entries.add(PieEntry(defect, "defect"))
+                    entries.add(PieEntry(defect, "Replace"))
                 }
 
                 getgood.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -128,7 +128,7 @@ class BdMainViewModel : ViewModel() {
                             stats.Goodcounterdatadaily.value = (stats.Goodcounterdatadaily.value ?: 0) + 1
 
                         }
-                        else if (parse.Assessment == "Bad"){
+                        else if (parse.Assessment == "Replace"){
                             stats.Defectcounterdatadaily.value = (stats.Defectcounterdatadaily.value ?: 0) + 1
 
                         }
@@ -155,11 +155,11 @@ class BdMainViewModel : ViewModel() {
         var startDateweek = getunixtimestampexport(dateFormat.format(currentDatew.time).toString())
 
 
-        currentDatew.add(Calendar.DAY_OF_YEAR,6)
+        currentDatew.add(Calendar.DAY_OF_YEAR,7 )
         var endDateweek = getunixtimestampexport(dateFormat.format(currentDatew.time).toString())
 
 
-        val getdateweekly = database.orderByChild("Date").startAt(startDateweek).endAt(endDateweek)
+        val getdateweekly = database.orderByChild("Date").startAt("$startDateweek\uF8FF").endAt("$endDateweek\uF8FF")
 
         getdateweekly.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -173,7 +173,7 @@ class BdMainViewModel : ViewModel() {
                             stats.Goodcounterdataweekly.value = (stats.Goodcounterdataweekly.value ?: 0) + 1
 
                         }
-                        else if (parse.Assessment == "Bad"){
+                        else if (parse.Assessment == "Replace"){
                             stats.Defectcounterdataweekly.value = (stats.Defectcounterdataweekly.value ?: 0) + 1
 
                         }
@@ -210,7 +210,7 @@ class BdMainViewModel : ViewModel() {
 
         val getdatemonthly = database.orderByChild("Date").endAt("$endmon\uF8FF").startAt("$startmon\uF8FF")
 
-        getdatemonthly.addValueEventListener(object : ValueEventListener {
+        getdatemonthly.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (entrySnapshot in dataSnapshot.children) {
                     var parse = entrySnapshot.getValue(parsed::class.java)
@@ -220,7 +220,7 @@ class BdMainViewModel : ViewModel() {
                             stats.Goodcounterdatamonthly.value =
                                 (stats.Goodcounterdatamonthly.value ?: 0) + 1
 
-                        } else if (parse.Assessment == "Bad") {
+                        } else if (parse.Assessment == "Replace") {
                             stats.Defectcounterdatamonthly.value =
                                 (stats.Defectcounterdatamonthly.value ?: 0) + 1
 
@@ -289,7 +289,7 @@ class BdMainViewModel : ViewModel() {
 
     fun updateQuery(userInput: String, userInput2: String) { //FETCH DATA FROM USER FOR TIMELINE
         // Update the query based on user input
-        val query = database.orderByChild("Date").startAt("$userInput2\uF8FF").endAt("$userInput\uF8FF")
+        val query = database.orderByChild("Date").endAt(userInput2).startAt(userInput)
 
         // Fetch data using the updated query
         query.addListenerForSingleValueEvent(object : ValueEventListener {

@@ -94,6 +94,7 @@ class TimelineFragment : Fragment(),DatePickerDialog.OnDateSetListener {
         calendar.set(year, month, dayOfMonth)
        calendar.set(Calendar.DAY_OF_MONTH, 0)
 
+
 // Format the start date (first day of the current month)
         var startDatemon = calendar.time.toString()
         var startmon = viewModel.getunixtimestamp(startDatemon)

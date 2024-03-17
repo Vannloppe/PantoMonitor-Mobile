@@ -30,6 +30,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import com.example.pantomonitor.R
 import com.example.pantomonitor.databinding.ActivityMainBinding
 import com.example.pantomonitor.ml.NasnetmobileModel
@@ -64,7 +67,6 @@ class MainActivity : AppCompatActivity() {
     private  lateinit var  nasnetlatest: NasnetmobileModel
     private var isButtonClickable = true
     private val storage = FirebaseStorage.getInstance()
-    private val storageRef: StorageReference = storage.reference
 
 
     @RequiresApi(Build.VERSION_CODES.R)
@@ -72,6 +74,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this, BdViewModelFactoy()).get(BdMainViewModel::class.java)
+
+        //binding.drawerLayout.openDrawer(GravityCompat.START)
+
+
 
 
 
@@ -163,6 +169,8 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+
+
         binding.botNavMenu.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.bot_Home -> replaceFragment(HomeFrag())
@@ -215,11 +223,13 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    override fun onSupportNavigateUp(): Boolean {
+        override fun onSupportNavigateUp(): Boolean {
         // Open the drawer when the menu icon is selected
         binding.drawerLayout.openDrawer(GravityCompat.START)
-        return true
+        return  super.onSupportNavigateUp()
     }
+
+
 
     @SuppressLint("MissingInflatedId")
     private fun showPopup(anchorView: View) {
@@ -344,15 +354,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-    private fun gettimepic(img: String): StorageReference {
-
-
-
-
-
-        return storageRef.child("images/${img}")
-    }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         // Intercept volume button events
