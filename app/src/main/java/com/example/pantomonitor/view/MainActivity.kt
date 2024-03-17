@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private  lateinit var  nasnetlatest: NasnetmobileModel
+    private  lateinit var  error_handling: NasnetmobileModel
     private var isButtonClickable = true
     private val storage = FirebaseStorage.getInstance()
 
@@ -210,6 +211,10 @@ class MainActivity : AppCompatActivity() {
 
     fun getLatestmodel():NasnetmobileModel {
         return nasnetlatest
+    }
+
+    fun geterrorhandling():NasnetmobileModel {
+        return error_handling
     }
 
     private fun logout() {

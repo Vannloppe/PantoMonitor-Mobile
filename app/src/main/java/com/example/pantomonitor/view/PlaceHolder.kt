@@ -47,7 +47,7 @@ import java.util.Locale
 import java.util.concurrent.Executors
 
 
-interface PopupInteractionListener {                                fun updateTextView(text: String,text2: String)
+interface PopupInteractionListener {fun updateTextView(text: String,text2: String)
 }
 
 class PlaceHolder : Fragment(),PopupInteractionListener {
@@ -143,6 +143,7 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
             if (outputFeature0[maxIdx] < fl) {
                 maxIdx = index
             }
+
         }
 
         return maxIdx
@@ -177,7 +178,7 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
                 maxIdx = index
             }
         }
-        var check = arrayOf("Not-Pantograph", "Replace", "Replace", "Good", "Good")
+        var check = arrayOf("Good", "Good","Good","Replace" ,"Replace")
         var bindtext = check[maxIdx]
 
 
@@ -216,6 +217,37 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 // Releases model resources if no longer used.
         //  model.close()
     }
+
+    private fun errorhandling(imageUri: Uri) {
+        val currentTime = Date()
+        val timeFormattime = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        val dateFormat = System.currentTimeMillis() / 1000L
+        val trainno = binding.textView12.text.toString()
+        val cartno = binding.textView14.text.toString()
+
+        val formattedDate = dateFormat
+        val formattedTime = timeFormattime.format(currentTime)
+
+
+        val upload =
+            Upload("Not-Pantograph", "$formattedDate", "${imageUri.lastPathSegment}", "$formattedTime","$trainno","$cartno")
+        val uploadData = mapOf(
+            "Assessment" to upload.Assessment,
+            "Date" to upload.Date,
+            "Img" to upload.Img,
+            "Time" to upload.Time,
+            "TrainNo" to upload.TrainNo,
+            "CartNo" to upload.CartNo
+        )
+
+
+        database.push().setValue(uploadData)
+
+
+// Releases model resources if no longer used.
+        //  model.close()
+    }
+
 
     private fun setupcamera() {
         val previewView: PreviewView = binding.preview
@@ -277,7 +309,6 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
                     val cropright = croppedBitmap?.let { cropRightToCenter(it) }
 
 
-
                     val bittiurileft = cropleft?.let { bitmapToUri(it) }
                     val bittiuriright = cropright?.let { bitmapToUri(it) }
                     val errorcheckingleft = bittiurileft?.let { error_handling(it) }
@@ -286,7 +317,29 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
                     if (errorcheckingright != null) {
                         if (errorcheckingleft != null) {
-                           // if (errorcheckingleft  > 0 && errorcheckingright > 0) {
+                            if (errorcheckingleft == 0 && errorcheckingright == 0) {
+
+                                if (bittiuriright != null) {
+                                    errorhandling(bittiuriright)
+                                }
+                                if (bittiurileft != null) {
+                                    errorhandling(bittiurileft)
+                                }
+
+                                Handler(Looper.getMainLooper()).post {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Rejected",
+                                        Toast.LENGTH_LONG
+                                    )
+                                        .show()
+                                }
+
+
+
+
+                            } else {
+
                                 if (bittiuriright != null) {
                                     predict(bittiuriright)
                                     uploadImageToFirebase(bittiuriright)
@@ -296,17 +349,19 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
                                     uploadImageToFirebase(bittiurileft)
                                 }
                                 Handler(Looper.getMainLooper()).post {
-                                    Toast.makeText(requireContext(), "Upload Completed", Toast.LENGTH_LONG)
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Upload Completed",
+                                        Toast.LENGTH_LONG
+                                    )
                                         .show()
                                 }
-                            } else  {
-                                Handler(Looper.getMainLooper()).post {
-                                    Toast.makeText(requireContext(), "Image Rejected", Toast.LENGTH_LONG)
-                                        .show()
-                                }
+
+
                             }
                         }
                     }
+                }
 
 
 
