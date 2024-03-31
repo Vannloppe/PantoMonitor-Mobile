@@ -29,10 +29,7 @@ class TimelineFragment : Fragment(),DatePickerDialog.OnDateSetListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        // Inflate the layout for this fragment
         binding = FragmentTimelineBinding.inflate(inflater, container, false)  // Inflate using ViewBinding
-        //viewModel = ViewModelProvider(this).get(BdMainViewModel::class.java)
         viewModel = ViewModelProvider(this, BdViewModelFactoy()).get(BdMainViewModel::class.java)
 
 
@@ -87,18 +84,14 @@ class TimelineFragment : Fragment(),DatePickerDialog.OnDateSetListener {
 
 
     override fun onDateSet(view: android.widget.DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        // Handle the selected date here
-        // For example, you can update a TextView with the selected date
 
         val calendar = Calendar.getInstance()
         calendar.set(year, month, dayOfMonth)
        calendar.set(Calendar.DAY_OF_MONTH, 0)
 
 
-// Format the start date (first day of the current month)
         var startDatemon = calendar.time.toString()
         var startmon = viewModel.getunixtimestamp(startDatemon)
-// Move to the end of the month
         calendar.add(Calendar.MONTH, 1)
         calendar.add(Calendar.DAY_OF_MONTH, -1)
 
@@ -115,15 +108,6 @@ class TimelineFragment : Fragment(),DatePickerDialog.OnDateSetListener {
         viewModel.updateQuery(startmon,endmon)
         Adapter.clearList()
     }
-
-
-
-
-
-
-
-
-
 
 }
 

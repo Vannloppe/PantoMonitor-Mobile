@@ -9,6 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
+import android.graphics.Paint
 import android.net.Uri
 import android.os.Environment
 import android.os.Handler
@@ -66,16 +71,11 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentPlaceHolderBinding.inflate(inflater, container, false)
 
 
-
         imageProcessor = ImageProcessor.Builder()
-            //.add(NormalizeOp(0.0f, 225.0f))
-
             .add(ResizeOp(224, 224, ResizeOp.ResizeMethod.BILINEAR))
-            //.add(TransformToGrayscaleOp())
             .build()
 
 
@@ -87,25 +87,13 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
                 binding.Select.isEnabled = false
                 captureImage()
 
-                // Perform your button click action here
-                // For example, you can initiate some operation or navigation
-
-                // Simulate some delay (e.g., 2 seconds) to re-enable the button
                 Handler().postDelayed({
-                    // Re-enable the button after the delay
+
                     isButtonClickable = true
                     binding.Select.isEnabled = true
                 }, 2000) // 2000 milliseconds = 2 seconds
             }
         }
-
-
-
-
-
-            //  uploadComplete()
-
-
 
         return binding.root
     }
@@ -126,7 +114,7 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
         tensorImage.load(bitmap)
         tensorImage = imageProcessor.process(tensorImage)
         val activity = requireActivity() as MainActivity
-        val model = activity.getLatestmodel()
+        val model = activity.geterrorhandling()
 // Creates inputs for reference.
         val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
 
@@ -178,16 +166,8 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
                 maxIdx = index
             }
         }
-        var check = arrayOf("Good", "Good","Good","Replace" ,"Replace")
+        var check = arrayOf("Not-Pantograph", "Good","Replace","Replace" ,"Replace")
         var bindtext = check[maxIdx]
-
-
-
-        Handler(Looper.getMainLooper()).post {
-            Toast.makeText(requireContext(), "$maxIdx", Toast.LENGTH_SHORT)
-                .show()
-        }
-
 
         val currentTime = Date()
         val timeFormattime = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
@@ -213,9 +193,6 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
         database.push().setValue(uploadData)
 
-
-// Releases model resources if no longer used.
-        //  model.close()
     }
 
     private fun errorhandling(imageUri: Uri) {
@@ -244,8 +221,6 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
         database.push().setValue(uploadData)
 
 
-// Releases model resources if no longer used.
-        //  model.close()
     }
 
 
@@ -257,8 +232,6 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
         cameraProviderFuture.addListener({
             val cameraProvider = cameraProviderFuture.get()
-
-            // Build and bind the camera use cases
             val preview = Preview.Builder().build().also {
 
                 it.setSurfaceProvider(previewView.surfaceProvider)
@@ -266,14 +239,10 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
             imageCapture = ImageCapture.Builder().build()
 
-            // Select back camera as a default
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
             try {
-                // Unbind use cases before rebinding
                 cameraProvider?.unbindAll()
-
-                // Bind use cases to camera
                 cameraProvider?.bindToLifecycle(this, cameraSelector, preview, imageCapture)
 
             } catch (exc: Exception) {
@@ -291,8 +260,6 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
         val imageFile = File(outputDirectory, "${imageFileName}.jpg")
         val outputFileOptions = ImageCapture.OutputFileOptions.Builder(imageFile).build()
 
-        //for cropping
-
 
 
         imageCapture.takePicture(
@@ -300,54 +267,56 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
             Executors.newSingleThreadExecutor(),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    // Image captured and saved to outputFileResults.savedUri
-
                     val savedUri = Uri.fromFile(imageFile)
+
                     val bitmap = uriToBitmap(savedUri)
-                    val croppedBitmap = bitmap?.let { cropCenter(it, 4f) }
-                    val cropleft = croppedBitmap?.let { cropLeftToCenter(it) }
-                    val cropright = croppedBitmap?.let { cropRightToCenter(it) }
+                    //for cropping
+                        val croppedBitmap = bitmap?.let { cropCenter(it, 4f) }
+                        val cropleft = croppedBitmap?.let { cropLeftToCenter(it) }
+                        val cropright = croppedBitmap?.let { cropRightToCenter(it) }
+                        val bittiurileft = cropleft?.let { bitmapToUri(it) }
+                        val bittiuriright = cropright?.let { bitmapToUri(it) }
+                        val errorcheckingleft = bittiurileft?.let { error_handling(it) }
+                        val errorcheckingright = bittiurileft?.let { error_handling(it) }
 
+                        if (errorcheckingright != null) {
+                            if (errorcheckingleft != null) {
+                                    if (errorcheckingleft == 0 && errorcheckingright == 0) {
 
-                    val bittiurileft = cropleft?.let { bitmapToUri(it) }
-                    val bittiuriright = cropright?.let { bitmapToUri(it) }
-                    val errorcheckingleft = bittiurileft?.let { error_handling(it) }
-                    val errorcheckingright = bittiurileft?.let { error_handling(it) }
-
-
-                    if (errorcheckingright != null) {
-                        if (errorcheckingleft != null) {
-                            if (errorcheckingleft == 0 && errorcheckingright == 0) {
-
-                                if (bittiuriright != null) {
+                                  if (bittiuriright != null) {
                                     errorhandling(bittiuriright)
-                                }
-                                if (bittiurileft != null) {
-                                    errorhandling(bittiurileft)
-                                }
+                                   uploadImageToFirebase(bittiuriright)
 
-                                Handler(Looper.getMainLooper()).post {
-                                    Toast.makeText(
-                                        requireContext(),
+
+                                  }
+                                  if (bittiurileft != null) {
+                                       errorhandling(bittiurileft)
+                                       uploadImageToFirebase(bittiurileft)
+                                  }
+
+                                   Handler(Looper.getMainLooper()).post {
+                                     Toast.makeText(
+                                       requireContext(),
                                         "Rejected",
                                         Toast.LENGTH_LONG
-                                    )
-                                        .show()
-                                }
+                                      )
+                                       .show()
+                                    }
 
 
-
-
-                            } else {
+                                } else {
 
                                 if (bittiuriright != null) {
                                     predict(bittiuriright)
                                     uploadImageToFirebase(bittiuriright)
                                 }
-                                if (bittiurileft != null) {
-                                    predict(bittiurileft)
-                                    uploadImageToFirebase(bittiurileft)
-                                }
+
+                                    if (bittiurileft != null) {
+                                        predict(bittiurileft)
+                                        uploadImageToFirebase(bittiurileft)
+                                    }
+
+
                                 Handler(Looper.getMainLooper()).post {
                                     Toast.makeText(
                                         requireContext(),
@@ -360,14 +329,22 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
                             }
                         }
-                    }
+                         }
+
+
                 }
 
 
-
-
                 override fun onError(exception: ImageCaptureException) {
-                    // Handle error
+                    Handler(Looper.getMainLooper()).post {
+                        Toast.makeText(
+                            requireContext(),
+                            "Data Failed to Upload",
+                            Toast.LENGTH_LONG
+                        )
+                            .show()
+                    }
+
                 }
             })
     }
@@ -414,7 +391,7 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
     fun bitmapToUri(bitmap: Bitmap): Uri? {
         return try {
-            val context = requireContext() // Get the context from the Fragment
+            val context = requireContext()
             val imagesDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
             val imageFile = File.createTempFile(
                 SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date()),
@@ -433,14 +410,10 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
 
 
-
-
-
     private fun showPopup() {
 
 
         val popupView = layoutInflater.inflate(R.layout.trainno, null)
-        // Create a PopupWindow with the inflated view
         val editText: EditText = popupView.findViewById(R.id.editTextNumber)
         val editText1: EditText = popupView.findViewById(R.id.editTextNumber2)
         val btnAcpt: Button = popupView.findViewById(R.id.buttonaccept)
@@ -453,11 +426,10 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
 
-        // Set some options for the popup window
+
         popupWindow.isOutsideTouchable = true
         popupWindow.isFocusable = true
 
-        // Show the popup window
         popupWindow.showAtLocation(binding.preview,Gravity.CENTER, 0, 0)
 
         val popupInteractionListener: PopupInteractionListener = this
@@ -525,7 +497,7 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
 
         // Calculate the coordinates of the top-left corner of the cropping area
-        val cropX = 0// Start from the right edge
+        val cropX = 0
         val cropY = 600
 
         // Create a new Bitmap representing the cropped region
@@ -558,9 +530,6 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
             it.volumeControlStream = KeyEvent.KEYCODE_VOLUME_UP
         }
     }
-
-
-
 
 }
 

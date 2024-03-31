@@ -151,6 +151,7 @@
         android:text="New Here?"
         android:textColor="#0A2647"
         android:textSize="14sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -165,6 +166,7 @@
         android:textColor="#0A2647"
         android:textSize="14sp"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/New" />
 

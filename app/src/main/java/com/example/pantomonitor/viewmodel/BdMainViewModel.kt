@@ -157,8 +157,6 @@ class BdMainViewModel : ViewModel() {
 
         currentDatew.add(Calendar.DAY_OF_YEAR,7 )
         var endDateweek = getunixtimestampexport(dateFormat.format(currentDatew.time).toString())
-
-
         val getdateweekly = database.orderByChild("Date").startAt("$startDateweek\uF8FF").endAt("$endDateweek\uF8FF")
 
         getdateweekly.addValueEventListener(object : ValueEventListener {
@@ -167,7 +165,6 @@ class BdMainViewModel : ViewModel() {
 
                 for (entrySnapshot in dataSnapshot.children) {
                     var parse = entrySnapshot.getValue(parsed::class.java)
-                    //    val check = entrySnapshot.getValue(StatsProvider.parsed::class.java)
                     if (parse != null) {
                         if (parse.Assessment == "Good"){
                             stats.Goodcounterdataweekly.value = (stats.Goodcounterdataweekly.value ?: 0) + 1
@@ -183,7 +180,6 @@ class BdMainViewModel : ViewModel() {
 
             }
             override fun onCancelled(databaseError: DatabaseError) {
-                // Handle errors here
             }
         })
 
@@ -192,19 +188,18 @@ class BdMainViewModel : ViewModel() {
         val currentDatem = Calendar.getInstance()
 
 
-// Set the calendar to the first day of the month
+
         currentDatem.set(Calendar.DAY_OF_MONTH, 0)
 
-// Format the start date (first day of the current month)
+
 
         var startDatemon = currentDatem.time.toString()
         var startmon = getunixtimestamp(startDatemon)
 
-// Move to the end of the month
         currentDatem.add(Calendar.MONTH, 1)
         currentDatem.add(Calendar.DAY_OF_MONTH, -1)
 
-// Format the end date (last day of the current month)
+
         var endDatemon = currentDatem.time.toString()
         var endmon = getunixtimestamp(endDatemon)
 
@@ -243,24 +238,19 @@ class BdMainViewModel : ViewModel() {
 
     }
 
-
-    fun fetchData() { //FETCH DATA FOR TIMELINE
-        // Read from the database
+    //FETCH DATA FOR TIMELINE
+    fun fetchData() {
         val currentDate = Calendar.getInstance()
-
-// Set the calendar to the first day of the month
         currentDate.set(Calendar.DAY_OF_MONTH, 0)
 
-// Format the start date (first day of the current month)
 
         var startDatemon = currentDate.time.toString()
         var startmon = getunixtimestamp(startDatemon)
 
-// Move to the end of the month
         currentDate.add(Calendar.MONTH, 1)
         currentDate.add(Calendar.DAY_OF_MONTH, -1)
 
-// Format the end date (last day of the current month)
+
         var endDatemon = currentDate.time.toString()
         var endmon = getunixtimestamp(endDatemon)
 
@@ -280,18 +270,17 @@ class BdMainViewModel : ViewModel() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle errors
             }
         })
     }
 
 
+//FETCH DATA FROM USER FOR TIMELINE
 
-    fun updateQuery(userInput: String, userInput2: String) { //FETCH DATA FROM USER FOR TIMELINE
-        // Update the query based on user input
+
+    fun updateQuery(userInput: String, userInput2: String) {
         val query = database.orderByChild("Date").endAt(userInput2).startAt(userInput)
 
-        // Fetch data using the updated query
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val items = mutableListOf<timelinephoto>()
@@ -301,29 +290,25 @@ class BdMainViewModel : ViewModel() {
                     item?.let { items.add(it) }
                 }
 
-                // Update _data LiveData with the new filtered data
                 _dataList.value = items.asReversed()
 
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle errors here
+
             }
         })
     }
+    //FETCH DATA FROM USER FOR EXPORT XLS
 
-    fun updateQueryexport(userInput:String, userInput2: String,) { //FETCH DATA FROM USER FOR EXPORT XLS
-        // Update the query based on user input
-
+    fun updateQueryexport(userInput:String, userInput2: String,) {
 
         val query = database.orderByChild("Date").startAt(userInput).endAt(userInput2)
 
-        // Fetch data using the updated query
+
         query.addValueEventListener(object :ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var items = mutableListOf<timelinephoto>();
-                // Update _data LiveData with the new filtered data
-
                 for (dataSnapshot in snapshot.children) {
                     val item = dataSnapshot.getValue(timelinephoto::class.java)
                     item?.let { items.add(it) }

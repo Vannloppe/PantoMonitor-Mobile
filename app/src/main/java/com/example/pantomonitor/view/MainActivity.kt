@@ -13,6 +13,8 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.provider.Settings
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -35,6 +37,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.pantomonitor.R
 import com.example.pantomonitor.databinding.ActivityMainBinding
+import com.example.pantomonitor.ml.NasNetMobile1st
 import com.example.pantomonitor.ml.NasnetmobileModel
 import com.example.pantomonitor.viewmodel.BdMainViewModel
 import com.example.pantomonitor.viewmodel.BdViewModelFactoy
@@ -65,7 +68,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private  lateinit var  nasnetlatest: NasnetmobileModel
-    private  lateinit var  error_handling: NasnetmobileModel
+    private  lateinit var  error_handling: NasNetMobile1st
     private var isButtonClickable = true
     private val storage = FirebaseStorage.getInstance()
 
@@ -76,15 +79,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this, BdViewModelFactoy()).get(BdMainViewModel::class.java)
 
-        //binding.drawerLayout.openDrawer(GravityCompat.START)
-
-
-
-
-
-
         if (Environment.isExternalStorageManager()) {
-            // The app has been granted the MANAGE_EXTERNAL_STORAGE permission
         } else {
             val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
             intent.data = Uri.parse("package:" + packageName)
@@ -95,25 +90,19 @@ class MainActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
         nasnetlatest = NasnetmobileModel.newInstance((this))
+        error_handling = NasNetMobile1st.newInstance((this))
 
         setSupportActionBar(binding.toolbar)
-
-
 
         supportActionBar?.apply {
             displayOptions = androidx.appcompat.app.ActionBar.DISPLAY_SHOW_CUSTOM
             setDisplayShowCustomEnabled(true)
             setDisplayHomeAsUpEnabled(true)
 
-
-
             val customActionBar = LayoutInflater.from(this@MainActivity)
                 .inflate(R.layout.actionbar_font, null)
             customView = customActionBar
-            // Set your menu icon here
         }
-
-
 
         replaceFragment(HomeFrag())
 
@@ -122,7 +111,6 @@ class MainActivity : AppCompatActivity() {
         val headerTextView: TextView = headerView.findViewById(R.id.usernametxtview)
         val headerTextView1: TextView = headerView.findViewById(R.id.dateviewheader)
         val headerTextView2: TextView = headerView.findViewById(R.id.timetodatheader)
-
 
         val handler = Handler()
         val runnable = object : Runnable {
@@ -213,14 +201,12 @@ class MainActivity : AppCompatActivity() {
         return nasnetlatest
     }
 
-    fun geterrorhandling():NasnetmobileModel {
+    fun geterrorhandling():NasNetMobile1st {
         return error_handling
     }
 
     private fun logout() {
         firebaseAuth.signOut()
-        // Redirect the user to the login screen or any other appropriate screen after logout
-        // For example, you can start a new LoginActivity
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
@@ -229,7 +215,6 @@ class MainActivity : AppCompatActivity() {
 
 
         override fun onSupportNavigateUp(): Boolean {
-        // Open the drawer when the menu icon is selected
         binding.drawerLayout.openDrawer(GravityCompat.START)
         return  super.onSupportNavigateUp()
     }
@@ -244,36 +229,31 @@ class MainActivity : AppCompatActivity() {
         val editText1: EditText = popupView.findViewById(R.id.editTextDate2)
         val btnFilter: Button = popupView.findViewById(R.id.buttonaccept)
 
-        // Find the RecyclerView container
-
-        // Create a PopupWindow with the inflated view
         val popupWindow = PopupWindow(
             popupView,
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
-        // Set some options for the popup window
         popupWindow.isOutsideTouchable = true
         popupWindow.isFocusable = true
 
-        // Show the popup window
+
         popupWindow.showAtLocation(anchorView, Gravity.CENTER, 0, 0)
+        editText.addTextChangedListener(DateTextWatcher(editText))
+        editText1.addTextChangedListener(DateTextWatcher(editText1))
+
 
         btnFilter.setOnClickListener {
             if (isButtonClickable) {
-                // Disable the button to prevent multiple clicks
                 isButtonClickable = false
                 btnFilter.isEnabled = false
 
                 if (editText.text.isNotEmpty() && editText1.text.isNotEmpty()) {
 
-
                     val enteredText1 = viewModel.getUnixTimestamp(editText.text.toString())
                     val enteredText2 = viewModel.getUnixTimestamp(editText1.text.toString())
 
-
-                    val Dataname = updateDate() + ".xls"
-
+                    val Dataname = updateDate() + " "+editText.text.toString() +" "+ editText1.text.toString() + ".xls"
                     viewModel.updateQueryexport(enteredText1.toString(), enteredText2.toString())
 
 
@@ -307,79 +287,78 @@ class MainActivity : AppCompatActivity() {
                                 row.createCell(4).setCellValue(data.Time)
                                 row.createCell(5).setCellValue(data.TrainNo)
                                 row.createCell(6).setCellValue(data.CartNo)
-
-
-                                //rowNum++
-
-
                             }
-
-                            // Write the workbook to the file
-
 
                             val filePath =
                                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                                     .absolutePath + File.separator + Dataname
-
                             val fileOut = FileOutputStream(filePath)
                             workbook.write(fileOut)
                             fileOut.close()
                             showToast("Success")
-
-
                         } else {
-                            showToast("ERROR")
+                            showToast("Recheck your Entries")
                         }
-
 
                     }
                 }else{ showToast("Fill up both Entries.")}
 
-
                 popupWindow.dismiss()
 
                 Handler().postDelayed({
-                    // Re-enable the button after the delay
                     isButtonClickable = true
                     btnFilter.isEnabled = true
-                }, 2000) // 2000 milliseconds = 2 seconds
+                }, 2000)
             }
         }
-
-
-        // Close the popup window when clicked
         popupView.setOnClickListener {
-            //
+
         }
     }
 
     private fun showToast(message: String?) {
-        // Replace this with your desired method of displaying a message (e.g., Toast)
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
 
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        // Intercept volume button events
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-            // Get reference to your fragment
             val fragment = supportFragmentManager.findFragmentById(R.id.frame_layout_main) as? PlaceHolder
-            // Call your function in the fragment
             fragment?.captureImage()
-
-            return true // Consume the event
+            return true
         }
         return super.onKeyDown(keyCode, event)
 
     }
 
+    class DateTextWatcher(private val editText: EditText) : TextWatcher {
+        private var isDelete = false
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            isDelete = count > 0 && after == 0
+        }
 
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
-
-
-
+        override fun afterTextChanged(editable: Editable?) {
+            if (!isDelete) {
+                if (editable != null) {
+                    if (editable != null && editable.length == 2 || editable.length == 5) {
+                        editText.text.append("-")
+                    }
+                }
+                if (editable != null && editable.length > 10) {
+                    editText.text.delete(10, editable.length)
+                }
+            } else {
+                if (editable != null && (editable.length == 3 || editable.length == 6)) {
+                    editText.text.delete(editable.length - 1, editable.length)
+                }
+            }
+        }
     }
+
+}
 
 
 

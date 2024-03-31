@@ -56,19 +56,17 @@ class HomeFrag : Fragment() {
 
         // GOOD
         viewModel.getGoodData().observe(viewLifecycleOwner, Observer { data ->
-            // Update your UI with the data from the ViewModel
             binding.tvgoodcounter.text = data.toString()
         })
         // DEFECT
         viewModel.getDefectData().observe(viewLifecycleOwner, Observer { data ->
-            // Update your UI with the data from the ViewModel
             binding.tvdefectcounter.text = data.toString()
         })
         //TOTAL
         viewModel.gettotalcounter().observe(viewLifecycleOwner, Observer { data ->
-            // Update your UI with the data from the ViewModel
             binding.totalnumEntries.text = data.toString()
         })
+
         // Pie chart settings
         viewModel.pieChartData.observe(viewLifecycleOwner) { entries ->
             setupPieChart(entries)
@@ -99,9 +97,7 @@ class HomeFrag : Fragment() {
         viewModel.getlatestImg().observe(viewLifecycleOwner) { data ->
             var imageRef = viewModel.getlatestpic(data)
             imageRef.downloadUrl.addOnSuccessListener { uri: Uri? ->
-                // Load the image into an ImageView using a library like Picasso or Glide
                 Picasso.get().load(uri).into(binding.imageView)
-
 
             }.addOnFailureListener { exception: Exception? -> }
 
@@ -109,7 +105,6 @@ class HomeFrag : Fragment() {
 
         //DAILY ANALYTICS
         viewModel.getdgood().observe(viewLifecycleOwner, Observer { data1 ->
-            // Update your UI with the data from the ViewModel
             binding.Dgood.text = data1.toString()
 
             viewModel.getdbad().observe(viewLifecycleOwner, Observer { data2 ->

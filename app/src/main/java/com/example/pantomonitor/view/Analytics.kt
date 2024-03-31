@@ -35,23 +35,19 @@ class AnalyticsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentAnalyticsBinding.inflate(
             inflater,
             container,
             false
-        )  // Inflate using ViewBinding
+        )
         viewModel = ViewModelProvider(this, BdViewModelFactoy()).get(BdMainViewModel::class.java)
 
 
         //ANALYTICS
         //Daily
         viewModel.getdgood().observe(viewLifecycleOwner, Observer { data1 ->
-            // Update your UI with the data from the ViewModel
             binding.Dgood.text = data1.toString()
             viewModel.getdbad().observe(viewLifecycleOwner, Observer { data2 ->
-                // Update your UI with the data from the ViewModel
-
                 var currentDated = Calendar.getInstance()
                 var dateFormat = SimpleDateFormat("MMMM dd, yyyy")
                 var current = dateFormat.format(currentDated.time).toString()
@@ -130,11 +126,11 @@ class AnalyticsFragment : Fragment() {
 
         //Monthly
         viewModel.getmgood().observe(viewLifecycleOwner, Observer { data1 ->
-            // Update your UI with the data from the ViewModel
+
             binding.Mgood.text = data1.toString()
 
             viewModel.getmbad().observe(viewLifecycleOwner, Observer { data2 ->
-                // Update your UI with the data from the ViewModel
+
                 val calendar = Calendar.getInstance()
                 var monthh = SimpleDateFormat("MMMM", Locale.getDefault())
                 var monthhh = monthh.format(calendar.time)

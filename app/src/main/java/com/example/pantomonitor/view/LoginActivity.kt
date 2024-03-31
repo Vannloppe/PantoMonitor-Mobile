@@ -17,8 +17,6 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var databaseemu: Firebase
-
 
 
 
@@ -29,7 +27,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-       // databaseemu.auth.useEmulator("10.0.2.2", 9000)
         firebaseAuth = FirebaseAuth.getInstance()
 
 

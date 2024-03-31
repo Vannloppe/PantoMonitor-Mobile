@@ -1,7 +1,7 @@
 package com.example.pantomonitor.view
 
 
-import android.net.Uri
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +9,7 @@ import com.example.pantomonitor.databinding.AdapterexportBinding
 import com.example.pantomonitor.viewmodel.timelinephoto
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.squareup.picasso.Picasso
+
 import java.text.SimpleDateFormat
 
 class Adapterexport(private var list: List<timelinephoto>): RecyclerView.Adapter<Adapterexport.MyView>(){

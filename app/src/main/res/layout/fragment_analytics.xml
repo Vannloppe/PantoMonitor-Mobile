@@ -76,7 +76,7 @@
                             android:text="0"
                             android:textAlignment="center"
                             android:textColor="#242331"
-                            android:textSize="34sp"
+                            android:textSize="24sp"
                             android:typeface="serif"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
@@ -122,7 +122,7 @@
                             android:text="0"
                             android:textAlignment="center"
                             android:textColor="#242331"
-                            android:textSize="34sp"
+                            android:textSize="24sp"
                             android:typeface="serif"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
@@ -188,7 +188,7 @@
                             android:fontFamily="sans-serif-light"
                             android:text="0"
                             android:textColor="#242331"
-                            android:textSize="34sp"
+                            android:textSize="24sp"
                             android:typeface="sans"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
@@ -216,8 +216,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="10dp"
-                    android:fontFamily="sans-serif"
-                    android:textSize="18sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -330,8 +330,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="10dp"
-                    android:fontFamily="sans-serif"
-                    android:textSize="18sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -357,11 +357,11 @@
 
                             android:layout_marginStart="8dp"
                             android:layout_marginBottom="8dp"
-                            android:fontFamily="sans-serif-thin"
+                            android:fontFamily="sans-serif-light"
                             android:text="0"
                             android:textAlignment="center"
                             android:textColor="#242331"
-                            android:textSize="34sp"
+                            android:textSize="24sp"
                             android:typeface="serif"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
@@ -413,11 +413,11 @@
 
                             android:layout_marginStart="8dp"
                             android:layout_marginBottom="8dp"
-                            android:fontFamily="sans-serif-thin"
+                            android:fontFamily="sans-serif-light"
                             android:text="0"
                             android:textAlignment="center"
                             android:textColor="#242331"
-                            android:textSize="34sp"
+                            android:textSize="24sp"
                             android:typeface="serif"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
@@ -480,10 +480,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginBottom="8dp"
-                            android:fontFamily="sans-serif-thin"
+                            android:fontFamily="sans-serif-light"
                             android:text="0"
                             android:textColor="#242331"
-                            android:textSize="34sp"
+                            android:textSize="24sp"
                             android:typeface="sans"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
@@ -588,7 +588,7 @@
                             android:text="0"
                             android:textAlignment="center"
                             android:textColor="#242331"
-                            android:textSize="34sp"
+                            android:textSize="24sp"
                             android:typeface="serif"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
@@ -634,7 +634,7 @@
                             android:text="0"
                             android:textAlignment="center"
                             android:textColor="#242331"
-                            android:textSize="34sp"
+                            android:textSize="24sp"
                             android:typeface="serif"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
@@ -700,7 +700,7 @@
                             android:fontFamily="sans-serif-light"
                             android:text="0"
                             android:textColor="#242331"
-                            android:textSize="34sp"
+                            android:textSize="24sp"
                             android:typeface="sans"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
@@ -730,8 +730,8 @@
                     android:layout_marginBottom="10dp"
                     android:duplicateParentState="false"
                     android:editable="false"
-                    android:fontFamily="sans-serif"
-                    android:textSize="18sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />

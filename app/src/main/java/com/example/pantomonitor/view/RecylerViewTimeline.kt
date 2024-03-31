@@ -53,11 +53,6 @@ class RecylerViewTimeline(private var list: List<timelinephoto>): RecyclerView.A
       val currentItem = list[position]
         val pic = gettimepic(currentItem.Img)
 
-
-        //  Picasso.get()
-        //   .load(currentItem.Img)
-        //  .into(holder.itemBinding.imageViewtl)
-
         pic.downloadUrl.addOnSuccessListener { uri: Uri? ->
             //Load the image into an ImageView using a library like Picasso or Glide
             Picasso.get().load(uri).into(holder.itemBinding.imageViewtl)
