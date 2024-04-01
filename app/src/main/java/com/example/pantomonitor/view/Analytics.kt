@@ -46,7 +46,7 @@ class AnalyticsFragment : Fragment() {
         //ANALYTICS
         //Daily
         viewModel.getdgood().observe(viewLifecycleOwner, Observer { data1 ->
-            binding.Dgood.text = data1.toString()
+           // binding.Dgood.text = data1.toString()
             viewModel.getdbad().observe(viewLifecycleOwner, Observer { data2 ->
                 var currentDated = Calendar.getInstance()
                 var dateFormat = SimpleDateFormat("MMMM dd, yyyy")
@@ -56,7 +56,7 @@ class AnalyticsFragment : Fragment() {
                 var total = data1 + data2
                 var good = data1.toInt()
                 var bad = data2.toInt()
-                binding.Dbad.text = data2.toString()
+              //  binding.Dbad.text = data2.toString()
 
                 binding.tvgoodcounterdaily.text = good.toString()
                 binding.tvdefectcounterdaily.text = bad.toString()
@@ -87,7 +87,7 @@ class AnalyticsFragment : Fragment() {
 
         //Weekly
         viewModel.getwgood().observe(viewLifecycleOwner, Observer { data1 ->
-            binding.Wgood.text = data1.toString()
+         //   binding.Wgood.text = data1.toString()
             viewModel.getwbad().observe(viewLifecycleOwner, Observer { data2 ->
                 var currentDatew = Calendar.getInstance()
                 currentDatew.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
@@ -102,7 +102,7 @@ class AnalyticsFragment : Fragment() {
                 var good = data1.toInt()
                 var bad = data2.toInt()
 
-                binding.Wbad.text = data2.toString()
+             //   binding.Wbad.text = data2.toString()
                 binding.tvgoodcounterweekly.text = good.toString()
                 binding.tvdefectcounterweekly.text = bad.toString()
                 binding.totacounterweekly.text = total.toString()
@@ -141,7 +141,7 @@ class AnalyticsFragment : Fragment() {
                 var good = data1.toInt()
                 var bad = data2.toInt()
 
-                binding.Wbad.text = data2.toString()
+            //    binding.Wbad.text = data2.toString()
                 binding.tvgoodcountermonthly.text = good.toString()
                 binding.tvdefectcountermonthly.text = bad.toString()
                 binding.totacountermonthly.text = total.toString()

@@ -13,6 +13,47 @@
         <!--android:background="@drawable/dash_bg" -->
 
 
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bot_nav_bar4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="invisible"
+            app:backgroundTint="#E0F4FF"
+            app:elevation="0dp"
+            app:fabCradleMargin="0dp"
+            app:fabCradleRoundedCornerRadius="10dp"
+            app:fabCradleVerticalOffset="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bot_nav_menu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
+                android:background="#E0F4FF"
+                app:elevation="0dp"
+                app:itemIconTint="?android:attr/textColorTertiary"
+                app:itemTextColor="@android:color/tertiary_text_dark"
+                app:menu="@menu/botnavmenu" />
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#E0F4FF"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/fi_rr_menu_burger"
+            app:titleTextColor="#242331" />
+
         <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="369dp"
@@ -829,15 +870,14 @@
             android:layout_width="0dp"
             android:layout_height="75dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/img_bg"
             android:elevation="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.09">
+            app:layout_constraintTop_toBottomOf="@+id/toolbar4">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -863,10 +903,9 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="75dp"
             android:elevation="10dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bot_nav_bar4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/frameLayout3">

@@ -285,7 +285,7 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
                                   if (bittiuriright != null) {
                                     errorhandling(bittiuriright)
-                                   uploadImageToFirebase(bittiuriright)
+                                    uploadImageToFirebase(bittiuriright)
 
 
                                   }
@@ -294,17 +294,17 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
                                        uploadImageToFirebase(bittiurileft)
                                   }
 
-                                   Handler(Looper.getMainLooper()).post {
+                                    Handler(Looper.getMainLooper()).post {
                                      Toast.makeText(
-                                       requireContext(),
-                                        "Rejected",
+                                        requireContext(),
+                                         "Rejected",
                                         Toast.LENGTH_LONG
-                                      )
-                                       .show()
-                                    }
+                                       )
+                                         .show()
+                                   }
 
 
-                                } else {
+                                 } else {
 
                                 if (bittiuriright != null) {
                                     predict(bittiuriright)
@@ -498,7 +498,7 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
         // Calculate the coordinates of the top-left corner of the cropping area
         val cropX = 0
-        val cropY = 600
+        val cropY = originalHeight - croppedHeight
 
         // Create a new Bitmap representing the cropped region
         return Bitmap.createBitmap(bitmap, cropX, cropY, croppedWidth, croppedHeight)

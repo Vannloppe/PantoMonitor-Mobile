@@ -12,17 +12,57 @@
         android:layout_height="match_parent">
 
 
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bot_nav_bar3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="invisible"
+            app:backgroundTint="#E0F4FF"
+            app:elevation="0dp"
+            app:fabCradleMargin="0dp"
+            app:fabCradleRoundedCornerRadius="10dp"
+            app:fabCradleVerticalOffset="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bot_nav_menu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
+                android:background="#E0F4FF"
+                app:elevation="0dp"
+                app:itemIconTint="?android:attr/textColorTertiary"
+                app:itemTextColor="@android:color/tertiary_text_dark"
+                app:menu="@menu/botnavmenu" />
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#E0F4FF"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/fi_rr_menu_burger"
+            app:titleTextColor="#242331" />
+
         <androidx.camera.view.PreviewView
             android:id="@+id/preview"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="75dp"
             android:layout_marginBottom="200dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar2"
             app:layout_constraintVertical_bias="1.0">
 
 
@@ -30,14 +70,15 @@
 
         <Button
             android:id="@+id/Select"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/baseline_photo_camera_24"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bot_nav_bar3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/preview"
-            app:layout_constraintTop_toBottomOf="@+id/preview"
-            app:layout_constraintVertical_bias="0.392" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <View
             android:id="@+id/overlayview"
