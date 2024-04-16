@@ -138,37 +138,69 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.navViewer.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.nav_home -> replaceFragment(HomeFrag())
-                R.id.nav_timeline -> replaceFragment(TimelineFragment())
-                R.id.nav_prediction -> replaceFragment(PlaceHolder())
-                R.id.nav_analyics -> replaceFragment(AnalyticsFragment())
-                R.id.nav_export -> {
-                    val anchorView: View = findViewById(R.id.nav_export)
-                    showPopup(anchorView)
-                    true
+            if (isButtonClickable) {
+                // Disable the button to prevent multiple clicks
+                isButtonClickable = false
+                binding.navViewer.isEnabled = false
+                when (it.itemId) {
+                    R.id.nav_home -> replaceFragment(HomeFrag())
+                    R.id.nav_timeline -> replaceFragment(TimelineFragment())
+                    R.id.nav_prediction -> replaceFragment(PlaceHolder())
+                    R.id.nav_analyics -> replaceFragment(AnalyticsFragment())
+                    R.id.nav_export -> {
+                        val anchorView: View = findViewById(R.id.nav_export)
+                        showPopup(anchorView)
+                        true
+                    }
+
+                    R.id.nav_about -> replaceFragment(AboutFragment())
+                    R.id.nav_logout -> logout()
+
+                    else -> {
+                    }
                 }
 
-                R.id.nav_about -> replaceFragment(AboutFragment())
-                R.id.nav_logout -> logout()
 
-                else -> {
-                }
+                Handler().postDelayed({
+
+                    isButtonClickable = true
+                    binding.navViewer.isEnabled = true
+                }, 2000) // 2000 milliseconds = 2 seconds
             }
+
+
+
+
+
             true
         }
 
 
 
         binding.botNavMenu.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.bot_Home -> replaceFragment(HomeFrag())
-                R.id.bot_Timeline -> replaceFragment(TimelineFragment())
-                R.id.bot_Placeholder -> replaceFragment(PlaceHolder())
-                R.id.bot_Analytics -> replaceFragment(AnalyticsFragment())
-                else -> {
+            if (isButtonClickable) {
+                // Disable the button to prevent multiple clicks
+                isButtonClickable = false
+                binding.botNavMenu.isEnabled = false
+
+                when (it.itemId) {
+                    R.id.bot_Home -> replaceFragment(HomeFrag())
+                    R.id.bot_Timeline -> replaceFragment(TimelineFragment())
+                    R.id.bot_Placeholder -> replaceFragment(PlaceHolder())
+                    R.id.bot_Analytics -> replaceFragment(AnalyticsFragment())
+                    else -> {
+                    }
                 }
+
+
+                Handler().postDelayed({
+
+                    isButtonClickable = true
+                    binding.botNavMenu.isEnabled = true
+                }, 2000) // 2000 milliseconds = 2 seconds
             }
+
+
             true
         }
 

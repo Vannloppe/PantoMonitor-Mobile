@@ -15,6 +15,7 @@
         android:layout_height="match_parent">
 
         <FrameLayout
+            android:id="@+id/frameLayout16"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:elevation="5dp"
@@ -27,249 +28,222 @@
                 android:layout_height="match_parent">
 
                 <FrameLayout
-                    android:id="@+id/frameLayout14"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/imageViewtl"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/frameLayout2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewtl">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <ImageView
-                            android:id="@+id/imageView16"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="5dp"
-                            android:src="@drawable/bus"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/textView15"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/textView15"
-                            android:layout_width="wrap_content"
+                        <FrameLayout
+                            android:id="@+id/frameLayout10"
+                            android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="11dp"
-                            android:layout_marginBottom="10dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="Train No."
-                            android:textColor="#242331"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/imageView16"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/imageView17"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="5dp"
-                            android:src="@drawable/scanner"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/textView17"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/textView17"
-                            android:layout_width="wrap_content"
-                            android:layout_height="19dp"
-                            android:layout_marginTop="11dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="10dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="Cart No."
-                            android:textColor="#242331"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/cartno"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/cartno"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="8dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="00"
-                            android:textColor="#242331"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintStart_toEndOf="@+id/frameLayout2"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                        <TextView
-                            android:id="@+id/Trainno"
-                            android:layout_width="wrap_content"
-                            android:layout_height="19dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="11dp"
-                            android:layout_marginBottom="10dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="00"
-                            android:textColor="#242331"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/textView15"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </FrameLayout>
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
 
-                <FrameLayout
-                    android:id="@+id/frameLayout10"
-                    android:layout_width="118dp"
-                    android:layout_height="40dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageViewtl">
+                                <TextView
+                                    android:id="@+id/timeviewtl"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="3dp"
+                                    android:layout_marginTop="9dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:paddingStart="8dp"
+                                    android:text="Time"
+                                    android:textAlignment="textStart"
+                                    android:textColor="#242331"
+                                    android:textSize="12sp"
+                                    app:layout_constraintStart_toEndOf="@+id/imageView15"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                                <ImageView
+                                    android:id="@+id/imageView15"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginTop="9dp"
+                                    android:src="@drawable/fi_rr_clock"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/timeviewtl"
+                                <TextView
+                                    android:id="@+id/dateviewtl"
+                                    android:layout_width="0dp"
+                                    android:layout_height="18dp"
+                                    android:layout_marginStart="3dp"
+                                    android:layout_marginBottom="9dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:paddingStart="8dp"
+                                    android:text="Date:"
+                                    android:textAlignment="textStart"
+                                    android:textColor="#242331"
+                                    android:textSize="12sp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/imageView15" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/frameLayout2"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:paddingStart="8dp"
-                            android:text="Time"
-                            android:textAlignment="textStart"
-                            android:textColor="#242331"
-                            android:textSize="14sp"
+                            android:layout_height="0dp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toEndOf="@+id/imageView15"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0" />
+                            app:layout_constraintEnd_toStartOf="@+id/frameLayout10"
+                            app:layout_constraintStart_toEndOf="@+id/frameLayout8"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageView
-                            android:id="@+id/imageView15"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/fi_rr_clock"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                                <TextView
+                                    android:id="@+id/statusviewtl"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
 
-                </FrameLayout>
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginBottom="11dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:paddingStart="3dp"
+                                    android:text="STATUS"
+                                    android:textAlignment="textStart"
+                                    android:textColor="#242331"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/imageView6" />
 
-                <FrameLayout
-                    android:id="@+id/frameLayout2"
-                    android:layout_width="118dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/frameLayout10"
-                    app:layout_constraintStart_toEndOf="@+id/frameLayout8"
-                    app:layout_constraintTop_toBottomOf="@+id/imageViewtl">
+                                <ImageView
+                                    android:id="@+id/imageView6"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginTop="9dp"
+                                    android:src="@drawable/fi_rr_comment_alt"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                                <TextView
+                                    android:id="@+id/textView20"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="10dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="Status"
+                                    android:textColor="#242331"
+                                    android:textSize="11sp"
+                                    app:layout_constraintStart_toEndOf="@+id/imageView6"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/statusviewtl"
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/frameLayout8"
                             android:layout_width="0dp"
-                            android:layout_height="18dp"
-
-                            android:layout_marginTop="9dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:paddingStart="14dp"
-                            android:text="STATUS"
-                            android:textAlignment="textStart"
-                            android:textColor="#242331"
-                            android:textSize="12sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toEndOf="@+id/imageView6"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/imageView6"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/fi_rr_comment_alt"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/frameLayout2"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent">
 
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
 
+                                <ImageView
+                                    android:id="@+id/imageView16"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginTop="9dp"
+                                    android:src="@drawable/bus"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textView15"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="3dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="Train No."
+                                    android:textColor="#242331"
+                                    android:textSize="12sp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/imageView16" />
+
+                                <TextView
+                                    android:id="@+id/Trainno"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="00"
+                                    android:textColor="#242331"
+                                    android:textSize="12sp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/textView15" />
+
+                                <TextView
+                                    android:id="@+id/textView17"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="3dp"
+                                    android:layout_marginTop="10dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="Cart No."
+                                    android:textColor="#242331"
+                                    android:textSize="12sp"
+                                    app:layout_constraintStart_toEndOf="@+id/imageView16"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/cartno"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="00"
+                                    android:textColor="#242331"
+                                    android:textSize="12sp"
+                                    app:layout_constraintStart_toEndOf="@+id/textView15"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </FrameLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </FrameLayout>
 
                 <ImageView
                     android:id="@+id/imageViewtl"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="100dp"
 
+                    android:layout_marginTop="5dp"
                     android:rotation="0"
-                    android:scaleType="centerInside"
+                    android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/frameLayout14" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <FrameLayout
-                    android:id="@+id/frameLayout8"
-                    android:layout_width="118dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageViewtl">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/imageView14"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="4dp"
-                            android:src="@drawable/fi_rr_calendar"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/dateviewtl"
-                            android:layout_width="0dp"
-                            android:layout_height="18dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:paddingStart="8dp"
-                            android:text="Date:"
-                            android:textAlignment="textStart"
-                            android:textColor="#242331"
-                            android:textSize="14sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toEndOf="@+id/imageView14"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </FrameLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
 

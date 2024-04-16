@@ -12,7 +12,7 @@
         <item
             android:id="@+id/nav_prediction"
             android:icon="@drawable/fi_rr_camera"
-            android:title="Prediction"/>
+            android:title="Classifier"/>
         <item
             android:id="@+id/nav_timeline"
             android:icon="@drawable/baseline_calendar_today_24"

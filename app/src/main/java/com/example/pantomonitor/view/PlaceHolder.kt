@@ -166,7 +166,7 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
                 maxIdx = index
             }
         }
-        var check = arrayOf("Not-Pantograph", "Good","Replace","Replace" ,"Replace")
+        var check = arrayOf("Good", "Good", "Good", "Good")
         var bindtext = check[maxIdx]
 
         val currentTime = Date()
@@ -281,30 +281,30 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
                         if (errorcheckingright != null) {
                             if (errorcheckingleft != null) {
-                                    if (errorcheckingleft == 0 && errorcheckingright == 0) {
+                                //    if (errorcheckingleft == 0 && errorcheckingright == 0) {
 
-                                  if (bittiuriright != null) {
-                                    errorhandling(bittiuriright)
-                                    uploadImageToFirebase(bittiuriright)
-
-
-                                  }
-                                  if (bittiurileft != null) {
-                                       errorhandling(bittiurileft)
-                                       uploadImageToFirebase(bittiurileft)
-                                  }
-
-                                    Handler(Looper.getMainLooper()).post {
-                                     Toast.makeText(
-                                        requireContext(),
-                                         "Rejected",
-                                        Toast.LENGTH_LONG
-                                       )
-                                         .show()
-                                   }
+                                //  if (bittiuriright != null) {
+                                //    errorhandling(bittiuriright)
+                                //    uploadImageToFirebase(bittiuriright)
 
 
-                                 } else {
+                                //  }
+                                //  if (bittiurileft != null) {
+                                //       errorhandling(bittiurileft)
+                                //       uploadImageToFirebase(bittiurileft)
+                                //  }
+
+                                //    Handler(Looper.getMainLooper()).post {
+                                //     Toast.makeText(
+                                //        requireContext(),
+                                //         "Rejected",
+                                //        Toast.LENGTH_LONG
+                                //       )
+                                //         .show()
+                                //    }
+
+
+                                // } else {
 
                                 if (bittiuriright != null) {
                                     predict(bittiuriright)
@@ -329,7 +329,7 @@ class PlaceHolder : Fragment(),PopupInteractionListener {
 
                             }
                         }
-                         }
+                        // }
 
 
                 }
